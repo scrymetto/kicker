@@ -6,3 +6,5 @@
 out
 gen
 node_modules
+/dist/
+/test-dist/
