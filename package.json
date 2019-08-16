@@ -8,7 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot --mode development",
     "build": "webpack --mode production",
-    "test": "TESTBUILD=true webpack && mocha test-dist/bundle.js && rm -r -f test-dist"
+    "test": "mocha  --require @babel/register --require source-map-support/register --require ignore-styles 'test/**/*.test.js'"
   },
   "repository": {
     "type": "git",
@@ -26,11 +26,15 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.5.5",
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "css-loader": "^3.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "ignore-styles": "^5.0.1",
     "mocha": "^6.2.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

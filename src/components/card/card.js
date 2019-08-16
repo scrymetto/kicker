@@ -1,29 +1,23 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import rechnen from "./rechnen";
+import "./card.css"
+import Header from "../header/header";
+import Button from "../button/button";
 
-class Test extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: 1
-        }
-    }
-
+class Card extends Component {
     render() {
         return (
-            <div>
-                <button>
-                    {this.props.text}
-                </button>
-                <p>{this.state.count}</p>
+            <div className='card'>
+                <Header text='header'/>
+                <Button text='button' className='button button_back'/>
+                <Button text='button' className='button'/>
             </div>
         )
     }
 }
 
-Test.propTypes = {
-    text: PropTypes.oneOf(['one', 'two'])
-};
+// Test.propTypes = {
+//     text: PropTypes.string
+// };
 
-export default Test;
+export default Card;

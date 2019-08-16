@@ -1,0 +1,6 @@
+.card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(231, 230, 231, 1);
+}
