@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import "./button.css"
+import "./button_back.css"
 
 export default class Button extends Component {
     constructor(props) {
@@ -7,8 +9,13 @@ export default class Button extends Component {
     }
 
     render() {
+
+        let text = this.props.className === 'button button_back'
+            ? '←'
+            : this.props.text;
+
         return (
-            <button className={this.props.className}>{this.props.text}</button>
+            <button className={this.props.className}>{text}</button>
         )
     }
 }

@@ -9,7 +9,7 @@ class Card extends Component {
         return (
             <div className='card'>
                 <Header text='header'/>
-                <Button text='button' className='button button_back'/>
+                <Button className='button button_back'/>
                 <Button text='button' className='button'/>
             </div>
         )
