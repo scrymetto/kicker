@@ -1,4 +1,5 @@
 .header {
+    position: relative;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -14,4 +15,8 @@
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
     font-size: 2em;
+}
+
+.header_main {
+    background-color: #231036;
 }

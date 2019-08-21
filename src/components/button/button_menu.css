@@ -1,0 +1,18 @@
+.button_menu {
+    position: absolute;
+    right: 0;
+    width: 50px;
+    background-color: inherit;
+    color: #f04e26;
+    border: inherit;
+    border-radius: inherit;
+    padding: 0;
+    box-shadow: none;
+    font-size: xx-large;
+}
+
+.button_menu:hover, .button_menu:focus{
+    background-color: inherit;
+    color: #38c1db;
+    border: inherit;
+}

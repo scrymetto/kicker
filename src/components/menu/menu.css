@@ -1,0 +1,23 @@
+.menu {
+    position: absolute;
+    top: 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+    line-height: 0;
+    z-index: 9999;
+    box-shadow: rgba(0, 0, 0, 0.3) -2px 2px 5px;
+    border-bottom-left-radius: 20px;
+}
+
+.menu_close {
+    right: -100%;
+}
+
+.menu_open {
+    margin-top: inherit;
+    right: 0;
+    background-color: #231036;
+    color: #f04e26;
+}

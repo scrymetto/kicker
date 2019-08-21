@@ -7,7 +7,7 @@
     padding: 10px
 }
 
-.button_back:hover {
+.button_back:hover, .button_back:focus {
     background-color: #CC2802;
     border-color: #CC2802;
 }

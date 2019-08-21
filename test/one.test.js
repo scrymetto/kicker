@@ -9,6 +9,7 @@ import App from "../src/App";
 import Card from "../src/components/card/card"
 import Header from "../src/components/header/header";
 import Button from "../src/components/button/button";
+import Menu from "../src/components/menu/menu";
 
 const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 global.document = window.document;
@@ -41,5 +42,21 @@ describe('Card', () => {
     });
     it('should be one button with class\'back\'', () => {
         expect(wrapper.find('.button_back')).has.lengthOf(1)
+    });
+});
+
+describe ('Header', () => {
+    let wrapper = mount(<Header className='header_main' text="test" login="Vasya"/>);
+    it('should have class .header', () => {
+        expect(wrapper.find('.header')).to.have.lengthOf(1)
+    });
+    it('should contain correct paragraph', () => {
+        expect(wrapper.contains(<p>test</p>)).to.equal(true)
+    });
+    it('should contain menu button', () => {
+        expect(wrapper.find('.button')).to.have.lengthOf(1)
+    });
+    it('should contain menu', () => {
+        expect(wrapper.find('.menu')).to.have.lengthOf(1)
     });
 });
