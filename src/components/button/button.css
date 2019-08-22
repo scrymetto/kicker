@@ -17,4 +17,5 @@
     background-color: #339EB2;
     border-color: #339EB2;
     cursor: pointer;
+    transform: scale(1.1);
 }

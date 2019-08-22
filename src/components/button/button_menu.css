@@ -11,7 +11,7 @@
     font-size: xx-large;
 }
 
-.button_menu:hover, .button_menu:focus{
+.button_menu:hover, .button_menu:focus {
     background-color: inherit;
     color: #38c1db;
     border: inherit;
