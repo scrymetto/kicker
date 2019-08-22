@@ -41,22 +41,38 @@ describe('Card', () => {
         expect(wrapper.containsAnyMatchingElements([<Button/>])).to.equal(true)
     });
     it('should be one button with class\'back\'', () => {
-        expect(wrapper.find('.button_back')).has.lengthOf(1)
+        expect(wrapper.hasClass('button_back'));
     });
 });
 
-describe ('Header', () => {
-    let wrapper = mount(<Header className='header_main' text="test" login="Vasya"/>);
+describe ('Main header', () => {
+    let wrapper = mount(<Header className='header_main' text="test"/>);
     it('should have class .header', () => {
-        expect(wrapper.find('.header')).to.have.lengthOf(1)
+        expect(wrapper.hasClass('header'))
     });
     it('should contain correct paragraph', () => {
         expect(wrapper.contains(<p>test</p>)).to.equal(true)
     });
     it('should contain menu button', () => {
-        expect(wrapper.find('.button')).to.have.lengthOf(1)
+        expect(wrapper.find(Button)).to.have.lengthOf(1)
     });
     it('should contain menu', () => {
-        expect(wrapper.find('.menu')).to.have.lengthOf(1)
+        expect(wrapper.find(Menu)).to.have.lengthOf(1)
+    });
+});
+
+describe ('Card header', () => {
+    let wrapper = mount(<Header text="test"/>);
+    it('should have class .header', () => {
+        expect(wrapper.hasClass('header'))
+    });
+    it('should contain correct paragraph', () => {
+        expect(wrapper.contains(<p>test</p>)).to.equal(true)
+    });
+    it('should not contain menu button', () => {
+        expect(wrapper.find(Button)).to.have.lengthOf(0)
+    });
+    it('should not contain menu', () => {
+        expect(wrapper.find(Menu)).to.have.lengthOf(0)
     });
 });

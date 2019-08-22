@@ -14,14 +14,14 @@ export default function Header(props) {
         props.className ? (
             <div className={headerClassName}>
                 <p>{props.text}</p>
-                <Button className='button button_menu' onClick={()=>changeMenuStatus(!menuStatus)}/>
+                <Button className='button button_menu' onClick={() => changeMenuStatus(!menuStatus)}/>
                 <Menu className={menuClassName}/>
             </div>
         ) : (
             <div className={headerClassName}>
                 <p>{props.text}</p>
             </div>
-                )
+        )
     )
 };
 

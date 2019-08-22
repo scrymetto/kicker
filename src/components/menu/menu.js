@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import './menu.css'
 
 function Menu (props) {
-    let text = 'Vasya';
+    let login = 'Vasya';
     let fullClassName = 'menu ' + props.className;
     return (
-        text ? (<div className={fullClassName}>
+        login ? (<div className={fullClassName}>
                 <p className='text text_menu'>Settings</p>
                 <p className='text text_menu'>Logout</p>
             </div>)
