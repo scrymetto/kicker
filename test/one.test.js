@@ -30,34 +30,46 @@ describe('App', () => {
 });
 
 describe('Card', () => {
-    let wrapper = shallow(<Card/>);
+    let wrapper = mount(<Card/>);
     it('should have class .card', () => {
-        expect(wrapper.hasClass('card')).to.equal(true)
+        expect(wrapper.getDOMNode().className).to.equal('card')
     });
     it('should contain header', () => {
-        expect(wrapper.containsAnyMatchingElements([<Header/>])).to.equal(true)
+        expect(wrapper.contains(<Header text='header'/>)).to.equal(true)
     });
-    it('should contain button', () => {
-        expect(wrapper.containsAnyMatchingElements([<Button/>])).to.equal(true)
+    it('should contain buttons', () => {
+        expect(wrapper.find(Button)).to.have.lengthOf(2)
     });
     it('should be one button with class\'back\'', () => {
-        expect(wrapper.hasClass('button_back'));
+        expect(wrapper.contains(<Button className='button button_back'/>)).to.equal(true);
     });
 });
 
 describe ('Main header', () => {
     let wrapper = mount(<Header className='header_main' text="test"/>);
     it('should have class .header', () => {
-        expect(wrapper.hasClass('header'))
+        expect(wrapper.getDOMNode().className).to.equal('header header_main')
     });
     it('should contain correct paragraph', () => {
         expect(wrapper.contains(<p>test</p>)).to.equal(true)
     });
-    it('should contain menu button', () => {
+    it('should contain button', () => {
         expect(wrapper.find(Button)).to.have.lengthOf(1)
+    });
+    it('button should have class .button_menu', () => {
+        expect(wrapper.find(Button).hasClass('button_menu')).to.equal(true)
     });
     it('should contain menu', () => {
         expect(wrapper.find(Menu)).to.have.lengthOf(1)
+    });
+    it('menu should have class .menu_close', () => {
+        expect(wrapper.find(Menu).hasClass('menu_close')).to.equal(true)
+    });
+    it('click on button_menu should set/unset class .menu_open for menu', () => {
+        wrapper.find(Button).simulate('click');
+        expect(wrapper.find(Menu).hasClass('menu_open')).to.equal(true);
+        wrapper.find(Button).simulate('click');
+        expect(wrapper.find(Menu).hasClass('menu_close')).to.equal(true)
     });
 });
 
@@ -75,4 +87,11 @@ describe ('Card header', () => {
     it('should not contain menu', () => {
         expect(wrapper.find(Menu)).to.have.lengthOf(0)
     });
+});
+
+describe ('Menu', ()=> {
+    let wrapper = mount(<Menu className='meh' />);
+    it ('should have class .meh', () => {
+        expect(wrapper.getDOMNode().className).to.equal('menu meh')
+    })
 });

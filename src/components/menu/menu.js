@@ -7,11 +7,11 @@ function Menu(props) {
     let fullClassName = 'menu ' + props.className;
     return (
         login ? (<ul className={fullClassName}>
-                <li><p className='text text_menu'>Settings</p></li>
-                <li><p className='text text_menu'>Logout</p></li>
+                <li><p>Settings</p></li>
+                <li><p>Logout</p></li>
             </ul>)
             : (<ul className={fullClassName}>
-                <li><p className='text text_menu'>Login</p></li>
+                <li><p>Login</p></li>
             </ul>)
     )
 }
