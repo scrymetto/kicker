@@ -1,15 +1,18 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import "./App.css";
-import Card from "./components/card/card";
-import Header from "./components/header/header";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
-class App extends Component{
-    render(){
-        return(
-            <div className="App">
-                <Header className='header_main'/>
-                <Card/>
-            </div>
+class App extends Component {
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    <Route exact path="/" component={Login}/>
+                    <Route path="/profile" component={Profile}/>
+                </div>
+            </Router>
         );
     }
 }
