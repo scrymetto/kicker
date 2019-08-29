@@ -21,11 +21,8 @@ global.expect = expect;
 
 describe('App', () => {
     let wrapper = shallow(<App/>);
-    it('should render Card', () => {
-        expect(wrapper.contains(<Card/>)).to.equal(true)
-    });
     it('should have class .App', () => {
-        expect(wrapper.hasClass('App')).to.equal(true)
+        expect(wrapper.find('div').hasClass('App')).to.equal(true)
     })
 });
 
