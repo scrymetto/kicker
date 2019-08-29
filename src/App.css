@@ -1,4 +1,5 @@
-.App, #root, body {
+.App, html, #root, body {
     margin: 0;
     overflow: hidden;
+    height: 100%;
 }

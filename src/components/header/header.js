@@ -5,10 +5,9 @@ import Button from "../button/button";
 import Menu from "../menu/menu";
 
 export default function Header(props) {
-
     let [menuIsOpen, changeMenuStatus] = useState(false);
 
-    let menuClassName = menuIsOpen ? 'menu menu_open' : 'menu menu_close';
+    let menuClassName = 'menu ' + !menuIsOpen ? 'menu_open' : 'menu_close';
     let headerClassName = props.className ? 'header ' + props.className : 'header';
     document.addEventListener('click', (event) => {
         if (!event.target.closest('.menu') && (!event.target.closest('.button_menu')) && menuIsOpen) {
