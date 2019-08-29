@@ -11,7 +11,7 @@ class App extends Component {
     render() {
         return (
             <AuthContext.Provider value={false}>
-                {/*<Header className="header_main" text="Let's play kicker!"/>*/}
+                <Header className="header_main" text="Let's play kicker!"/>
                 <Router>
                     <div className="App">
                         <Route exact path="/" component={Login}/>

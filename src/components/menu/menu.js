@@ -6,7 +6,6 @@ import {useAuth} from "../../helpers/authContext";
 function Menu(props) {
     let login = useAuth();
     let fullClassName = 'menu ' + props.className;
-    console.log (login);
     return (
         login ? (<ul className={fullClassName}>
                 <li><p>Settings</p></li>
