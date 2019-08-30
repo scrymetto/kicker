@@ -2,20 +2,20 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import "./card.css"
 import Header from "../header/header";
-import Button from "../button/button";
+import {Button} from "../button/button";
 
-function Card() {
+function Card(props) {
     return (
         <div className='card'>
             <Header text='header'/>
+            {props.render()}
             <Button className='button button_back'/>
-            <Button text='button' className='button'/>
         </div>
     )
 }
 
-// Test.propTypes = {
-//     text: PropTypes.string
-// };
+Card.propTypes = {
+    render: PropTypes.func
+};
 
 export default Card;
