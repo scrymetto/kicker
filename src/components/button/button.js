@@ -4,8 +4,8 @@ import "./button.css"
 import "./button_back.css"
 import "./button_menu.css"
 
-export default function Button (props) {
-        let text;
+export function Button (props) {
+        let text = props.text;
 
         switch (props.className) {
             case 'button button_back':
