@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './header.css'
-import Button from "../button/button";
+import {Button} from "../button/button";
 import Menu from "../menu/menu";
 
 export default function Header(props) {
