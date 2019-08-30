@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import "../App.css";
-import Header from "../components/header/header";
+import Card from "../components/card/card";
+import {Button} from "../components/button/button";
 
-class Login extends Component{
-    render(){
-        return(
+class Login extends Component {
+    render() {
+        return (
             <div className="App">
-                loginPage
+                <Card render={() => (<Button text='Hello' className='button'/>)}
+                />
             </div>
         );
     }
