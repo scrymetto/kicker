@@ -1,0 +1,7 @@
+.text_link {
+    width: fit-content;
+    cursor: pointer;
+    font-style: italic;
+    border-bottom: #bababa dashed 1px;
+    color: #bababa;
+}

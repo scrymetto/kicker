@@ -8,7 +8,7 @@ import React from 'react';
 import App from "../src/App";
 import Card from "../src/components/card/card"
 import Header from "../src/components/header/header";
-import Button from "../src/components/button/button";
+import {Button} from "../src/components/button/button";
 import Menu from "../src/components/menu/menu";
 
 const { window } = new JSDOM('<!doctype html><html><body></body></html>');
@@ -27,7 +27,7 @@ describe('App', () => {
 });
 
 describe('Card', () => {
-    let wrapper = mount(<Card/>);
+    let wrapper = mount(<Card render={()=>(<button/>)}/>);
     it('should have class .card', () => {
         expect(wrapper.getDOMNode().className).to.equal('card')
     });
@@ -35,7 +35,7 @@ describe('Card', () => {
         expect(wrapper.contains(<Header text='header'/>)).to.equal(true)
     });
     it('should contain buttons', () => {
-        expect(wrapper.find(Button)).to.have.lengthOf(2)
+        expect(wrapper.find('button')).to.have.lengthOf(2)
     });
     it('should be one button with class\'back\'', () => {
         expect(wrapper.contains(<Button className='button button_back'/>)).to.equal(true);

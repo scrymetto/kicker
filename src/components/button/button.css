@@ -4,7 +4,7 @@
     margin: 5px;
     padding: 10px;
     border: #38c1db solid 1px;
-    box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px;
     border-radius: 15px;
     font-family: 'IBM Plex Sans', sans-serif;
 }
@@ -17,5 +17,16 @@
     background-color: #339EB2;
     border-color: #339EB2;
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.03);
+}
+
+.button:disabled {
+    background-color: #d6d4d6;
+    border: #d6d4d6;
+    box-shadow: none;
+    cursor: inherit;
+}
+
+.button:disabled:hover {
+    transform: none;
 }

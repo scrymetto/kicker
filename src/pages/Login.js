@@ -1,17 +1,21 @@
-import React, {Component} from "react";
-import "../App.css";
+import React, {Fragment} from "react";
+import "../components/text/text_link.css";
+import {Form} from "../components/form/form"
 import Card from "../components/card/card";
-import {Button} from "../components/button/button";
+import {validationSchema_login} from '../components/form/__validationSchema/form__validationSchema_login'
 
-class Login extends Component {
-    render() {
-        return (
-            <div className="App">
-                <Card render={() => (<Button text='Hello' className='button'/>)}
-                />
-            </div>
-        );
-    }
-}
 
-export default Login;
+const Login = () => (
+    <Form input={[{email: 'email'}, {password: 'password'}]}
+          initial={{email: '', password: ''}}
+          validationSchema={validationSchema_login}/>
+);
+
+const NewUserForm = () =>
+    (<div>
+        <p className='text text_link'>I'm not a user</p>
+        <Form input={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat password'}]}
+        initial={{login:'', email:'', password:'', repeatPassword:''}}/>
+    </div>);
+
+export const LoginPage = () => <Card render={() => <Fragment><Login/><NewUserForm/></Fragment>}/>;
