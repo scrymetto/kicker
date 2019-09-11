@@ -1,0 +1,7 @@
+.form__field {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 5px;
+}
