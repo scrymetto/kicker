@@ -14,20 +14,28 @@ export const Form = ({initial, input, validationSchema, ...props}) => {
                 }}
                 validationSchema={validationSchema}>
             {({errors, touched, isSubmitting}) =>
-                (<FormikForm className='form'>
+                (<FormikForm className='form'  {...props}>
                     {
                         input.map((input) => {
-                            let type = Object.keys(input);
+                            let type = Object.keys(input)[0];
+                            let name = input[type].split(' ');
+                            if (name.length > 1) {
+                                name = name.map((word, index) => {
+                                    if (index !== 0) {
+                                        return word[0].toUpperCase() + word.slice(1)
+                                    } else return word;
+                                });
+                            }
+                            name = name.join('');
                             let placeholder = input[type][0].toUpperCase() + input[type].slice(1);
 
                             return (<div key={placeholder}
                                          className='form__field'>
                                 <Field
                                     type={type}
-                                    name={placeholder}
-                                    placeholder={placeholder}
-                                    {...props}/>
-                                {errors[type] && touched[type] && <div className='text text_error'>{errors[type]}</div>}
+                                    name={name}
+                                    placeholder={placeholder}/>
+                                {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
                             </div>)
 
                         })
