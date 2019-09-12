@@ -5,6 +5,10 @@ import Card from "../components/card/card";
 import {validationSchema_login} from '../components/form/__validationSchema/form__validationSchema_login'
 import {validationSchema_newUser} from '../components/form/__validationSchema/form__validationSchema_newUser'
 
+function showNewUserForm() {
+    let form = document.getElementsByClassName('change')[0];
+    form.className = form.className === 'form form_visible change' ? 'form form_hidden change' : 'form form_visible change';
+}
 
 const Login = () => (
     <Form input={[{email: 'email'}, {password: 'password'}]}
@@ -13,12 +17,16 @@ const Login = () => (
 );
 
 const NewUserForm = () =>
-    (<div>
-        <p className='text text_link forForm'>I'm not a user</p>
-        <Form className="form form_hidden"
+    (
+        <Form className="form change form_hidden"
               input={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat password'}]}
               initial={{login: '', email: '', password: '', repeatPassword: ''}}
               validationSchema={validationSchema_newUser}/>
-    </div>);
+    );
 
-export const LoginPage = () => <Card render={() => <Fragment><Login/><NewUserForm/></Fragment>}/>;
+export const LoginPage = () => <Card
+    render={() => <Fragment>
+        <Login/>
+        <p className='text text_link forForm' onClick={showNewUserForm}>I'm not a user</p>
+        <NewUserForm/>
+    </Fragment>}/>;

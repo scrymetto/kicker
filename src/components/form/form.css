@@ -5,3 +5,18 @@
     margin: 15px;
     padding: 5px;
 }
+
+.form_hidden {
+    transition: 0.7s;
+    transform: translateY(-300%);
+    height: 0;
+    margin: 0;
+    padding: 0;
+    visibility:hidden;
+}
+
+.form_visible {
+    transition: 0.7s;
+    transform: translateY(0);
+    height: 100%;
+}
