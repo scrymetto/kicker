@@ -6,3 +6,18 @@
     max-width: 220px;
     margin: 5px;
 }
+
+.form__field_hidden {
+    transition: 0.7s;
+    transform: translateY(-1000%);
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    visibility:hidden;
+    opacity: 0;
+}
+.form__field_visible {
+    transition: 0.7s;
+    transform: translateY(0);
+    opacity: 100%;
+}

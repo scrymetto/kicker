@@ -6,27 +6,34 @@ import {validationSchema_login} from '../components/form/__validationSchema/form
 import {validationSchema_newUser} from '../components/form/__validationSchema/form__validationSchema_newUser'
 
 function showNewUserForm() {
-    let form = document.getElementsByClassName('change')[0];
-    form.className = form.className === 'form form_visible change' ? 'form form_hidden change' : 'form form_visible change';
+    let fields = document.getElementsByClassName('mutable');
+    for (let i = 0; i < fields.length; i++) {
+        fields[i].className = fields[i].className === 'form__field form__field_visible mutable'
+            ? 'form__field form__field_hidden mutable'
+            : 'form__field form__field_visible mutable';
+    }
 }
 
-const Login = () => (
-    <Form input={[{email: 'email'}, {password: 'password'}]}
-          initial={{email: '', password: ''}}
-          validationSchema={validationSchema_login}/>
-);
+const Login = () => {
+    return (
+        <div>
+            <Form
+                input={[
+                    {text: 'login', visible: false, mutable: true},
+                    {email: 'email', visible: true, mutable: false},
+                    {password: 'password', visible: true, mutable: false},
+                    {password: 'repeat password', visible: false, mutable: true}
+                ]}
+                initialShort={{email: '', password: ''}}
+                initialLong={{login: '', email: '', password: '', repeatPassword: ''}}
+                validationSchemaShort={validationSchema_login}
+                validationSchemaLong={validationSchema_newUser}/>
+            <p className='text text_link forForm' onClick={showNewUserForm}>I'm not a user</p>
+        </div>
 
-const NewUserForm = () =>
-    (
-        <Form className="form change form_hidden"
-              input={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat password'}]}
-              initial={{login: '', email: '', password: '', repeatPassword: ''}}
-              validationSchema={validationSchema_newUser}/>
-    );
+    )
+};
+
 
 export const LoginPage = () => <Card
-    render={() => <Fragment>
-        <Login/>
-        <p className='text text_link forForm' onClick={showNewUserForm}>I'm not a user</p>
-        <NewUserForm/>
-    </Fragment>}/>;
+    render={() => <Login/>}/>;
