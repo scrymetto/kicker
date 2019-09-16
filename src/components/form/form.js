@@ -1,6 +1,7 @@
 import React from "react";
 import './form.css';
 import './__field/__field.css';
+import '../text/text_error.css'
 import {Field, Formik, Form as FormikForm} from "formik";
 import {Button} from "../button/button";
 

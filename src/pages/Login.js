@@ -5,20 +5,33 @@ import Card from "../components/card/card";
 import {validationSchema_login} from '../components/form/__validationSchema/form__validationSchema_login'
 import {validationSchema_newUser} from '../components/form/__validationSchema/form__validationSchema_newUser'
 
-function showNewUserForm() {
-    let form = document.getElementsByClassName('change')[0];
-    form.className = form.className === 'form form_visible change' ? 'form form_hidden change' : 'form form_visible change';
+function showOtherForm() {
+    let text = document.getElementsByClassName('text_link')[0];
+    let formLogin = document.getElementsByClassName('form_login')[0];
+    let formNewUser = document.getElementsByClassName('form_newUser')[0];
+    formLogin.className = formLogin.className === 'form form_login form_login_hidden'
+        ? 'form form_login form_login_visible'
+        : 'form form_login form_login_hidden';
+    formNewUser.className = formNewUser.className === 'form form_newUser form_newUser_hidden'
+        ? 'form form_newUser form_newUser_visible'
+        : 'form form_newUser form_newUser_hidden';
+    if (formNewUser.className === 'form form_newUser form_newUser_visible') {
+        text.innerHTML = 'I have login';
+    } else {
+        text.innerHTML = 'I\'m not an user'
+    }
 }
 
 const Login = () => (
-    <Form input={[{email: 'email'}, {password: 'password'}]}
+    <Form className="form form_login form_login_visible"
+          input={[{email: 'email'}, {password: 'password'}]}
           initial={{email: '', password: ''}}
           validationSchema={validationSchema_login}/>
 );
 
 const NewUserForm = () =>
     (
-        <Form className="form change form_hidden"
+        <Form className="form form_newUser form_newUser_hidden"
               input={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat password'}]}
               initial={{login: '', email: '', password: '', repeatPassword: ''}}
               validationSchema={validationSchema_newUser}/>
@@ -27,6 +40,6 @@ const NewUserForm = () =>
 export const LoginPage = () => <Card
     render={() => <Fragment>
         <Login/>
-        <p className='text text_link forForm' onClick={showNewUserForm}>I'm not a user</p>
         <NewUserForm/>
+        <p className='text text_link' onClick={showOtherForm}>I'm not an user</p>
     </Fragment>}/>;
