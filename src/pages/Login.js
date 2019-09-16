@@ -29,17 +29,17 @@ const Login = () => (
           validationSchema={validationSchema_login}/>
 );
 
-const NewUserForm = () =>
-    (
-        <Form className="form form_newUser form_newUser_hidden"
-              input={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat password'}]}
-              initial={{login: '', email: '', password: '', repeatPassword: ''}}
-              validationSchema={validationSchema_newUser}/>
-    );
+const NewUserForm = () => (
+    <Form className="form form_newUser form_newUser_hidden"
+          input={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat the password'}]}
+          initial={{login: '', email: '', password: '', repeatThePassword: ''}}
+          validationSchema={validationSchema_newUser}/>
+);
 
 export const LoginPage = () => <Card
-    render={() => <Fragment>
-        <Login/>
-        <NewUserForm/>
-        <p className='text text_link' onClick={showOtherForm}>I'm not an user</p>
-    </Fragment>}/>;
+    render={() =>
+        <Fragment>
+            <Login/>
+            <NewUserForm/>
+            <p className='text text_link' onClick={showOtherForm}>I'm not an user</p>
+        </Fragment>}/>;

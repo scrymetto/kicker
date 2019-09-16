@@ -7,7 +7,7 @@ export const validationSchema_newUser = Yup.object().shape({
         .required('Email is required.'),
     password: Yup.string()
         .required('Password is required.'),
-    repeatPassword: Yup.string()
+    repeatThePassword: Yup.string()
         .oneOf([Yup.ref('password'), null], "Passwords must match.")
         .required('Please, repeat the password.')
 });

@@ -30,10 +30,15 @@ export const Form = ({initial, input, validationSchema, ...props}) => {
                             }
                             name = name.join('');
                             let placeholder = input[type][0].toUpperCase() + input[type].slice(1);
+                            let inputClassName = 'form__field';
+                            if (errors[name] && touched[name]) {
+                                inputClassName = 'form__field form__field_error'
+                            }
 
                             return (<div key={placeholder}
-                                         className='form__field'>
+                                         className='form__field form__field__container'>
                                 <Field
+                                    className={inputClassName}
                                     type={type}
                                     name={name}
                                     placeholder={placeholder}/>

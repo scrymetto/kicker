@@ -1,8 +1,19 @@
 .form__field {
-    position: relative;
+    border: #bababa solid 1px;
+    padding: 5px 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form__field__container {
+    border: none;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     max-width: 220px;
-    margin: 5px;
+    height: 55px;
+}
+
+.form__field_error {
+    border-color: #f04e26;
 }

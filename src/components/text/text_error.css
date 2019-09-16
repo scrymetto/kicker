@@ -1,4 +1,5 @@
 .text_error {
     color: #f04e26;
-    margin-top: 5px;
+    margin-top: 3px;
+    font-size: 0.8rem;
 }
