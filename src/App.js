@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import "./App.css";
-import "./components/text/text.css";
-import "./components/text/text_error.css";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {LoginPage} from "./pages/Login";
 import Profile from "./pages/Profile";
