@@ -9,7 +9,7 @@
 
 .form_newUser_hidden {
     transition: 0.3s;
-    transform: translateY(-100%);
+    transform: translateY(-4900%);
     height: 0;
     visibility: hidden;
     opacity: 0;
@@ -22,7 +22,7 @@
 
 .form_login_hidden {
     transition: 0.3s;
-    transform: translateY(100%);
+    transform: translateY(4900%);
     height: 0;
     visibility: hidden;
     opacity: 0;
