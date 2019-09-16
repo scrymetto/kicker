@@ -4,6 +4,7 @@ import './__field/__field.css';
 import '../text/text_error.css'
 import {Field, Formik, Form as FormikForm} from "formik";
 import {Button} from "../button/button";
+import PropTypes from "prop-types";
 
 export const Form = ({initial, input, validationSchema, ...props}) => {
     return (
@@ -45,4 +46,10 @@ export const Form = ({initial, input, validationSchema, ...props}) => {
                 </FormikForm>)}
         </Formik>
     )
+};
+
+Form.propTypes = {
+    initial: PropTypes.object.isRequired,
+    validationSchema: PropTypes.object.isRequired,
+    input: PropTypes.array.isRequired
 };
