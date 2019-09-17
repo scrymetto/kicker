@@ -5,6 +5,9 @@ import Card from "../components/card/card";
 import {validationSchema_login} from '../components/form/__validationSchema/form__validationSchema_login'
 import {validationSchema_newUser} from '../components/form/__validationSchema/form__validationSchema_newUser'
 
+const TEXT_LOGIN = 'I\'m not an user';
+const TEXT_SIGNUP = 'I have login';
+
 function showOtherForm() {
     let text = document.getElementsByClassName('text_link')[0];
     let formLogin = document.getElementsByClassName('form_login')[0];
@@ -16,9 +19,9 @@ function showOtherForm() {
         ? 'form form_newUser form_newUser_visible'
         : 'form form_newUser form_newUser_hidden';
     if (formNewUser.className === 'form form_newUser form_newUser_visible') {
-        text.innerHTML = 'I have login';
+        text.innerHTML = TEXT_SIGNUP;
     } else {
-        text.innerHTML = 'I\'m not an user'
+        text.innerHTML = TEXT_LOGIN;
     }
 }
 
@@ -41,5 +44,5 @@ export const LoginPage = () => <Card
         <Fragment>
             <Login/>
             <NewUserForm/>
-            <p className='text text_link' onClick={showOtherForm}>I'm not an user</p>
+            <p className='text text_link' onClick={showOtherForm}>{TEXT_LOGIN}</p>
         </Fragment>}/>;

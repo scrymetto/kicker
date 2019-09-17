@@ -5,6 +5,8 @@ import '../text/text_error.css'
 import {Field, Formik, Form as FormikForm} from "formik";
 import {Button} from "../button/button";
 import PropTypes from "prop-types";
+import {makeCamelCaseFromString} from "../../helpers/makeCamelCaseFromString";
+import {makeFirstLetterUppercase} from "../../helpers/makeFirstLetterUppercase";
 
 export const Form = ({initial, input, validationSchema, ...props}) => {
     return (
@@ -17,35 +19,24 @@ export const Form = ({initial, input, validationSchema, ...props}) => {
                 validationSchema={validationSchema}>
             {({errors, touched, isSubmitting}) =>
                 (<FormikForm className='form'  {...props}>
-                    {
-                        input.map((input) => {
-                            let type = Object.keys(input)[0];
-                            let name = input[type].split(' ');
-                            if (name.length > 1) {
-                                name = name.map((word, index) => {
-                                    if (index !== 0) {
-                                        return word[0].toUpperCase() + word.slice(1)
-                                    } else return word;
-                                });
-                            }
-                            name = name.join('');
-                            let placeholder = input[type][0].toUpperCase() + input[type].slice(1);
-                            let inputClassName = 'form__field';
-                            if (errors[name] && touched[name]) {
-                                inputClassName = 'form__field form__field_error'
-                            }
+                    {input.map((input) => {
+                        let type = Object.keys(input)[0];
+                        let name = makeCamelCaseFromString(input[type]);
+                        let placeholder = makeFirstLetterUppercase(input[type]);
+                        let inputClassName = (errors[name] && touched[name])
+                            ? 'form__field form__field_error'
+                            : 'form__field';
 
-                            return (<div key={placeholder}
-                                         className='form__field form__field__container'>
-                                <Field
-                                    className={inputClassName}
-                                    type={type}
-                                    name={name}
-                                    placeholder={placeholder}/>
-                                {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
-                            </div>)
-
-                        })
+                        return (<div key={placeholder}
+                                     className='form__field form__field__container'>
+                            <Field
+                                className={inputClassName}
+                                type={type}
+                                name={name}
+                                placeholder={placeholder}/>
+                            {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
+                        </div>)
+                    })
                     }
                     <Button text='Submit' type='submit' className='button' disabled={isSubmitting}/>
                 </FormikForm>)}

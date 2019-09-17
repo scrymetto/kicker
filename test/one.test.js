@@ -10,6 +10,7 @@ import Card from "../src/components/card/card"
 import Header from "../src/components/header/header";
 import {Button} from "../src/components/button/button";
 import Menu from "../src/components/menu/menu";
+import {makeCamelCaseFromString} from "../src/helpers/makeCamelCaseFromString"
 
 const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 global.document = window.document;
@@ -91,4 +92,19 @@ describe ('Menu', ()=> {
     it ('should have class .meh', () => {
         expect(wrapper.getDOMNode().className).to.equal('menu meh')
     })
+});
+
+describe ('makeCamelCaseFromString', ()=> {
+    it('should return correctly sentence with all letters', () => {
+        let camelCase = makeCamelCaseFromString('do you have some tee');
+        expect(camelCase).to.equal('doYouHaveSomeTee')
+    });
+    it('should return correctly sentence with numbers', () => {
+        let camelCase = makeCamelCaseFromString('are you 14 years old');
+        expect(camelCase).to.equal('areYou14YearsOld')
+    });
+    it('should return correctly sentence with symbols', () => {
+        let camelCase = makeCamelCaseFromString('you must ! do ! it!');
+        expect(camelCase).to.equal('youMust!do!it!')
+    });
 });
