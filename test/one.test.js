@@ -11,6 +11,7 @@ import Header from "../src/components/header/header";
 import {Button} from "../src/components/button/button";
 import Menu from "../src/components/menu/menu";
 import {makeCamelCaseFromString} from "../src/helpers/makeCamelCaseFromString"
+import {makeFirstLetterUppercase} from "../src/helpers/makeFirstLetterUppercase"
 
 const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 global.document = window.document;
@@ -96,15 +97,23 @@ describe ('Menu', ()=> {
 
 describe ('makeCamelCaseFromString', ()=> {
     it('should return correctly sentence with all letters', () => {
-        let camelCase = makeCamelCaseFromString('do you have some tee');
-        expect(camelCase).to.equal('doYouHaveSomeTee')
+        let camelCase = makeCamelCaseFromString('save me from me');
+        expect(camelCase).to.equal('saveMeFromMe')
     });
     it('should return correctly sentence with numbers', () => {
-        let camelCase = makeCamelCaseFromString('are you 14 years old');
-        expect(camelCase).to.equal('areYou14YearsOld')
+        let camelCase = makeCamelCaseFromString('you are 14 years old');
+        expect(camelCase).to.equal('youAre14YearsOld')
     });
     it('should return correctly sentence with symbols', () => {
-        let camelCase = makeCamelCaseFromString('you must ! do ! it!');
-        expect(camelCase).to.equal('youMust!do!it!')
+        let camelCase = makeCamelCaseFromString('you must ! do ! it !');
+        expect(camelCase).to.equal('youMust!Do!It!')
     });
 });
+
+describe ('makeFirstLetterUppercase', () => {
+    it('should return correct sentence', () => {
+        let firstUppercaseLetter = makeFirstLetterUppercase('save me from me');
+        expect(firstUppercaseLetter).to.equal('Save me from me')
+    })
+});
+

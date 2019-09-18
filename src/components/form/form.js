@@ -1,14 +1,14 @@
 import React from "react";
+import {Formik, Form as FormikForm} from "formik";
+import PropTypes from "prop-types";
+
+import {Button} from "../button/button";
+import {renderInputFieldWithProps} from "../../helpers/renderInputFieldWithProps";
 import './form.css';
 import './__field/__field.css';
 import '../text/text_error.css'
-import {Field, Formik, Form as FormikForm} from "formik";
-import {Button} from "../button/button";
-import PropTypes from "prop-types";
-import {makeCamelCaseFromString} from "../../helpers/makeCamelCaseFromString";
-import {makeFirstLetterUppercase} from "../../helpers/makeFirstLetterUppercase";
 
-export const Form = ({initial, input, validationSchema, ...props}) => {
+export const Form = ({initial, input: inputs, validationSchema, ...props}) => {
     return (
         <Formik initialValues={initial}
                 onSubmit={(values) => {
@@ -19,25 +19,7 @@ export const Form = ({initial, input, validationSchema, ...props}) => {
                 validationSchema={validationSchema}>
             {({errors, touched, isSubmitting}) =>
                 (<FormikForm className='form'  {...props}>
-                    {input.map((input) => {
-                        let type = Object.keys(input)[0];
-                        let name = makeCamelCaseFromString(input[type]);
-                        let placeholder = makeFirstLetterUppercase(input[type]);
-                        let inputClassName = (errors[name] && touched[name])
-                            ? 'form__field form__field_error'
-                            : 'form__field';
-
-                        return (<div key={placeholder}
-                                     className='form__field form__field__container'>
-                            <Field
-                                className={inputClassName}
-                                type={type}
-                                name={name}
-                                placeholder={placeholder}/>
-                            {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
-                        </div>)
-                    })
-                    }
+                    {inputs.map(input => renderInputFieldWithProps(input, errors, touched))}
                     <Button text='Submit' type='submit' className='button' disabled={isSubmitting}/>
                 </FormikForm>)}
         </Formik>
