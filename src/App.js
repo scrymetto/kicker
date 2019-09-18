@@ -10,7 +10,7 @@ import Header from "./components/header/header";
 class App extends Component {
     render() {
         return (
-            <AuthContext.Provider value={false}>
+            <AuthContext.Provider value={true}>
                 <Header className="header_main" text="Let's play kicker!"/>
                 <Router>
                     <div className="App">
