@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from "react";
 import "../components/text/text_link.css";
 import {Form} from "../components/form/form"
-import Card from "../components/card/card";
+import {Card} from "../components/card/card";
 import {validationSchema_login} from '../components/form/__validationSchema/form__validationSchema_login'
 import {validationSchema_newUser} from '../components/form/__validationSchema/form__validationSchema_newUser'
 

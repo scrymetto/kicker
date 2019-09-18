@@ -6,7 +6,7 @@ import {expect} from 'chai';
 import React from 'react';
 
 import App from "../src/App";
-import Card from "../src/components/card/card"
+import {Card} from "../src/components/card/card"
 import Header from "../src/components/header/header";
 import {Button} from "../src/components/button/button";
 import Menu from "../src/components/menu/menu";
@@ -29,7 +29,7 @@ describe('App', () => {
 });
 
 describe('Card', () => {
-    let wrapper = mount(<Card render={()=>(<button/>)}/>);
+    let wrapper = mount(<Card button_back render={()=>(<button/>)}/>);
     it('should have class .card', () => {
         expect(wrapper.getDOMNode().className).to.equal('card')
     });
@@ -41,6 +41,11 @@ describe('Card', () => {
     });
     it('should be one button with class\'back\'', () => {
         expect(wrapper.contains(<Button className='button button_back'/>)).to.equal(true);
+    });
+    let secondWrapper = mount(<Card render={()=>(<button/>)}/>);
+    it('should not contain button_back, if prop doesn\'t exist', ()=> {
+        expect(secondWrapper.contains(<Button className='button button_back'/>)).to.equal(false);
+
     });
 });
 
