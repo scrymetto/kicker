@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from "react";
 import "../components/text/text_link.css";
+import "../components/container/margin_15.css";
 import {Form} from "../components/form/form"
 import {Card} from "../components/card/card";
 import {validationSchema_login} from '../components/form/__validationSchema/form__validationSchema_login'
@@ -38,8 +39,10 @@ export const LoginPage = () => {
                 <Fragment>
                     <Login className={loginFormClassName}/>
                     <NewUserForm className={newUserFormClassName}/>
-                    <p className='text text_link'
-                       onClick={() => setDisplayLoginForm(!displayLoginForm)}>{text}</p>
+                    <div className='container'>
+                        <p className='text text_link'
+                           onClick={() => setDisplayLoginForm(!displayLoginForm)}>{text}</p>
+                    </div>
                 </Fragment>}/>
     )
 };
