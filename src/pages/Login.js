@@ -27,11 +27,11 @@ export const LoginPage = () => {
     if (displayLoginForm) {
         loginFormClassName = 'form form_login_visible';
         newUserFormClassName = 'form form_newUser_hidden';
-        text = 'I\'m not an user'
+        text = 'Don\'t have an account?'
     } else {
         loginFormClassName = 'form form_login_hidden';
         newUserFormClassName = 'form form_newUser_visible';
-        text = 'I have a login'
+        text = 'Already have an account?'
     }
     return (
         <Card
