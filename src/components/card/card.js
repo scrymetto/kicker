@@ -4,17 +4,18 @@ import "./card.css"
 import Header from "../header/header";
 import {Button} from "../button/button";
 
-export function Card (props) {
+export function Card ({headerText, render, button_back, ...props}) {
     return (
         <div className='card'>
-            <Header text='header'/>
-            {props.render()}
-            {props.button_back && <Button className='button button_back'/>}
+            <Header text={headerText}/>
+            {render()}
+            {button_back && <Button className='button button_back'/>}
         </div>
     )
 }
 
 Card.propTypes = {
+    headerText: PropTypes.string,
     render: PropTypes.func,
     button_back: PropTypes.bool
 };

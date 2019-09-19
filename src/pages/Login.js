@@ -35,6 +35,7 @@ export const LoginPage = () => {
     }
     return (
         <Card
+            headerText='Hi, stranger!'
             render={() =>
                 <Fragment>
                     <Login className={loginFormClassName}/>
