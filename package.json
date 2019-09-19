@@ -2,6 +2,7 @@
   "name": "kicker",
   "version": "1.0.0",
   "dependencies": {
+    "axios": "^0.19.0",
     "formik": "^1.5.8",
     "prop-types": "^15.7.2",
     "react-router-dom": "^5.0.1",

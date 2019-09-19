@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {AuthContext} from "./helpers/authContext"
 
@@ -10,20 +10,26 @@ import Header from "./components/header/header";
 import PrivateRoute from "./helpers/privateRoute";
 import AuthRoute from "./helpers/authRoute";
 
-class App extends Component {
-    render() {
-        return (
-            <AuthContext.Provider value={true}>
-                <Header className="header_main" text="Let's play kicker!"/>
-                <Router>
-                    <div className="App">
-                        <AuthRoute exact path="/login" component={LoginPage}/>
-                        <PrivateRoute path="/" component={Profile}/>
-                    </div>
-                </Router>
-            </AuthContext.Provider>
-        );
-    }
+function App(props) {
+
+    const [authTokens, setAuthTokens] = useState();
+
+    const setTokens = (data) => {
+      localStorage.setItem("tokens", JSON.stringify(data));
+      setAuthTokens(data)
+    };
+
+    return (
+        <AuthContext.Provider value={/*{authTokens, setAuthTokens: setTokens}*/ false}>
+            <Header className="header_main" text="Let's play kicker!"/>
+            <Router>
+                <div className="App">
+                    <AuthRoute exact path="/login" component={LoginPage}/>
+                    <PrivateRoute path="/" component={Profile}/>
+                </div>
+            </Router>
+        </AuthContext.Provider>
+    );
 }
 
 export default App;
