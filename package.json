@@ -6,6 +6,7 @@
     "formik": "^1.5.8",
     "prop-types": "^15.7.2",
     "react-router-dom": "^5.0.1",
+    "react-transition-group": "^4.3.0",
     "yup": "^0.27.0"
   },
   "main": "index.js",
