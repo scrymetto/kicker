@@ -22,6 +22,6 @@ export function Button ({text, className, ...props}) {
 
 Button.propTypes = {
     text: PropTypes.string,
-    className: PropTypes.string,
+    className: PropTypes.string.isRequired,
     onClick: PropTypes.func
 };

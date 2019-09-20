@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Formik, Form as FormikForm} from "formik";
 
 import {Button} from "../button/button";
-import {renderInputFieldWithProps} from "../../helpers/renderInputFieldWithProps";
+import {renderInputFieldWithProps} from "../../helpers/renderComponents/renderInputFieldWithProps";
 import './form.css';
 import './__field/__field.css';
 import '../text/text_error.css'

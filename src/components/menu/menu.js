@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import './menu.css'
-import {useAuth} from "../../helpers/authContext";
+import {useAuth} from "../../helpers/auth&route/authContext";
 
 function Menu(props) {
     let login = useAuth();

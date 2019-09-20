@@ -1,7 +1,7 @@
 import React from "react";
 import {Field} from "formik";
-import {makeCamelCaseFromString} from "./makeCamelCaseFromString";
-import {makeFirstLetterUppercase} from "./makeFirstLetterUppercase";
+import {makeCamelCaseFromString} from "../makeCamelCaseFromString";
+import {makeFirstLetterUppercase} from "../makeFirstLetterUppercase";
 
 export function renderInputFieldWithProps(input, errors, touched) {
         let type = Object.keys(input)[0];

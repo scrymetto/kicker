@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import {AuthContext} from "./helpers/authContext"
+import {AuthContext} from "./helpers/auth&route/authContext"
 
 import "./App.css";
 
 import {LoginPage} from "./pages/Login";
 import {Profile} from "./pages/Profile";
 import Header from "./components/header/header";
-import PrivateRoute from "./helpers/privateRoute";
-import AuthRoute from "./helpers/authRoute";
+import PrivateRoute from "./helpers/auth&route/privateRoute";
+import AuthRoute from "./helpers/auth&route/authRoute";
 
 function App(props) {
 
