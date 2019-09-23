@@ -1,15 +1,29 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
+import {CSSTransition} from "react-transition-group";
 import './popup.css';
 import '../text/text.css';
 import {Button} from "../button/button";
 
-export const Popup = ({text, onclick, textForButton}) => {
+export const Popup = ({text, className}) => {
+    let [inProp, setInProp] = useState(true);
+    let timer = setTimeout(setInProp, 5000, false);
+
+    let closePopup = () => {
+        clearTimeout(timer);
+        setInProp(false)
+    };
     return (
-        <div className='popup'>
-            <div className='popup popup_inner'>
+        <CSSTransition timeout={300} classNames='popup' in={inProp} appear={true}>
+            <div className={className}>
                 <p className='text'>{text}</p>
-                <Button className='button' text={textForButton} onClick={onclick}/>
+                <Button className='button button_close' onClick={closePopup}/>
             </div>
-        </div>
+        </CSSTransition>
     )
+};
+
+Popup.propTypes = {
+    text: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired
 };
