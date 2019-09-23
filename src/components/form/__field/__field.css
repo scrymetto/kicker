@@ -17,3 +17,7 @@
 .form__field_error {
     border-color: #f04e26;
 }
+
+.form__field:focus {
+    border-color: #38c1db;
+}
