@@ -12,7 +12,10 @@ export const Login = ({className}) => {
     let onError = (errorMessage) => {
         setError(errorMessage);
     };
-    let onSubmit = (values) => submitForm(values, template, 'POST', '/', setAuthToken, onError);
+    let onSuccess = (data) => {
+        setAuthToken(data);
+    };
+    let onSubmit = (values) => submitForm(values, template, 'POST', '/', onSuccess, onError);
 
     return (<Fragment>
             <Form className={className}
@@ -22,8 +25,8 @@ export const Login = ({className}) => {
                   onSubmit={onSubmit}
             />
             {error
-                ? <Popup className='popup popup_error' text={error} />
-                :null}
+                ? <Popup className='popup popup_error' text={error}/>
+                : null}
         </Fragment>
     )
 };

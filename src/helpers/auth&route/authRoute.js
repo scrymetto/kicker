@@ -3,13 +3,13 @@ import {Route, Redirect} from 'react-router-dom';
 import {useAuth} from "./authContext";
 
 export default function AuthRoute({component: Component, ...rest}) {
-    let isAuthenticated = useAuth();
+    let {authToken} = useAuth();
     return (
         <Route {...rest}
                render={(props) =>
-                   (!isAuthenticated
-                           ? <Component {...props} />
-                           : <Redirect to="/"/>
+                   (authToken
+                           ? <Redirect to="/"/>
+                           : <Component {...props} />
                    )}
         />
     )

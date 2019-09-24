@@ -10,17 +10,18 @@ import Header from "./components/header/header";
 import PrivateRoute from "./helpers/auth&route/privateRoute";
 import AuthRoute from "./helpers/auth&route/authRoute";
 
-function App(props) {
+function App (props) {
 
-    const [authTokens, setAuthTokens] = useState();
+    const [authToken, setAuthToken] = useState();
 
-    const setTokens = (data) => {
-      localStorage.setItem("tokens", JSON.stringify(data));
-      setAuthTokens(data)
+    const setToken = (data) => {
+        localStorage.setItem("tokens", JSON.stringify(data));
+        setAuthToken(data);
+        console.log(localStorage)
     };
 
     return (
-        <AuthContext.Provider value={/*{authTokens, setAuthTokens: setTokens}*/ false}>
+        <AuthContext.Provider value={{authToken, setAuthToken: setToken}}>
             <Header className="header_main" text="Let's play kicker!"/>
             <Router>
                 <div className="App">
