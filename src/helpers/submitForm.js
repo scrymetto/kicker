@@ -16,8 +16,7 @@ export const submitForm = (values, template, method, url, fn, fnError) => {
             }
         })
         .catch(e => {
-            // fnError(true);
-            // throw new Error(e)
-            fn(true)
+            fnError(e.message);
+            throw new Error(e)
         })
 };

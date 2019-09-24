@@ -10,7 +10,7 @@ import {NewUserForm} from "../helpers/components/newUserForm";
 
 export const LoginPage = () => {
 
-    const [displayLoginForm, setDisplayLoginForm] = useState(false);
+    const [displayLoginForm, setDisplayLoginForm] = useState(true);
     let [popup, showPopup] = useState(false);
 
     let loginFormClassName, newUserFormClassName, text;
