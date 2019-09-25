@@ -4,6 +4,7 @@ import './header.css'
 import {Button} from "../button/button";
 import Menu from "../menu/menu";
 import {useAuth} from "../../helpers/auth&route/authContext";
+import {logout} from "../../helpers/auth&route/logout";
 
 export default function Header(props) {
 
@@ -22,17 +23,15 @@ export default function Header(props) {
             changeMenuStatus(!menuIsOpen);
         }
     };
-    let logout = () => {
-        setAuthToken();
-        changeMenuStatus(false)
-    };
+
+    let logoutFn = () => logout(setAuthToken, changeMenuStatus, false);
 
     return (
         props.className ? (
             <div className={headerClassName}>
                 <p>{props.text}</p>
                 <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
-                <Menu className={menuClassName} logout = {logout}/>
+                <Menu className={menuClassName} logout = {logoutFn}/>
             </div>
         ) : (
             <div className={headerClassName}>

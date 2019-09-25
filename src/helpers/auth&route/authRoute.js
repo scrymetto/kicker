@@ -4,6 +4,7 @@ import {useAuth} from "./authContext";
 
 export default function AuthRoute({component: Component, ...rest}) {
     let {authToken} = useAuth();
+    console.log(authToken)
     return (
         <Route {...rest}
                render={(props) =>

@@ -1,9 +1,8 @@
-import React, {useState} from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import {AuthContext} from "./helpers/auth&route/authContext"
-
+import React, {useState, useEffect} from "react";
+import {BrowserRouter as Router} from "react-router-dom";
 import "./App.css";
 
+import {AuthContext} from "./helpers/auth&route/authContext"
 import {LoginPage} from "./pages/Login";
 import {Profile} from "./pages/Profile";
 import Header from "./components/header/header";
@@ -14,10 +13,16 @@ function App (props) {
 
     const [authToken, setAuthToken] = useState();
 
+    useEffect(()=>{
+        let token = localStorage.getItem("token");
+        if (token) {
+            setAuthToken(token);
+        }
+    });
+
     const setToken = (data) => {
-        localStorage.setItem("tokens", JSON.stringify(data));
+        localStorage.setItem("token", JSON.stringify(data));
         setAuthToken(data);
-        console.log(localStorage)
     };
 
     return (
