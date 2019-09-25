@@ -6,7 +6,7 @@ import '../text/text_menu.css'
 
 function Menu(props) {
     let {logout, className} = props;
-    let {authToken, setAuthToken} = useAuth();
+    let {authToken} = useAuth();
     let fullClassName = 'menu ' + className;
     return (
         authToken ? (<ul className={fullClassName}>
@@ -20,7 +20,8 @@ function Menu(props) {
 }
 
 Menu.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    logout: PropTypes.func
 };
 
 export default Menu;
