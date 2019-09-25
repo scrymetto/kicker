@@ -13,7 +13,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot --mode development",
     "build": "webpack --mode production",
-    "test": "mocha  --require @babel/register --require source-map-support/register --require ignore-styles 'test/**/*.test.js'"
+    "test": "mocha  --require @babel/register --require source-map-support/register --require ignore-styles 'tests/**/*.test.js'"
   },
   "repository": {
     "type": "git",

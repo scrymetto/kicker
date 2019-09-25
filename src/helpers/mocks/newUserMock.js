@@ -3,6 +3,6 @@ const fakeAnswer = {
     status: 200
 };
 
-export const newUserAnswer = () => {
+export const fakeRequest = () => {
     return new Promise((resolve) => resolve(fakeAnswer))
 };
