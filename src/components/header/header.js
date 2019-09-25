@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './header.css'
 import {Button} from "../button/button";
 import Menu from "../menu/menu";
+import {useAuth} from "../../helpers/auth&route/authContext";
 
 export default function Header(props) {
 
@@ -12,13 +13,18 @@ export default function Header(props) {
     });
 
     let [menuIsOpen, changeMenuStatus] = useState(false);
+    let {setAuthToken} = useAuth();
 
-    let menuClassName = menuIsOpen ? 'menu menu_open' : 'menu menu_close';
+    let menuClassName = menuIsOpen ? 'menu_open' : 'menu_close';
     let headerClassName = props.className ? 'header ' + props.className : 'header';
     let changeMenuListener = (event) => {
         if (!event.target.closest('.menu') && (!event.target.closest('.button_menu')) && menuIsOpen) {
             changeMenuStatus(!menuIsOpen);
         }
+    };
+    let logout = () => {
+        setAuthToken();
+        changeMenuStatus(false)
     };
 
     return (
@@ -26,7 +32,7 @@ export default function Header(props) {
             <div className={headerClassName}>
                 <p>{props.text}</p>
                 <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
-                <Menu className={menuClassName}/>
+                <Menu className={menuClassName} logout = {logout}/>
             </div>
         ) : (
             <div className={headerClassName}>
