@@ -7,13 +7,14 @@
     "prop-types": "^15.7.2",
     "react-router-dom": "^5.0.1",
     "react-transition-group": "^4.3.0",
+    "sinon": "^7.5.0",
     "yup": "^0.27.0"
   },
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --mode development",
     "build": "webpack --mode production",
-    "test": "mocha  --require @babel/register --require source-map-support/register --require ignore-styles 'tests/**/*.test.js'"
+    "test": "mocha  --require @babel/register --require source-map-support/register --require ignore-styles --require ./tests/helpers.js 'tests/**/*.test.js'"
   },
   "repository": {
     "type": "git",

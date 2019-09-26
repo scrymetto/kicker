@@ -1,12 +1,5 @@
-import {configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import {shallow, mount} from 'enzyme';
-import {JSDOM} from 'jsdom';
-import {expect} from 'chai';
 import React from 'react';
 
-import App from "../src/App";
-import {Card} from "../src/components/card/card"
 import Header from "../src/components/header/header";
 import {Button} from "../src/components/button/button";
 import Menu from "../src/components/menu/menu";
@@ -14,45 +7,13 @@ import Menu from "../src/components/menu/menu";
 import {makeCamelCaseFromString} from "../src/helpers/makeCamelCaseFromString"
 import {makeFirstLetterUppercase} from "../src/helpers/makeFirstLetterUppercase"
 import {prepareDataForRequest} from "../src/helpers/prepareDataForRequest"
+import {Context, EmptyContext} from "./helpers";
 
-const {window} = new JSDOM('<!doctype html><html><body></body></html>');
-global.document = window.document;
-global.window = window;
-global.shallow = shallow;
-global.mount = mount;
-configure({adapter: new Adapter()});
-global.expect = expect;
 
-describe('App', () => {
-    let wrapper = shallow(<App/>);
-    it('should have class .App', () => {
-        expect(wrapper.find('div').hasClass('App')).to.equal(true)
-    })
-});
 
-describe('Card', () => {
-    let wrapper = mount(<Card button_back render={() => (<button/>)}/>);
-    it('should have class .card', () => {
-        expect(wrapper.getDOMNode().className).to.equal('card')
-    });
-    it('should contain header', () => {
-        expect(wrapper.contains(<Header/>)).to.equal(true)
-    });
-    it('should contain buttons', () => {
-        expect(wrapper.find('button')).to.have.lengthOf(2)
-    });
-    it('should be one button with class\'back\'', () => {
-        expect(wrapper.contains(<Button className='button button_back'/>)).to.equal(true);
-    });
-    let secondWrapper = mount(<Card render={() => (<button/>)}/>);
-    it('should not contain button_back, if prop doesn\'t exist', () => {
-        expect(secondWrapper.contains(<Button className='button button_back'/>)).to.equal(false);
-
-    });
-});
 
 describe('Main header', () => {
-    let wrapper = mount(<Header className='header_main' text="test"/>);
+    let wrapper = mount(<Context><Header className='header_main' text="test"/></Context>);
     it('should have class .header', () => {
         expect(wrapper.getDOMNode().className).to.equal('header header_main')
     });
@@ -80,7 +41,7 @@ describe('Main header', () => {
 });
 
 describe('Card header', () => {
-    let wrapper = mount(<Header text="test"/>);
+    let wrapper = mount(<Context><Header text="test"/></Context>);
     it('should have class .header', () => {
         expect(wrapper.hasClass('header'))
     });
@@ -96,9 +57,11 @@ describe('Card header', () => {
 });
 
 describe('Menu', () => {
-    let wrapper = mount(<Menu className='meh'/>);
+    let wrapper = mount(<Context><Menu className='meh'/></Context>);
+    let wrapper2 = mount(<EmptyContext><Menu className='meh'/></EmptyContext>);
     it('should have class .meh', () => {
-        expect(wrapper.getDOMNode().className).to.equal('menu meh')
+        expect(wrapper.getDOMNode().className).to.equal('menu meh');
+        expect(wrapper2.getDOMNode().className).to.equal('menu meh')
     })
 });
 
