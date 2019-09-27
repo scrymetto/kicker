@@ -25,6 +25,6 @@ export const Form = ({initial, input: inputs, validationSchema, onSubmit, ...pro
 
 Form.propTypes = {
     initial: PropTypes.object.isRequired,
-    validationSchema: PropTypes.object.isRequired,
-    input: PropTypes.array.isRequired,
+    validationSchema: PropTypes.object.isRequired, // all inputs with Yup.object()
+    input: PropTypes.array.isRequired, // [{key: type of input for Formik, value: name of input}, ...]
 };
