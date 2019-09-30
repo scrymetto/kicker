@@ -7,6 +7,7 @@ import Menu from "../src/components/menu/menu";
 
 describe('Main header', () => {
     let wrapper = mount(<Context><Header className='header_main' text="test"/></Context>);
+
     it('should have class .header', () => {
         expect(wrapper.getDOMNode().className).to.equal('header header_main')
     });

@@ -1,25 +1,8 @@
 import React from 'react';
 
-import Menu from "../src/components/menu/menu";
-
 import {makeCamelCaseFromString} from "../src/helpers/makeCamelCaseFromString"
 import {makeFirstLetterUppercase} from "../src/helpers/makeFirstLetterUppercase"
 import {prepareDataForRequest} from "../src/helpers/prepareDataForRequest"
-import {Context, EmptyContext} from "./helpers";
-
-
-
-
-
-
-describe('Menu', () => {
-    let wrapper = mount(<Context><Menu className='meh'/></Context>);
-    let wrapper2 = mount(<EmptyContext><Menu className='meh'/></EmptyContext>);
-    it('should have class .meh', () => {
-        expect(wrapper.getDOMNode().className).to.equal('menu meh');
-        expect(wrapper2.getDOMNode().className).to.equal('menu meh')
-    })
-});
 
 describe('makeCamelCaseFromString', () => {
     it('should return correctly sentence with all letters', () => {
