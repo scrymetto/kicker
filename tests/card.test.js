@@ -1,5 +1,5 @@
 import React from "react";
-import {Context} from "./helpers";
+import {Context} from "./config";
 import {Card} from "../src/components/card/card";
 import Header from "../src/components/header/header";
 import {Button} from "../src/components/button/button";

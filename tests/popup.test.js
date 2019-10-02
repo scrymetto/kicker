@@ -1,5 +1,4 @@
 import React from 'react';
-import sinon from "sinon";
 
 import {Popup} from "../src/components/popup/popup";
 import {Button} from "../src/components/button/button";
@@ -7,7 +6,7 @@ import {Button} from "../src/components/button/button";
 describe('Popup', () => {
     let text = 'You are awesome';
     let className = 'popup_error';
-    let wrapper = mount(<Popup text={text} className={className}/>);
+    let wrapper = shallow(<Popup text={text} className={className}/>);
     it('should have text from props', () => {
         expect(wrapper.find('.text').text()).to.be.equal(text)
     });
@@ -18,10 +17,10 @@ describe('Popup', () => {
         expect(wrapper.find(Button).length).to.be.equal(1)
     });
     it('should close Popup, if button clicked', () => {
+        // console.log(wrapper.debug())
         let button = wrapper.find(Button);
-        const spy = sinon.spy(button.props().onClick);
         button.simulate('click');
-        expect(spy.calledOnce).to.equal(true)
+        expect(wrapper.props().in).to.equal(false)
     });
 
 });

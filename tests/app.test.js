@@ -1,6 +1,5 @@
 import React from 'react';
 import App from "../src/App";
-import Header from "../src/components/header/header";
 
 describe('App', () => {
     let wrapper = mount(<App/>);
@@ -8,6 +7,7 @@ describe('App', () => {
         expect(wrapper.find(App).length).to.equal(1)
     });
     it('Should contain <Header\/> with class header_main', () => {
-        expect(wrapper.find(Header).hasClass('header_main')).to.equal(true)
+        let header = wrapper.findWhere(node => node.props().text === 'Let\'s play kicker!');
+        expect(header.length).to.equal(1)
     });
 });

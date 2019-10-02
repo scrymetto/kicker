@@ -10,11 +10,32 @@
     "sinon": "^7.5.0",
     "yup": "^0.27.0"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "tests",
+      "src"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>tests/config.js"
+    ]
+  },
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --mode development",
     "build": "webpack --mode production",
-    "test": "mocha  --require @babel/register --require source-map-support/register --require ignore-styles --require ./tests/helpers.js 'tests/**/*.test.js'"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -40,9 +61,8 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "ignore-styles": "^5.0.1",
+    "jest": "^24.9.0",
     "jsdom": "^15.1.1",
-    "mocha": "^6.2.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "react": "^16.9.0",

@@ -1,8 +1,12 @@
 import React from 'react';
-import sinon from "sinon";
 import {Button} from "../src/components/button/button";
+import sinon from 'sinon'
 
 describe ('Button ', () => {
+    afterEach(()=>{
+        jest.clearAllMocks();
+    });
+
     let text = 'click me';
     let wrapper = shallow(<Button className='button' text={text}/>);
     it('should render simple button, if has prop classname = \'button\'', ()=> {
@@ -24,7 +28,7 @@ describe ('Button ', () => {
         let onClick = sinon.spy();
         let wrapper5 = shallow(<Button className='button' text={text} onClick={onClick}/>);
         wrapper5.simulate('click');
-        expect(onClick.calledOnce).to.equal(true);
+        expect(onClick.calledOnce).to.be.equal(true);
     });
     it('should have text from prop', () => {
         expect(wrapper.find('.button').text()).to.be.equal(text)
