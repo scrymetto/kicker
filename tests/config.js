@@ -1,7 +1,7 @@
 import React from 'react';
 import {configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {shallow, mount} from 'enzyme';
+import {shallow, mount, render} from 'enzyme';
 import {JSDOM} from 'jsdom';
 import {expect} from 'chai';
 
@@ -12,6 +12,7 @@ global.document = window.document;
 global.window = window;
 global.shallow = shallow;
 global.mount = mount;
+global.render = render;
 configure({adapter: new Adapter()});
 global.expect = expect;
 

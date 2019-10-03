@@ -6,7 +6,7 @@ import {Button} from "../components/button/button";
 export function Profile() {
     return (
         <div className="App">
-            <Card render={() => (<Button text='Hey' className='button'/>)}/>
+            <Card headerText='Your rooms' render={() => (<Button text='Hey' className='button'/>)}/>
         </div>
     )
 }

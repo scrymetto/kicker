@@ -29,7 +29,8 @@
     ],
     "setupFilesAfterEnv": [
       "<rootDir>tests/config.js"
-    ]
+    ],
+    "timers": "fake"
   },
   "main": "index.js",
   "scripts": {

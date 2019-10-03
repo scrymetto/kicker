@@ -1,6 +1,6 @@
 import {prepareDataForRequest} from "./prepareDataForRequest";
 import * as axios from "axios";
-import {fakeRequest} from "./mocks/fakeRequestForSubmitForm";
+import {fakeRequest} from "../../__mocks__/fakeRequestForSubmitForm";
 
 export const submitForm = (values, template, method, url, fn, fnError) => {
     // let data = prepareDataForRequest(template, values);
