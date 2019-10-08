@@ -1,21 +1,19 @@
 import {prepareDataForRequest} from "./prepareDataForRequest";
-import {sendRequest} from "./sendRequest";
-// import {fakeRequest} from "../../__mocks__/fakeRequestForSubmitForm";
+import axios from "axios";
 
-export const submitForm = (values, template, method, url, fn, fnError) => {
+export const submitForm = (values, template, url, onSuccess, onError) => {
     let data = prepareDataForRequest(template, values);
-    let header;
-    sendRequest(data, method, url, fn, fnError)
-
-    // for testing in browser:
-    // fakeRequest()
-    //     .then(result => {
-    //         if (result.status >= 200 && result.status < 300) {
-    //             fn(result.data)
-    //         }
-    //     })
-    //     .catch(e => {
-    //         fnError(e.message);
-    //         throw new Error(e)
-    //     })
+     axios.get(url)
+        .then(result => {
+            if (result.status >= 200 && result.status < 300 ) {
+                onSuccess(result.data)
+            } else {
+                console.log(result)
+                onError(result.status)
+            }
+        })
+        .catch(e => {
+            onError(e);
+            throw new Error(e)
+        });
 };

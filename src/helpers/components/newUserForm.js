@@ -7,12 +7,20 @@ import {Popup} from "../../components/popup/popup";
 export const NewUserForm = ({className, endRegistration}) => {
     let template = ['login', 'email', 'password'];
     let [error, setError] = useState(false);
+    let [success, setSuccess] = useState(false);
 
-    let onError = (errorMessage) => {
-        setError(errorMessage);
+    let onError = (error) => {
+        setError(error.message);
     };
 
-    let onSubmit = (values) => submitForm(values, template, 'POST', '/', endRegistration, onError);
+    let onSuccess = () => {
+        endRegistration();
+        setSuccess(true)
+    };
+
+    let onSubmit = (values) => {
+        submitForm(values, template, '/', onSuccess, onError);
+    };
 
     return (<Fragment>
         <Form className={className}
@@ -22,6 +30,9 @@ export const NewUserForm = ({className, endRegistration}) => {
               onSubmit={onSubmit}/>
         {error
             ? <Popup className='popup popup_error' text={error} />
+            :null}
+        {success
+            ? <Popup className='popup popup_success' text='Success! Now you can log in.' />
             :null}
 
     </Fragment>)

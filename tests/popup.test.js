@@ -5,7 +5,7 @@ import {Button} from "../src/components/button/button";
 
 describe('Popup', () => {
     let text = 'You are awesome';
-    let className = 'popup_error';
+    let className = 'popup popup_error';
     it('should have text from props', () => {
         let wrapper = shallow(<Popup text={text} className={className}/>);
         expect(wrapper.find('.text').text()).to.be.equal(text)
@@ -25,7 +25,7 @@ describe('Popup', () => {
         expect(wrapper.props().in).to.equal(false)
     });
     it('should close popup after 5 seconds', ()=>{
-        className = 'popup_success';
+        className = 'popup popup_success';
         let wrapper = shallow(<Popup text={text} className={className}/>);
         expect(wrapper.props().in).to.equal(true);
         jest.runOnlyPendingTimers();

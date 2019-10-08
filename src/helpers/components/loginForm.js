@@ -9,20 +9,22 @@ export const Login = ({className}) => {
     let template = ['email', 'password'];
     let [error, setError] = useState(false);
     let {setAuthToken} = useAuth();
-    let onError = (errorMessage) => {
-        setError(errorMessage);
+    let onError = (e) => {
+        setError(e.message)
     };
-    let onSuccess = (data) => {
-        setAuthToken(data);
+    let onSuccess = (token) => {
+        setAuthToken(token)
     };
-    let onSubmit = (values) => submitForm(values, template, 'POST', '/', onSuccess, onError);
+    let onSubmit = (values) => {
+        submitForm(values, template, '/', onSuccess, onError);
+    };
 
     return (<Fragment>
             <Form className={className}
                   input={[{email: 'email'}, {password: 'password'}]}
                   initial={{email: '', password: ''}}
                   validationSchema={validationSchema_login}
-                  onSubmit={onSubmit}
+                  onSubmit={(values) => onSubmit(values)}
             />
             {error
                 ? <Popup className='popup popup_error' text={error}/>

@@ -1,15 +1,17 @@
 import axiosMock from "../__mocks__/axios";
-import {sendRequest} from "../src/helpers/sendRequest";
+import {submitForm} from "../src/helpers/submitForm";
+import sinon from "sinon";
 
 describe('Function sendRequest', () => {
-    axiosMock.get.mockResolvedValue({data: { title: 'some title' } })
+    axiosMock.get.mockResolvedValue({data: {title: 'some title'}, status: 200})
     let url = 'https://blabla.com';
     let data = {
-        login:'God',
+        login: 'God',
         password: '42'
     };
-    let fn = (answer)=> answer;
-    let fnError = (e)=> e.message;
-    let serverAnswer = sendRequest(data, 'GET', url, fn, fnError);
-    expect(serverAnswer).to.be.equal({data: { title: 'some title' } })
+    let fn = sinon.spy();
+    let fnError = sinon.spy();
+    submitForm(data, url, fn, fnError);
+    expect(fn.calledOnce).to.equal(true)
+    expect(fnError.calledOnce).to.equal(false)
 });

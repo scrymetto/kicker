@@ -11,7 +11,6 @@ import {NewUserForm} from "../helpers/components/newUserForm";
 export const LoginPage = () => {
 
     const [displayLoginForm, setDisplayLoginForm] = useState(true);
-    let [popup, showPopup] = useState(false);
 
     let loginFormClassName, newUserFormClassName, text;
     if (displayLoginForm) {
@@ -24,7 +23,6 @@ export const LoginPage = () => {
         text = 'Already have an account?'
     }
     let endRegistration = () => {
-        showPopup(true);
         setDisplayLoginForm(true)
     };
 
@@ -39,9 +37,6 @@ export const LoginPage = () => {
                         <p className='text text_link'
                            onClick={() => setDisplayLoginForm(!displayLoginForm)}>{text}</p>
                     </div>
-                    {popup
-                    ? <Popup className='popup popup_success' text='Success! Now you can log in.' />
-                    :null}
                 </Fragment>
             }
         />

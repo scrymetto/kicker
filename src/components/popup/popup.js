@@ -25,5 +25,5 @@ export const Popup = ({text, className}) => {
 
 Popup.propTypes = {
     text: PropTypes.string.isRequired,
-    className: PropTypes.oneOf(['popup_success', 'popup_error']).isRequired //different classNames = different colors
+    className: PropTypes.oneOf(['popup popup_success', 'popup popup_error']).isRequired //different classNames = different colors
 };
