@@ -3,6 +3,7 @@ import {submitForm} from "../submitForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_newUser} from "../../components/form/__validationSchema/form__validationSchema_newUser";
 import {Popup} from "../../components/popup/popup";
+import {prepareDataForRequest} from "../prepareDataForRequest";
 
 export const NewUserForm = ({className, endRegistration}) => {
     let template = ['login', 'email', 'password'];
@@ -19,7 +20,8 @@ export const NewUserForm = ({className, endRegistration}) => {
     };
 
     let onSubmit = (values) => {
-        submitForm(values, template, '/', onSuccess, onError);
+        let data = prepareDataForRequest(template, values);
+        submitForm(data, '/', onSuccess, onError);
     };
 
     return (<Fragment>

@@ -4,7 +4,6 @@ import "../components/text/text_link.css";
 import "../components/container/margin_15.css";
 
 import {Card} from "../components/card/card";
-import {Popup} from "../components/popup/popup";
 import {Login} from "../helpers/components/loginForm";
 import {NewUserForm} from "../helpers/components/newUserForm";
 

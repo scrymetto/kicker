@@ -4,6 +4,7 @@ import {submitForm} from "../submitForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_login} from "../../components/form/__validationSchema/form__validationSchema_login";
 import {Popup} from "../../components/popup/popup";
+import {prepareDataForRequest} from "../prepareDataForRequest";
 
 export const Login = ({className}) => {
     let template = ['email', 'password'];
@@ -16,7 +17,8 @@ export const Login = ({className}) => {
         setAuthToken(token)
     };
     let onSubmit = (values) => {
-        submitForm(values, template, '/', onSuccess, onError);
+        let data = prepareDataForRequest(template, values);
+        submitForm(data, '/', onSuccess, onError);
     };
 
     return (<Fragment>
