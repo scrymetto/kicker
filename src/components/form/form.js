@@ -9,10 +9,17 @@ import './__field/__field.css';
 import '../text/text_error.css'
 
 export const Form = ({initial, input: inputs, validationSchema, onSubmit, ...props}) => {
+    let formikSubmit = (values, {setSubmitting, resetForm}) => {
+
+        onSubmit(values);
+        setSubmitting(true);
+        setTimeout(setSubmitting, 0, false);
+        setTimeout(resetForm, 0);
+    };
 
     return (
         <Formik initialValues={initial}
-                onSubmit={(values) => onSubmit(values)}
+                onSubmit={(values, {setSubmitting, resetForm}) =>formikSubmit(values, {setSubmitting, resetForm})}
                 validationSchema={validationSchema}>
             {({errors, touched, isSubmitting}) =>
                 (<FormikForm className='form'  {...props}>
