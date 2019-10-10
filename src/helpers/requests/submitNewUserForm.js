@@ -1,14 +1,11 @@
 import axios from "axios";
 
-export const submitForm = async (data, url, onSuccess, onError) => {
+export const submitNewUserForm = async (data, url, onSuccess, onError) => {
     try {
-        const response = await axios.get(url);
-        console.log(response.status)
+        const response = await axios.post(url, data);
         if (response.status >= 200 && response.status < 300) {
-            console.log('onSuccess')
             onSuccess(response.data)
         } else {
-            console.log('onError')
             onError(response.status)
         }
     } catch (e) {

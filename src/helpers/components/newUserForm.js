@@ -1,5 +1,5 @@
 import React, {Fragment, useState} from "react";
-import {submitForm} from "../submitForm";
+import {submitNewUserForm} from "../requests/submitNewUserForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_newUser} from "../../components/form/__validationSchema/form__validationSchema_newUser";
 import {Popup} from "../../components/popup/popup";
@@ -21,7 +21,7 @@ export const NewUserForm = ({className, endRegistration}) => {
 
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);
-        submitForm(data, '/', onSuccess, onError);
+        submitNewUserForm(data, '/', onSuccess, onError);
     };
 
     return (<Fragment>

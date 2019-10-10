@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from "react";
 import {useAuth} from "../auth&route/authContext";
-import {submitForm} from "../submitForm";
+import {submitNewUserForm} from "../requests/submitNewUserForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_login} from "../../components/form/__validationSchema/form__validationSchema_login";
 import {Popup} from "../../components/popup/popup";
@@ -18,7 +18,7 @@ export const Login = ({className}) => {
     };
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);
-        submitForm(data, '/', onSuccess, onError);
+        submitNewUserForm(data, '/', onSuccess, onError);
     };
 
     return (<Fragment>
