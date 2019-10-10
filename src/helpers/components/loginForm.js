@@ -18,6 +18,7 @@ export const Login = ({className}) => {
     };
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);
+        //TODO: not submitForm, getRooms!
         submitNewUserForm(data, '/', onSuccess, onError);
     };
 
