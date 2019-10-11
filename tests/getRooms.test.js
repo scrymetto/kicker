@@ -9,14 +9,19 @@ describe('getRooms()', () => {
             {name: 'Slytherin', players: ['Tom', 'Draco'], admin:'Tom'}
             ],
     };
+    const dataForRequest = {
+        login: 'Dumbledore',
+        password: 'red phoenix'
+    };
     let onError;
     beforeEach(()=>{
         onError = sinon.spy();
     });
     it('should return rooms if status OK', async () => {
-        axiosMock.get.mockResolvedValue({data: resolvedData, status: 200});
-        let rooms = await getRooms(onError);
+        axiosMock.get.returns({data: resolvedData, status: 200});
+        let rooms = await getRooms(dataForRequest, onError);
         console.log(rooms)
-        expect(rooms).to.be.equal(resolvedData)
+        expect(rooms).to.be.equal(resolvedData);
+        expect((axiosMock.get).calledOnce).to.equal(true)
     });
 });

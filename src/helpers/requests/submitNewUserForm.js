@@ -9,7 +9,6 @@ export const submitNewUserForm = async (data, url, onSuccess, onError) => {
             onError(response.status)
         }
     } catch (e) {
-        onError(e);
-        throw new Error(e)
+        onError(e.name);
     }
 };

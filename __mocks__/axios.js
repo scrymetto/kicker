@@ -1,4 +1,6 @@
+import sinon from "sinon";
+
 export default {
-    get: jest.fn(() => Promise.resolve({ data: {} }) ),
-    post: jest.fn(() => Promise.resolve({ data: {} }) )
+    get: sinon.stub().returns(Promise),
+    post: sinon.stub().returns(Promise)
 };
