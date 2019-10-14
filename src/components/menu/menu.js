@@ -6,10 +6,10 @@ import '../text/text_menu.css'
 
 function Menu(props) {
     let {logout, className} = props;
-    let {authToken} = useAuth();
+    let {user} = useAuth();
     let fullClassName = 'menu ' + className;
     return (
-        authToken ? (<ul className={fullClassName}>
+        user.login ? (<ul className={fullClassName}>
                 <li><p className='text text_menu'>Settings</p></li>
                 <li><p className='text text_menu' onClick={logout}>Logout</p></li>
             </ul>)

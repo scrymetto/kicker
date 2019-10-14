@@ -40,13 +40,23 @@ class LocalStorageMock {
 
 global.localStorage = new LocalStorageMock;
 
-const contextWithToken = {authToken:true, setAuthToken: function (s) {this.authToken = s}};
-const contextWithoutToken = {authToken:undefined, setAuthToken: function (s) {this.authToken = s}};
+const contextWithUser = {
+    user: {login: 'Dumbledore', password: 'red_phoenix99'},
+    setLoginAndPassword: function (s) {
+        this.user = s
+    }
+};
+const contextWithoutUser = {
+    user: {login: undefined, password: undefined},
+    setLoginAndPassword: function (s) {
+        this.user = s
+    }
+};
 
 export const Context = (props) => {
-    return <AuthContext.Provider value={contextWithToken}>{props.children}</AuthContext.Provider>
+    return <AuthContext.Provider value={contextWithUser}>{props.children}</AuthContext.Provider>
 };
 
 export const EmptyContext = (props) => {
-    return <AuthContext.Provider value={contextWithoutToken}>{props.children}</AuthContext.Provider>
+    return <AuthContext.Provider value={contextWithoutUser}>{props.children}</AuthContext.Provider>
 };

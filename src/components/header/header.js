@@ -14,7 +14,7 @@ export default function Header(props) {
     });
 
     let [menuIsOpen, changeMenuStatus] = useState(false);
-    let {setAuthToken} = useAuth();
+    let {setUser} = useAuth();
 
     let menuClassName = menuIsOpen ? 'menu_open' : 'menu_close';
     let headerClassName = props.className ? 'header ' + props.className : 'header';
@@ -24,7 +24,7 @@ export default function Header(props) {
         }
     };
 
-    let logoutFn = () => logout(setAuthToken, changeMenuStatus, false);
+    let logoutFn = () => logout(setUser, changeMenuStatus, false);
 
     return (
         props.className ? (

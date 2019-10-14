@@ -11,7 +11,7 @@ describe('Function sendRequest', () => {
     let resolvedData = {
         allYouNeed: 'towel'
     };
-    const errorMessage = 'Don\'t panic!';
+    const errorMessage = {message: 'Don\'t panic!'};
     let fn;
     let fnError;
     beforeEach(() => {
@@ -33,7 +33,7 @@ describe('Function sendRequest', () => {
         expect((axiosMock.post).resolvesArg(1).calledOnce).to.equal(true);
         expect(fn.calledOnce).to.equal(false);
         expect(fnError.calledOnce).to.equal(true);
-        expect(fnError.calledWith(errorMessage)).to.equal(true);
+        expect(fnError.calledWith(errorMessage.message)).to.equal(true);
     });
     it('should call error function if server status is NOT OK', async () => {
         axiosMock.post.resolves({resolvedData, status: 400});

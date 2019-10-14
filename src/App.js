@@ -11,22 +11,22 @@ import AuthRoute from "./helpers/auth&route/authRoute";
 
 function App (props) {
 
-    const [authToken, setAuthToken] = useState();
+    const [user, setUser] = useState({login: undefined, password: undefined});
 
-    useEffect(()=>{
-        let token = localStorage.getItem("token");
-        if (token) {
-            setAuthToken(token);
-        }
-    });
+    // useEffect(()=>{
+    //     let token = localStorage.getItem("token");
+    //     if (token) {
+    //         setAuthToken(token);
+    //     }
+    // });
 
-    const setToken = (data) => {
-        localStorage.setItem("token", JSON.stringify(data));
-        setAuthToken(data);
-    };
+    // const setToken = (loginAndPassword) => {
+    //     // localStorage.setItem("token", JSON.stringify(data));
+    //     setUser(loginAndPassword);
+    // };
 
     return (
-        <AuthContext.Provider value={{authToken, setAuthToken: setToken}}>
+        <AuthContext.Provider value={{user, setUser}}>
             <Header className="header_main" text="Let's play kicker!"/>
             <Router>
                 <div className="App">

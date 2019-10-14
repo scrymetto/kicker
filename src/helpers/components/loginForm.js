@@ -9,12 +9,12 @@ import {prepareDataForRequest} from "../prepareDataForRequest";
 export const Login = ({className}) => {
     let template = ['email', 'password'];
     let [error, setError] = useState(false);
-    let {setAuthToken} = useAuth();
+    let {setUser} = useAuth();
     let onError = (e) => {
-        setError(e.message)
+        setError(e)
     };
-    let onSuccess = (token) => {
-        setAuthToken(token)
+    let onSuccess = (loginAndPassword) => {
+        setUser(loginAndPassword)
     };
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);

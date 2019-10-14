@@ -9,6 +9,7 @@ export const submitNewUserForm = async (data, url, onSuccess, onError) => {
             onError(response.status)
         }
     } catch (e) {
-        onError(e.name);
+        console.log(e)
+        onError(e.message);
     }
 };
