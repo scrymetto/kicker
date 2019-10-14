@@ -9,7 +9,7 @@ function Menu(props) {
     let {user} = useAuth();
     let fullClassName = 'menu ' + className;
     return (
-        user.login ? (<ul className={fullClassName}>
+        user.email ? (<ul className={fullClassName}>
                 <li><p className='text text_menu'>Settings</p></li>
                 <li><p className='text text_menu' onClick={logout}>Logout</p></li>
             </ul>)

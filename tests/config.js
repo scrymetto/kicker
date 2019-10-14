@@ -41,13 +41,13 @@ class LocalStorageMock {
 global.localStorage = new LocalStorageMock;
 
 const contextWithUser = {
-    user: {login: 'Dumbledore', password: 'red_phoenix99'},
+    user: {email: 'Dumbledore', password: 'red_phoenix99'},
     setLoginAndPassword: function (s) {
         this.user = s
     }
 };
 const contextWithoutUser = {
-    user: {login: undefined, password: undefined},
+    user: {email: undefined, password: undefined},
     setLoginAndPassword: function (s) {
         this.user = s
     }
