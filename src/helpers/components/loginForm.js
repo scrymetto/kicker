@@ -5,6 +5,7 @@ import {Form} from "../../components/form/form";
 import {validationSchema_login} from "../../components/form/__validationSchema/form__validationSchema_login";
 import {Popup} from "../../components/popup/popup";
 import {prepareDataForRequest} from "../prepareDataForRequest";
+import {getRooms} from "../requests/getRooms";
 
 export const Login = ({className}) => {
     let template = ['email', 'password'];
@@ -13,13 +14,12 @@ export const Login = ({className}) => {
     let onError = (e) => {
         setError(e)
     };
-    let onSuccess = (loginAndPassword) => {
-        setUser(loginAndPassword)
+    let onSuccess = (user) => {
+        setUser(user)
     };
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);
-        //TODO: not submitForm, getRooms!
-        submitNewUserForm(data, '/', onSuccess, onError);
+        getRooms(data, onSuccess, onError);
     };
 
     return (<Fragment>
