@@ -42,6 +42,5 @@ describe('Function sendRequest', () => {
         expect(fn.calledOnce).to.equal(false);
         expect(fnError.calledOnce).to.equal(true);
         expect(fnError.calledWith(400)).to.equal(true);
-
     });
 });

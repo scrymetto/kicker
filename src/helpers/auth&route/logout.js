@@ -1,5 +1,8 @@
-export const logout = (deleteToken, fn, attr) => {
-    deleteToken();
+export const logout = (deleteUser, fn, attr) => {
+    deleteUser({
+        login: undefined,
+        password: undefined
+    });
     localStorage.removeItem('token');
     fn(attr);
 };

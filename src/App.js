@@ -12,6 +12,7 @@ import AuthRoute from "./helpers/auth&route/authRoute";
 function App (props) {
 
     const [user, setUser] = useState({login: undefined, password: undefined});
+    console.log(user)
 
     // useEffect(()=>{
     //     let token = localStorage.getItem("token");

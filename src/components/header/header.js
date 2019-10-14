@@ -8,7 +8,7 @@ import {logout} from "../../helpers/auth&route/logout";
 
 export default function Header(props) {
 
-    useEffect(()=> {
+    useEffect(() => {
         document.addEventListener('click', changeMenuListener);
         return () => document.removeEventListener('click', changeMenuListener)
     });
@@ -31,7 +31,7 @@ export default function Header(props) {
             <div className={headerClassName}>
                 <p>{props.text}</p>
                 <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
-                <Menu className={menuClassName} logout = {logoutFn}/>
+                <Menu className={menuClassName} logout={logoutFn}/>
             </div>
         ) : (
             <div className={headerClassName}>
