@@ -27,7 +27,7 @@ describe('Function sendRequest', () => {
         expect(fn.calledWith(resolvedData)).to.equal(true);
         expect(fnError.calledOnce).to.equal(false)
     });
-    it('should trow exception server status is OK, BUT there is an error', async () => {
+    it('should trow exception if server status is OK, BUT there is an error', async () => {
         axiosMock.post.throws(errorMessage);
         await submitNewUserForm(data, url, fn, fnError);
         expect((axiosMock.post).resolvesArg(1).calledOnce).to.equal(true);

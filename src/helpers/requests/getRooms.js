@@ -1,20 +1,21 @@
 import axios from "axios";
 
-export const getRooms = async (data, onError) => {
+export const getRooms = async (data, onSuccess, onError) => {
+    const user = {
+        email: data.email,
+        password: data.password
+    };
     try {
         const rooms = await axios.get('/', {
-            params: {
-                login: data.login,
-                password: data.password
-            }
+            params: user
         });
         if (rooms.status >= 200 && rooms.status < 300) {
+            onSuccess(user);
             return rooms.data
         } else {
             onError(rooms.status)
         }
     } catch (e) {
-        onerror(e);
-        throw new Error(e)
+        onError(e.message);
     }
 };

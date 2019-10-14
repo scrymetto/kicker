@@ -1,27 +1,50 @@
+import React from "react";
+import sinon from "sinon";
+
 import axiosMock from "../__mocks__/axios";
 import {getRooms} from "../src/helpers/requests/getRooms";
-import sinon from "sinon";
 
 describe('getRooms()', () => {
     const resolvedData = {
         rooms: [
             {name: 'Gryffindor', players: ['Harry', 'Ron', 'Hermione'], admin: 'Harry'},
-            {name: 'Slytherin', players: ['Tom', 'Draco'], admin:'Tom'}
-            ],
+            {name: 'Slytherin', players: ['Tom', 'Draco'], admin: 'Tom'}
+        ],
     };
     const dataForRequest = {
-        login: 'Dumbledore',
-        password: 'red phoenix'
+        email: 'dumbledore@hogwarts.com',
+        password: 'red_phoenix99'
     };
-    let onError;
-    beforeEach(()=>{
+    const errorMessage = {message: 'Voldemort wins'};
+    let onError, onSuccess;
+    beforeEach(() => {
+        sinon.reset();
         onError = sinon.spy();
+        onSuccess = sinon.spy()
     });
     it('should return rooms if status OK', async () => {
-        axiosMock.get.returns({data: resolvedData, status: 200});
-        let rooms = await getRooms(dataForRequest, onError);
-        console.log(rooms)
+        axiosMock.get.resolves({data: resolvedData, status: 200});
+        let rooms = await getRooms(dataForRequest, onSuccess, onError);
         expect(rooms).to.be.equal(resolvedData);
-        expect((axiosMock.get).calledOnce).to.equal(true)
+        expect((axiosMock.get).calledOnce).to.equal(true);
+        expect(onSuccess.calledOnce).to.equal(true);
+        expect(onSuccess.calledWith(dataForRequest)).to.equal(true);
+        expect(onError.calledOnce).to.equal(false);
+    });
+    it('should trow exception if server status is OK, BUT there is an error', async () => {
+        axiosMock.get.throws(errorMessage);
+        await getRooms(dataForRequest, onSuccess, onError);
+        expect((axiosMock.get).calledOnce).to.equal(true);
+        expect(onSuccess.calledOnce).to.equal(false);
+        expect(onError.calledOnce).to.equal(true);
+        expect(onError.calledWith(errorMessage.message)).to.equal(true);
+    });
+    it('should call error function if server status is NOT OK', async () => {
+        axiosMock.get.resolves({resolvedData, status: 400});
+        let rooms = await getRooms(dataForRequest, onSuccess, onError);
+        expect((axiosMock.get).calledOnce).to.equal(true);
+        expect(onSuccess.calledOnce).to.equal(false);
+        expect(onError.calledOnce).to.equal(true);
+        expect(onError.calledWith(400)).to.equal(true);
     });
 });
