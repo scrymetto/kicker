@@ -15,7 +15,7 @@ export const Login = ({className}) => {
         setError(e)
     };
     let onSuccess = (user) => {
-        setUser(user)
+        setUser({token: user})
     };
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);

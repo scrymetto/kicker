@@ -4,14 +4,15 @@ import "./App.css";
 
 import {AuthContext} from "./helpers/auth&route/authContext"
 import {LoginPage} from "./pages/Login";
-import {Profile} from "./pages/Profile";
+import {Rooms} from "./pages/Rooms";
 import Header from "./components/header/header";
 import PrivateRoute from "./helpers/auth&route/privateRoute";
 import AuthRoute from "./helpers/auth&route/authRoute";
 
 function App (props) {
 
-    const [user, setUser] = useState({email: undefined, password: undefined});
+    const [user, setUser] = useState({token: undefined});
+    console.log(user)
 
     // useEffect(()=>{
     //     let token = localStorage.getItem("token");
@@ -31,7 +32,7 @@ function App (props) {
             <Router>
                 <div className="App">
                     <AuthRoute exact path="/login" component={LoginPage}/>
-                    <PrivateRoute path="/" component={Profile}/>
+                    <PrivateRoute path="/" component={Rooms}/>
                 </div>
             </Router>
         </AuthContext.Provider>

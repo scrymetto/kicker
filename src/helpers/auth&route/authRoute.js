@@ -7,7 +7,7 @@ export default function AuthRoute({component: Component, ...rest}) {
     return (
         <Route {...rest}
                render={(props) =>
-                   (user.email
+                   (user.token
                            ? <Redirect to="/"/>
                            : <Component {...props} />
                    )}
