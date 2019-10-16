@@ -1,6 +1,6 @@
 export const logout = (deleteUser, fn, attr) => {
     deleteUser({
-        token: undefined,
+        auth: undefined,
     });
     localStorage.removeItem('token');
     fn(attr);

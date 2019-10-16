@@ -11,7 +11,7 @@ export const NewUserForm = ({className, endRegistration}) => {
     let [success, setSuccess] = useState(false);
 
     let onError = (error) => {
-        setError(error.message);
+        setError(error);
     };
 
     let onSuccess = () => {
@@ -21,7 +21,8 @@ export const NewUserForm = ({className, endRegistration}) => {
 
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);
-        submitNewUserForm(data, '/', onSuccess, onError);
+        let error = submitNewUserForm(data, onSuccess, onError).then((e)=>console.log(e));
+        console.log(error)
     };
 
     return (<Fragment>
