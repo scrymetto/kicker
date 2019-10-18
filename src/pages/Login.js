@@ -7,9 +7,10 @@ import {Card} from "../components/card/card";
 import {Login} from "../helpers/components/loginForm";
 import {NewUserForm} from "../helpers/components/newUserForm";
 
-//TODO: now you can see login and password in Headers of GET-request, fix it!
+//TODO: you can see login and password in Base64 in header Authorisation!
 
 export const LoginPage = () => {
+
 
     const [displayLoginForm, setDisplayLoginForm] = useState(true);
 

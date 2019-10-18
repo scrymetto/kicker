@@ -1,13 +1,15 @@
 import React, {Fragment, useState} from "react";
 import {useAuth} from "../auth&route/authContext";
-import {submitNewUserForm} from "../requests/submitNewUserForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_login} from "../../components/form/__validationSchema/form__validationSchema_login";
 import {Popup} from "../../components/popup/popup";
 import {prepareDataForRequest} from "../requests/prepareDataForRequest";
 import {getRooms} from "../requests/getRooms";
+import {useGlobal} from "../../store";
 
 export const Login = ({className}) => {
+
+    let [globalState, globalActions] = useGlobal();
     let template = ['email', 'password'];
     let [error, setError] = useState(false);
     let {setUser} = useAuth();
@@ -18,8 +20,10 @@ export const Login = ({className}) => {
         setUser({auth: user})
     };
     let onSubmit = (values) => {
+        console.log('onSubmit works')
         let data = prepareDataForRequest(template, values);
-        getRooms(data, onSuccess, onError);
+        getRooms(data, onSuccess, onError)
+            .then((rooms) => globalActions.addRoomsFromServer(rooms));
     };
 
     return (<Fragment>

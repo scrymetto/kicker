@@ -9,9 +9,9 @@ import Header from "./components/header/header";
 import PrivateRoute from "./helpers/auth&route/privateRoute";
 import AuthRoute from "./helpers/auth&route/authRoute";
 
-function App (props) {
+function App(props) {
 
-    const [user, setUser] = useState({auth: {username:'blah', password: 'blahblah'}});
+    const [user, setUser] = useState({auth: undefined});
     // console.log(user)
 
     // useEffect(()=>{

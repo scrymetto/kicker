@@ -7,20 +7,18 @@ import {useGlobal} from "../store"
 export function Rooms() {
 
     let [globalState, globalActions] = useGlobal();
-    let newRoom = {name: 'yep', id:'123'};
+    // let rooms = globalState.state.rooms;
     console.log(globalState)
-    console.dir(globalActions)
-    let you = () => {
-        console.log('you');
-        globalActions.addNewRoom(newRoom);
+    let addNew = (room) => {
+        globalActions.addNewRoom(room)
     }
+    let room = {name: 'name'};
     return (
         <div className="App">
             <Card headerText='Your rooms'
                   render={() => (
                       <div>
-                          {/*listener: {newListener.blah}*/}
-                          <Button text='Hey' className='button' onClick={you}/>
+                          <Button text='Hey' className='button' onClick={() => addNew(room)}/>
                       </div>
                   )}
             />

@@ -6,7 +6,7 @@ export const getRooms = async (data, onSuccess, onError) => {
         const rooms = await axios.get('http://localhost:8080/room', {auth:auth});
         if (rooms.status >= 200 && rooms.status < 300) {
             onSuccess({username: data.email, password: data.password});
-            console.log(rooms.data)
+            // console.log(rooms.data)
             return rooms.data
         } else {
             onError(rooms.status)
