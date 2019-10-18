@@ -13,7 +13,8 @@ export const submitNewUserForm = async (data, onSuccess, onError) => {
             onError(response.status)
         }
     } catch (e) {
-        // console.log(e)
+        // let serverAnswer = JSON.parse(e.request.response)
+        // console.log(serverAnswer.message)
         onError(e.message);
     }
 };
