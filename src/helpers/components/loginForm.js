@@ -4,7 +4,7 @@ import {submitNewUserForm} from "../requests/submitNewUserForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_login} from "../../components/form/__validationSchema/form__validationSchema_login";
 import {Popup} from "../../components/popup/popup";
-import {prepareDataForRequest} from "../prepareDataForRequest";
+import {prepareDataForRequest} from "../requests/prepareDataForRequest";
 import {getRooms} from "../requests/getRooms";
 
 export const Login = ({className}) => {

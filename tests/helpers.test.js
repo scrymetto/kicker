@@ -2,7 +2,7 @@ import React from 'react';
 
 import {makeCamelCaseFromString} from "../src/helpers/makeCamelCaseFromString"
 import {makeFirstLetterUppercase} from "../src/helpers/makeFirstLetterUppercase"
-import {prepareDataForRequest} from "../src/helpers/prepareDataForRequest"
+import {prepareDataForRequest} from "../src/helpers/requests/prepareDataForRequest"
 
 describe('makeCamelCaseFromString', () => {
     it('should return correctly sentence with all letters', () => {

@@ -11,7 +11,7 @@ describe('getRooms()', () => {
             {name: 'Slytherin', players: ['Tom', 'Draco'], admin: 'Tom'}
         ],
     };
-    const dataForRequest = {
+    const user = {
         email: 'dumbledore@hogwarts.com',
         password: 'red_phoenix99'
     };
@@ -24,16 +24,16 @@ describe('getRooms()', () => {
     });
     it('should return rooms if status OK', async () => {
         axiosMock.get.resolves({data: resolvedData, status: 200});
-        let rooms = await getRooms(dataForRequest, onSuccess, onError);
+        let rooms = await getRooms(user, onSuccess, onError);
         expect(rooms).to.be.equal(resolvedData);
         expect((axiosMock.get).calledOnce).to.equal(true);
         expect(onSuccess.calledOnce).to.equal(true);
-        expect(onSuccess.calledWith(dataForRequest)).to.equal(true);
+        expect(onSuccess.calledWith({username:user.email, password: user.password})).to.equal(true);
         expect(onError.calledOnce).to.equal(false);
     });
     it('should trow exception if server status is OK, BUT there is an error', async () => {
         axiosMock.get.throws(errorMessage);
-        await getRooms(dataForRequest, onSuccess, onError);
+        await getRooms(user, onSuccess, onError);
         expect((axiosMock.get).calledOnce).to.equal(true);
         expect(onSuccess.calledOnce).to.equal(false);
         expect(onError.calledOnce).to.equal(true);
@@ -41,7 +41,7 @@ describe('getRooms()', () => {
     });
     it('should call error function if server status is NOT OK', async () => {
         axiosMock.get.resolves({resolvedData, status: 400});
-        let rooms = await getRooms(dataForRequest, onSuccess, onError);
+        let rooms = await getRooms(user, onSuccess, onError);
         expect((axiosMock.get).calledOnce).to.equal(true);
         expect(onSuccess.calledOnce).to.equal(false);
         expect(onError.calledOnce).to.equal(true);

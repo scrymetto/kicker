@@ -3,7 +3,7 @@ import {submitNewUserForm} from "../requests/submitNewUserForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_newUser} from "../../components/form/__validationSchema/form__validationSchema_newUser";
 import {Popup} from "../../components/popup/popup";
-import {prepareDataForRequest} from "../prepareDataForRequest";
+import {prepareDataForRequest} from "../requests/prepareDataForRequest";
 
 export const NewUserForm = ({className, endRegistration}) => {
     let template = ['login', 'email', 'password'];
