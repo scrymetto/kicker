@@ -1,0 +1,11 @@
+.paper {
+    box-sizing: border-box;
+    border: #bababa 1px solid;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: -2px -2px 5px 2px rgba(0,0,0,0.3);
+    padding: 7px;
+    margin: 10px;
+}
