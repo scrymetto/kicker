@@ -1,7 +1,7 @@
 .card {
     position: relative;
     box-sizing: border-box;
-    width: 75%;
+    width: 95%;
     min-width: 235px;
     margin: 10px auto;
     display: flex;
