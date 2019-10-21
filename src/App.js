@@ -11,7 +11,12 @@ import AuthRoute from "./helpers/auth&route/authRoute";
 
 function App(props) {
 
-    const [user, setUser] = useState({auth: undefined});
+    const [user, setUser] = useState({
+        auth: {
+            password: 'qwe',
+            username: 'qwe@qwe.qwe'
+        }
+    });
     // console.log(user)
 
     // useEffect(()=>{
