@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 
 function setState(newState) {
     this.state = {...this.state, ...newState};
-    console.dir(this.state)
     this.listeners.forEach(listener => listener(this.state))
 }
 
