@@ -18,7 +18,7 @@ export function Rooms() {
     let [globalState, globalActions] = useGlobal();
     let rooms = globalState.rooms;
     const {user} = useAuth();
-    let onError = (e) => console.log(e)
+    let onError = (e) => console.dir(e)
     let onSuccess = (rooms) => {
         globalActions.addRoomsFromServer(rooms);
     };
