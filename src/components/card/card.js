@@ -16,7 +16,7 @@ export function Card ({headerText, render, button_back, ...props}) {
 
 Card.propTypes = {
     headerText: PropTypes.string,
-    render: PropTypes.func,
+    render: PropTypes.func.isRequired,
     button_back: PropTypes.bool
 };
 
