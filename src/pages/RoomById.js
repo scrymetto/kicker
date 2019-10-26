@@ -1,18 +1,25 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {useGlobal} from "../store";
 import {Card} from "../components/card/card";
+import {Button} from "../components/button/button";
 
-export const RoomById = ({match}) => {
+export const RoomById = (props) => {
     //TODO: globalState can be undefined and it crash the app
     let [globalState, globalActions] = useGlobal();
-    console.log(globalState);
-    let room = globalState.rooms.find((room) => room.id === match.params.roomId);
-    console.log(room)
+    console.log(props);
+    let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
 
     return (
         <Card headerText={`Your games in ${room.name}`}
               render={() => {
-                  return <p>{room.name}</p>
+                  return (
+                      <Fragment>
+                          <p>{room.name}</p>
+                          <Button
+                              className='button button_back'
+                              onClick={props.history.goBack}/>
+                      </Fragment>
+                  )
               }}
         />
     )
