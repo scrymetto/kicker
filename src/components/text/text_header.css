@@ -1,5 +1,6 @@
 .text_header {
-    padding-left: 10px;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    color: #FFF;
+    font-family: 'Lacquer', sans-serif;
+    font-size: 2em;
+    margin: 5px;
 }

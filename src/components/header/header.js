@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './header.css'
+import '../text/text_header.css'
 import {Button} from "../button/button";
 import Menu from "../menu/menu";
 import {useAuth} from "../../helpers/auth&route/authContext";
@@ -29,13 +30,13 @@ export default function Header(props) {
     return (
         props.className ? (
             <div className={headerClassName}>
-                <p>{props.text}</p>
+                <p className='text_header'>{props.text}</p>
                 <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
                 <Menu className={menuClassName} logout={logoutFn}/>
             </div>
         ) : (
             <div className={headerClassName}>
-                <p>{props.text}</p>
+                <p className='text_header'>{props.text}</p>
             </div>
         )
     )
