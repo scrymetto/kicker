@@ -1,8 +1,8 @@
 .button {
     width: max-content;
-    background-color: #38c1db;
     margin: 5px;
     padding: 10px;
+    background-color: #38c1db;
     border: #38c1db solid 1px;
     box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 3px;
     border-radius: 15px;
