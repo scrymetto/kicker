@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 
 import {useGlobal} from "../store"
 import {useAuth} from "../helpers/auth&route/authContext";
 import {getRooms} from "../helpers/requests/getRooms";
-import '../App.css';
 import {Card} from "../components/card/card";
 import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
+import {NewRoomFrom} from "../helpers/components/newRoomForm";
+
+import '../components/button/button_new.css'
+import {postRooms} from "../helpers/requests/postRoom";
 
 export function Rooms(props) {
 
@@ -15,27 +18,43 @@ export function Rooms(props) {
         getRooms(user, onSuccess, onError)
             .then(() => setUploaded(true));
     }, []);
-    let [isUploaded, setUploaded] = useState(false);
+
+    const {user} = useAuth();
+
     let [globalState, globalActions] = useGlobal();
     let rooms = globalState.rooms;
-    const {user} = useAuth();
+
+    let [isUploaded, setUploaded] = useState(false);
+    let [isFormVisible, setFormVisible] = useState(false);
+
     let onError = (e) => console.dir(e)
     let onSuccess = (rooms) => {
         globalActions.addRoomsFromServer(rooms);
     };
-    let addNew = (room) => {
-        globalActions.addNewRoom(room)
-    }
-    let room = {
-        id: '123654',
-        name: 'name',
-        users: ['1', '2', '3'],
-        creatorId: '2'
+
+    let createNewRoom = () => {
+        setFormVisible(true)
     };
+
+    let onSubmitForm = (values) => {
+        postRooms(user, values, onSuccess, onError);
+        setFormVisible(false)
+    };
+
     return (
         <Card headerText='Your rooms'
               render={() => (
                   <div>
+                      {isFormVisible ?
+                          <Fragment>
+                              <NewRoomFrom onSubmit={onSubmitForm}/>
+                              <Button
+                                  className='button button_back'
+                                  onClick={() => {
+                                      setFormVisible(false)
+                                  }}/>
+                          </Fragment>
+                          : null}
                       {isUploaded ?
                           rooms.map(room => {
                               return (
@@ -48,7 +67,7 @@ export function Rooms(props) {
                               )
                           })
                           : null}
-                      <Button text='Hey' className='button' onClick={() => addNew(room)}/>
+                      <Button className='button button_new' onClick={createNewRoom}/>
                   </div>
               )}
         />

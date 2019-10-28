@@ -6,7 +6,6 @@ import {Button} from "../components/button/button";
 export const RoomById = (props) => {
     //TODO: globalState can be undefined and it crash the app
     let [globalState, globalActions] = useGlobal();
-    console.log(props);
     let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
 
     return (
@@ -18,6 +17,7 @@ export const RoomById = (props) => {
                           <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>
+                          <Button className='button button_new'/>
                       </Fragment>
                   )
               }}
