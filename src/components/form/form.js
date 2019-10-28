@@ -10,7 +10,6 @@ import '../text/text_error.css'
 
 export const Form = ({initial, input: inputs, validationSchema, onSubmit, ...props}) => {
     let formikSubmit = (values, {setSubmitting, resetForm}) => {
-
         onSubmit(values);
         setSubmitting(true);
         setTimeout(setSubmitting, 0, false);
@@ -34,4 +33,5 @@ Form.propTypes = {
     initial: PropTypes.object.isRequired,
     validationSchema: PropTypes.object.isRequired, // all inputs with Yup.object()
     input: PropTypes.array.isRequired, // [{key: type of input for Formik, value: name of input}, ...]
+    onSubmit: PropTypes.func.isRequired
 };

@@ -21,8 +21,7 @@ export const NewUserForm = ({className, endRegistration}) => {
 
     let onSubmit = (values) => {
         let data = prepareDataForRequest(template, values);
-        let error = submitNewUserForm(data, onSuccess, onError).then((e)=>console.log(e));
-        console.log(error)
+        submitNewUserForm(data, onSuccess, onError);
     };
 
     return (<Fragment>
