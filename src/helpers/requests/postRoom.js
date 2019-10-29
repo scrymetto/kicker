@@ -1,7 +1,6 @@
 import axios from "axios";
-import {getRooms} from "./getRooms";
 
-export const postRooms = async (user, name, onSuccess, onError) => {
+export const postRooms = async (user, name, onError) => {
 
     try {
         const request = await axios.post(
@@ -9,7 +8,7 @@ export const postRooms = async (user, name, onSuccess, onError) => {
             {name: name.name},
             {auth: user.auth});
         if (request.status >= 200 && request.status < 300) {
-            await getRooms({auth: user.auth}, onSuccess, onError)
+            return true
         } else {
             onError(request.status)
         }

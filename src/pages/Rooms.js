@@ -15,7 +15,7 @@ import {postRooms} from "../helpers/requests/postRoom";
 export function Rooms(props) {
 
     useEffect(() => {
-        getRooms(user, onSuccess, onError)
+        getRooms(user, getSuccess, onError)
             .then(() => setUploaded(true));
     }, []);
 
@@ -28,18 +28,23 @@ export function Rooms(props) {
     let [isFormVisible, setFormVisible] = useState(false);
 
     let onError = (e) => console.dir(e)
-    let onSuccess = (rooms) => {
+    let getSuccess = (rooms) => {
         globalActions.addRoomsFromServer(rooms);
     };
+
 
     let createNewRoom = () => {
         setFormVisible(true)
     };
 
     let onSubmitForm = (values) => {
-        postRooms(user, values, onSuccess, onError)
-            .then(()=> setFormVisible(false));
-
+        postRooms(user, values, onError)
+            .then((answer) => {
+                answer
+                    ? getRooms(user, getSuccess, onError)
+                    : onError('error')
+            })
+            .then(() => setFormVisible(false));
     };
 
     return (
