@@ -6,9 +6,11 @@ import {AuthContext} from "./helpers/auth&route/authContext"
 import {LoginPage} from "./pages/Login";
 import {Rooms} from "./pages/Rooms";
 import {RoomById} from "./pages/RoomById";
+import {Popup} from "./components/popup/popup";
 import Header from "./components/header/header";
 import PrivateRoute from "./helpers/auth&route/privateRoute";
 import AuthRoute from "./helpers/auth&route/authRoute";
+import {useGlobal} from "./store";
 
 function App (props) {
 
@@ -19,6 +21,12 @@ function App (props) {
             username: 'qwe@qwe.qwe'
         }
     });
+
+    let [globalState, globalActions] = useGlobal();
+    let error = globalState.isError;
+    console.log('error state '+error)
+
+
     // console.log(user)
 
     // useEffect(()=>{
@@ -43,6 +51,9 @@ function App (props) {
                     <PrivateRoute path={`/rooms/:roomId`} component={RoomById}/>
                 </div>
             </Router>
+            {error
+                ? <Popup className='popup popup_error' text={error}/>
+                : null}
         </AuthContext.Provider>
     );
 }

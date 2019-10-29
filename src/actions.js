@@ -8,3 +8,8 @@ export const addRoomsFromServer = (store, rooms) => {
     let roomsFromServer = {rooms: [...rooms]};
     store.setState(roomsFromServer)
 };
+
+export const setErrorState = (store, message) => {
+    store.setState({isError: message});
+    setTimeout(()=> store.setState({isError: false}), 10000)
+};

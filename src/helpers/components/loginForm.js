@@ -2,17 +2,19 @@ import React, {Fragment, useState} from "react";
 import {useAuth} from "../auth&route/authContext";
 import {Form} from "../../components/form/form";
 import {validationSchema_login} from "../../components/form/__validationSchema/form__validationSchema_login";
-import {Popup} from "../../components/popup/popup";
 import {prepareDataForRequest} from "../requests/prepareDataForRequest";
 import {loginRequest} from "../requests/loginRequest";
+import {useGlobal} from "../../store";
 
 export const Login = ({className}) => {
 
-    let template = ['email', 'password'];
-    let [error, setError] = useState(false);
+    let [globalState, globalActions] = useGlobal();
     let {setUser} = useAuth();
+
+    let template = ['email', 'password'];
+
     let onError = (e) => {
-        setError(e)
+        globalActions.setErrorState(e);
     };
     let onSuccess = (user) => {
         setUser({auth: user})
@@ -30,9 +32,6 @@ export const Login = ({className}) => {
                   validationSchema={validationSchema_login}
                   onSubmit={(values) => onSubmit(values)}
             />
-            {error
-                ? <Popup className='popup popup_error' text={error}/>
-                : null}
         </Fragment>
     )
 };

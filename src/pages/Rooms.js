@@ -4,13 +4,14 @@ import {Link} from "react-router-dom";
 import {useGlobal} from "../store"
 import {useAuth} from "../helpers/auth&route/authContext";
 import {getRooms} from "../helpers/requests/getRooms";
+import {postRooms} from "../helpers/requests/postRoom";
+
 import {Card} from "../components/card/card";
 import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
 import {NewRoomFrom} from "../helpers/components/newRoomForm";
 
 import '../components/button/button_new.css'
-import {postRooms} from "../helpers/requests/postRoom";
 
 export function Rooms(props) {
 
@@ -27,11 +28,11 @@ export function Rooms(props) {
     let [isUploaded, setUploaded] = useState(false);
     let [isFormVisible, setFormVisible] = useState(false);
 
-    let onError = (e) => console.dir(e)
+    let onError = (e) => globalActions.setErrorState(e);
+
     let getSuccess = (rooms) => {
         globalActions.addRoomsFromServer(rooms);
     };
-
 
     let createNewRoom = () => {
         setFormVisible(true)
