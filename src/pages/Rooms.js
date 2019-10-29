@@ -37,16 +37,17 @@ export function Rooms(props) {
     };
 
     let onSubmitForm = (values) => {
-        postRooms(user, values, onSuccess, onError);
-        setFormVisible(false)
+        postRooms(user, values, onSuccess, onError)
+            .then(()=> setFormVisible(false));
+
     };
 
     return (
         <Card headerText='Your rooms'
               render={() => (
                   <div>
-                      {isFormVisible ?
-                          <Fragment>
+                      {isFormVisible
+                          ? <Fragment>
                               <NewRoomFrom onSubmit={onSubmitForm}/>
                               <Button
                                   className='button button_back'
@@ -55,8 +56,8 @@ export function Rooms(props) {
                                   }}/>
                           </Fragment>
                           : null}
-                      {isUploaded ?
-                          rooms.map(room => {
+                      {isUploaded
+                          ? rooms.map(room => {
                               return (
                                   <Link key={room.id} to={`rooms/${room.id}`}>
                                       <Paper

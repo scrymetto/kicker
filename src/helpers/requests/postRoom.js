@@ -4,9 +4,12 @@ import {getRooms} from "./getRooms";
 export const postRooms = async (user, name, onSuccess, onError) => {
 
     try {
-        const request = await axios.post('http://localhost:8080/room', {name:name.name}, {auth:user.auth});
+        const request = await axios.post(
+            'http://localhost:8080/room',
+            {name: name.name},
+            {auth: user.auth});
         if (request.status >= 200 && request.status < 300) {
-            getRooms(user, onSuccess, onError)
+            await getRooms({auth: user.auth}, onSuccess, onError)
         } else {
             onError(request.status)
         }
