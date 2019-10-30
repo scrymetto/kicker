@@ -40,12 +40,11 @@ export function Rooms(props) {
 
     let onSubmitForm = (values) => {
         postRooms(user, values, onError)
-            .then((answer) => {
-                answer
-                    ? getRooms(user, getSuccess, onError)
-                    : onError('error')
+            .then(() => {
+                getRooms(user, getSuccess, onError)
+                    .then(() => setFormVisible(false))
             })
-            .then(() => setFormVisible(false));
+            .catch((e) => onError(e))
     };
 
     return (
