@@ -22,7 +22,7 @@ export const Form = ({initial, input: inputs, validationSchema, onSubmit, ...pro
                 validationSchema={validationSchema}>
             {({errors, touched, isSubmitting}) =>
                 (<FormikForm className='form'  {...props}>
-                    {inputs.map(input => renderInputFieldWithProps(input, errors, touched))}
+                    {inputs.map((input, index) => renderInputFieldWithProps(input, index, errors, touched))}
                     <Button text='Submit' type='submit' className='button' disabled={isSubmitting}/>
                 </FormikForm>)}
         </Formik>
