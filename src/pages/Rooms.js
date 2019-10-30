@@ -17,8 +17,10 @@ import {StubPaper} from "../components/paper/paper_stub";
 export function Rooms(props) {
 
     useEffect(() => {
-        setTimeout(()=>{getRooms(user, getSuccess, onError)
-            .then(() => setUploaded(true));}, 5000)
+        setTimeout(() => {
+            getRooms(user, getSuccess, onError)
+                .then(() => setUploaded(true));
+        }, 5000)
     }, []);
 
     const {user} = useAuth();
@@ -31,13 +33,9 @@ export function Rooms(props) {
 
     let onError = (e) => globalActions.setErrorState(e);
 
-    let getSuccess = (rooms) => {
-        globalActions.addRoomsFromServer(rooms);
-    };
+    let getSuccess = (rooms) => globalActions.addRoomsFromServer(rooms);
 
-    let createNewRoom = () => {
-        setFormVisible(true)
-    };
+    let createNewRoom = () => setFormVisible(true);
 
     let onSubmitForm = (values) => {
         postRooms(user, values, onError)
@@ -57,27 +55,26 @@ export function Rooms(props) {
                               <NewRoomFrom onSubmit={onSubmitForm}/>
                               <Button
                                   className='button button_back'
-                                  onClick={() => {
-                                      setFormVisible(false)
-                                  }}/>
+                                  onClick={() => {setFormVisible(false)}}/>
                           </Fragment>
                           : null}
                       {isUploaded
                           ? rooms.map(room => {
+                              let {id, users, name, creatorId} = room;
                               return (
-                                  <Link key={room.id} to={`rooms/${room.id}`}>
+                                  <Link key={id} to={`rooms/${id}`}>
                                       <Paper
-                                          players={room.users}
-                                          name={room.name}
-                                          admin={room.creatorId}/>
+                                          players={users}
+                                          name={name}
+                                          admin={creatorId}/>
                                   </Link>
                               )
                           })
-                          :<Fragment>
-                          <StubPaper/>
-                          <StubPaper/>
-                          <StubPaper/>
-                      </Fragment>}
+                          : <Fragment>
+                              {[1, 2, 3].map((number) => {
+                                  return <StubPaper key={number}/>
+                              })}
+                          </Fragment>}
                       <Button className='button button_new' onClick={createNewRoom}/>
                   </div>
               )}
