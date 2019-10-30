@@ -12,12 +12,13 @@ import {Button} from "../components/button/button";
 import {NewRoomFrom} from "../helpers/components/newRoomForm";
 
 import '../components/button/button_new.css'
+import {StubPaper} from "../components/paper/paper_stub";
 
 export function Rooms(props) {
 
     useEffect(() => {
-        getRooms(user, getSuccess, onError)
-            .then(() => setUploaded(true));
+        setTimeout(()=>{getRooms(user, getSuccess, onError)
+            .then(() => setUploaded(true));}, 5000)
     }, []);
 
     const {user} = useAuth();
@@ -72,7 +73,11 @@ export function Rooms(props) {
                                   </Link>
                               )
                           })
-                          : null}
+                          :<Fragment>
+                          <StubPaper/>
+                          <StubPaper/>
+                          <StubPaper/>
+                      </Fragment>}
                       <Button className='button button_new' onClick={createNewRoom}/>
                   </div>
               )}
