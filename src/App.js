@@ -2,10 +2,11 @@ import React, {useState, useEffect} from "react";
 import {BrowserRouter as Router} from "react-router-dom";
 import "./App.css";
 
-import {AuthContext} from "./helpers/auth&route/authContext"
-import {LoginPage} from "./pages/Login";
 import {Rooms} from "./pages/Rooms";
 import {RoomById} from "./pages/RoomById";
+
+import {AuthContext} from "./helpers/auth&route/authContext"
+import {LoginPage} from "./pages/Login";
 import {Popup} from "./components/popup/popup";
 import Header from "./components/header/header";
 import PrivateRoute from "./helpers/auth&route/privateRoute";

@@ -35,7 +35,7 @@ export const LoginPage = () => {
                 <Fragment>
                     <Login className={loginFormClassName}/>
                     <NewUserForm className={newUserFormClassName} endRegistration={endRegistration}/>
-                    <div className='container'>
+                    <div className='container margin_15'>
                         <p className='text text_link'
                            onClick={() => setDisplayLoginForm(!displayLoginForm)}>{text}</p>
                     </div>
