@@ -39,12 +39,4 @@ describe('getRooms()', () => {
         expect(onError.calledOnce).to.equal(true);
         expect(onError.calledWith(errorMessage.message)).to.equal(true);
     });
-    it('should call error function if server status is NOT OK', async () => {
-        axiosMock.get.resolves({resolvedData, status: 400});
-        let rooms = await getRooms(user, onSuccess, onError);
-        expect((axiosMock.get).calledOnce).to.equal(true);
-        expect(onSuccess.calledOnce).to.equal(false);
-        expect(onError.calledOnce).to.equal(true);
-        expect(onError.calledWith(400)).to.equal(true);
-    });
 });

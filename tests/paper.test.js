@@ -11,7 +11,7 @@ describe('Paper ', () => {
         expect(playersComponent.length).to.equal(1)
     });
     it('should render name of room', function () {
-        let nameParagraph = wrapper.findWhere(node => node.hasClass('text_header') && node.text() === name);
+        let nameParagraph = wrapper.findWhere(node => node.hasClass('text_paper__header') && node.text() === name);
         expect(nameParagraph.length).to.equal(1)
     });
     it('should render name of room', function () {

@@ -13,7 +13,8 @@ describe('Main header', () => {
         expect(wrapper.getDOMNode().className).to.equal('header header_main')
     });
     it('should contain correct paragraph', () => {
-        expect(wrapper.contains(<p>test</p>)).to.equal(true)
+        let text = wrapper.findWhere(node => node.hasClass('text_header') && node.text() === 'test');
+        expect(text.length).to.equal(1)
     });
     it('should contain button', () => {
         expect(wrapper.find(Button)).to.have.lengthOf(1)
@@ -41,7 +42,8 @@ describe('Card header', () => {
         expect(wrapper.hasClass('header'))
     });
     it('should contain correct paragraph', () => {
-        expect(wrapper.contains(<p>test</p>)).to.equal(true)
+        let text = wrapper.findWhere(node => node.hasClass('text_header') && node.text() === 'test');
+        expect(text.length).to.equal(1)
     });
     it('should not contain menu button', () => {
         expect(wrapper.find(Button)).to.have.lengthOf(0)
