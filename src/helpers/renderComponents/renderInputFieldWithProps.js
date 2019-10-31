@@ -10,12 +10,10 @@ export function renderInputFieldWithProps(input, index, errors, touched) {
     let inputClassName = (errors[name] && touched[name])
         ? 'form__field form__field_error'
         : 'form__field';
-    let autofocus = index === 0;
 
     return (<div key={placeholder}
                  className='form__field form__field__container'>
         <Field
-            autoFocus = {autofocus}
             className={inputClassName}
             type={type}
             name={name}

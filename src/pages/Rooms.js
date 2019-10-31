@@ -5,14 +5,16 @@ import {useGlobal} from "../store"
 import {useAuth} from "../helpers/auth&route/authContext";
 import {getRooms} from "../helpers/requests/getRooms";
 import {postRooms} from "../helpers/requests/postRoom";
+import {scrollToTop} from "../helpers/scrollToTop";
+
 
 import {Card} from "../components/card/card";
 import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
 import {NewRoomFrom} from "../helpers/components/newRoomForm";
+import {StubPaper} from "../components/paper/paper_stub";
 
 import '../components/button/button_new.css'
-import {StubPaper} from "../components/paper/paper_stub";
 
 export function Rooms(props) {
 
@@ -24,18 +26,19 @@ export function Rooms(props) {
     }, []);
 
     const {user} = useAuth();
+    let [isUploaded, setUploaded] = useState(false);
 
     let [globalState, globalActions] = useGlobal();
     let rooms = globalState.rooms;
-
-    let [isUploaded, setUploaded] = useState(false);
-    let [isFormVisible, setFormVisible] = useState(false);
-
     let onError = (e) => globalActions.setErrorState(e);
-
     let getSuccess = (rooms) => globalActions.addRoomsFromServer(rooms);
 
-    let createNewRoom = () => setFormVisible(true);
+
+    let [isFormVisible, setFormVisible] = useState(false);
+    let createNewRoom = () => {
+        scrollToTop();
+        setFormVisible(true)
+    };
 
     let onSubmitForm = (values) => {
         postRooms(user, values, onError)
@@ -55,7 +58,9 @@ export function Rooms(props) {
                               <NewRoomFrom onSubmit={onSubmitForm}/>
                               <Button
                                   className='button button_back'
-                                  onClick={() => {setFormVisible(false)}}/>
+                                  onClick={() => {
+                                      setFormVisible(false)
+                                  }}/>
                           </Fragment>
                           : null}
                       {isUploaded
