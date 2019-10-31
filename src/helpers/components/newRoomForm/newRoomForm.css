@@ -1,0 +1,42 @@
+.newRoomForm {
+    position: absolute;
+    left: 0;
+}
+.newRoomForm-appear {
+    left: -100%;
+}
+.newRoomForm-appear-active {
+    transition: left ease-in-out 300ms;
+    left: 0;
+}
+.newRoomForm-exit {
+    left: 0;
+}
+.newRoomForm-exit-active {
+    left: -100%;
+    transition: left ease-in-out 300ms;
+}
+.newRoomForm-exit-done {
+    left: -100%;
+}
+
+.button_animation {
+    opacity: 100%;
+}
+.button_animation-appear {
+    opacity: 0;
+}
+.button_animation-appear-active {
+    transition: opacity ease-in-out 300ms;
+    opacity: 100%;
+}
+.button_animation-exit {
+    opacity: 100%;
+}
+.button_animation-exit-active {
+    opacity: 0;
+    transition: opacity ease-in-out 300ms;
+}
+.button_animation-exit-done {
+    opacity: 0;
+}

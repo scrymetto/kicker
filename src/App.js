@@ -25,7 +25,7 @@ function App (props) {
 
     let [globalState, globalActions] = useGlobal();
     let error = globalState.isError;
-    console.log('error state '+error)
+    // console.log('error state '+error)
 
 
     // console.log(user)

@@ -1,19 +1,20 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
+import {CSSTransition} from "react-transition-group";
 
 import {useGlobal} from "../store"
 import {useAuth} from "../helpers/auth&route/authContext";
 import {getRooms} from "../helpers/requests/getRooms";
 import {postRooms} from "../helpers/requests/postRoom";
+
+
 import {scrollToTop} from "../helpers/scrollToTop";
-
-
 import {Card} from "../components/card/card";
 import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
-import {NewRoomFrom} from "../helpers/components/newRoomForm";
-import {StubPaper} from "../components/paper/paper_stub";
+import {NewRoomFrom} from "../helpers/components/newRoomForm/newRoomForm";
 
+import {StubPaper} from "../components/paper/paper_stub";
 import '../components/button/button_new.css'
 
 export function Rooms(props) {
@@ -22,7 +23,7 @@ export function Rooms(props) {
         setTimeout(() => {
             getRooms(user, getSuccess, onError)
                 .then(() => setUploaded(true));
-        }, 5000)
+        }, 1000)
     }, []);
 
     const {user} = useAuth();
@@ -52,16 +53,9 @@ export function Rooms(props) {
     return (
         <Card headerText='Your rooms'
               render={() => (
-                  <div>
+                  <Fragment>
                       {isFormVisible
-                          ? <Fragment>
-                              <NewRoomFrom onSubmit={onSubmitForm}/>
-                              <Button
-                                  className='button button_back'
-                                  onClick={() => {
-                                      setFormVisible(false)
-                                  }}/>
-                          </Fragment>
+                          ? <NewRoomFrom onSubmit={onSubmitForm} setFormVisible={setFormVisible}/>
                           : null}
                       {isUploaded
                           ? rooms.map(room => {
@@ -81,7 +75,7 @@ export function Rooms(props) {
                               })}
                           </Fragment>}
                       <Button className='button button_new' onClick={createNewRoom}/>
-                  </div>
+                  </Fragment>
               )}
         />
     )
