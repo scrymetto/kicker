@@ -8,8 +8,9 @@ import {Players} from '../players/players'
 
 export const Paper = (props) => {
     const {admin, name, players} = props;
+    let className = props.className ? props.className : 'paper';
     return (
-        <div className='paper'>
+        <div className={className}>
             <p className='text text_additional'>Admin of this room: {admin}</p>
             <h2 className='text text_paper__header'>{name}</h2>
             <Players players={players}/>
@@ -20,5 +21,6 @@ export const Paper = (props) => {
 Paper.propTypes = {
     admin: PropTypes.string,
     name: PropTypes.string,
-    players: PropTypes.array
+    players: PropTypes.array,
+    className: PropTypes.string
 };

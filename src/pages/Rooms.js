@@ -13,9 +13,11 @@ import {Card} from "../components/card/card";
 import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
 import {NewRoomFrom} from "../helpers/components/newRoomForm/newRoomForm";
-
 import {StubPaper} from "../components/paper/paper_stub";
+
 import '../components/button/button_new.css'
+
+//TODO: change height of card if <NewRoomForm/> is open!
 
 export function Rooms(props) {
 
@@ -56,13 +58,18 @@ export function Rooms(props) {
                   <Fragment>
                       {isFormVisible
                           ? <NewRoomFrom onSubmit={onSubmitForm} setFormVisible={setFormVisible}/>
-                          : null}
+                          :
+                          <CSSTransition timeout={300} classNames='button_animation' in={!isFormVisible} appear={true}>
+                              <Button className='button button_new' onClick={createNewRoom}/>
+                          </CSSTransition>}
                       {isUploaded
                           ? rooms.map(room => {
                               let {id, users, name, creatorId} = room;
+                              let className = isFormVisible ? 'paper paper_marginForm' : 'paper';
                               return (
                                   <Link key={id} to={`rooms/${id}`}>
                                       <Paper
+                                          className={className}
                                           players={users}
                                           name={name}
                                           admin={creatorId}/>
@@ -74,7 +81,6 @@ export function Rooms(props) {
                                   return <StubPaper key={number}/>
                               })}
                           </Fragment>}
-                      <Button className='button button_new' onClick={createNewRoom}/>
                   </Fragment>
               )}
         />

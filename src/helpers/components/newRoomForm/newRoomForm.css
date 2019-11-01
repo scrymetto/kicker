@@ -1,42 +1,60 @@
-.newRoomForm {
+.newRoomForm_visible {
+    margin-top: calc(50px + 2em); /* 2em font-size, 2*5 text-padding, 2*10px header-padding, 10px header-bottom-margin, 10px form-margin*/
     position: absolute;
-    left: 0;
+    width: 100%;
+    top: 0;
+    opacity: 100%;
 }
-.newRoomForm-appear {
-    left: -100%;
+
+.newRoomForm_visible-appear {
+    top: -100%;
+    opacity: 0;
 }
-.newRoomForm-appear-active {
-    transition: left ease-in-out 300ms;
-    left: 0;
+
+.newRoomForm_visible-appear-active {
+    transition: all ease-in-out 300ms;
+    top: 0;
+    opacity: 100%;
 }
-.newRoomForm-exit {
-    left: 0;
+
+.newRoomForm_visible-exit {
+    top: 0;
+    opacity: 100%;
 }
-.newRoomForm-exit-active {
-    left: -100%;
-    transition: left ease-in-out 300ms;
+
+.newRoomForm_visible-exit-active {
+    top: -100%;
+    opacity: 0;
+    transition: all ease-in-out 300ms;
 }
-.newRoomForm-exit-done {
-    left: -100%;
+
+.newRoomForm_visible-exit-done {
+    opacity: 0;
+    top: -100%;
 }
 
 .button_animation {
     opacity: 100%;
 }
+
 .button_animation-appear {
     opacity: 0;
 }
+
 .button_animation-appear-active {
     transition: opacity ease-in-out 300ms;
     opacity: 100%;
 }
+
 .button_animation-exit {
     opacity: 100%;
 }
+
 .button_animation-exit-active {
     opacity: 0;
     transition: opacity ease-in-out 300ms;
 }
+
 .button_animation-exit-done {
     opacity: 0;
 }

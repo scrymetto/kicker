@@ -15,8 +15,9 @@ export const NewRoomFrom = ({onSubmit, setFormVisible}) => {
 
     return (
         <Fragment>
-            <CSSTransition timeout={300} classNames='newRoomForm' in={inProp} appear={true}>
-                <Form initial={{name: ''}}
+            <CSSTransition timeout={300} classNames='newRoomForm_visible' in={inProp} appear={true}>
+                <Form className='form newRoomForm_visible'
+                      initial={{name: ''}}
                       validationSchema={validationSchema_newRoom}
                       input={[{text: 'name'}]}
                       onSubmit={(values) => onFormSubmit(values)}/>
@@ -24,8 +25,10 @@ export const NewRoomFrom = ({onSubmit, setFormVisible}) => {
             <CSSTransition timeout={300} classNames='button_animation' in={inProp} appear={true}>
                 <Button
                     className='button button_back'
-                    onClick={() => {setInProp(false);
-                    setTimeout(setFormVisible, 300, false)}}/>
+                    onClick={() => {
+                        setInProp(false);
+                        setTimeout(setFormVisible, 300, false)
+                    }}/>
             </CSSTransition>
         </Fragment>
     )
