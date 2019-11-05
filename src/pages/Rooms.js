@@ -65,11 +65,10 @@ export function Rooms(props) {
                       {isUploaded
                           ? rooms.map(room => {
                               let {id, users, name, creatorId} = room;
-                              let className = isFormVisible ? 'paper paper_marginForm' : 'paper';
                               return (
                                   <Link key={id} to={`rooms/${id}`}>
                                       <Paper
-                                          className={className}
+                                          className='paper'
                                           players={users}
                                           name={name}
                                           admin={creatorId}/>

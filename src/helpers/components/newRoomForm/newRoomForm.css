@@ -1,6 +1,5 @@
 .newRoomForm_visible {
-    margin-top: calc(50px + 2em); /* 2em font-size, 2*5 text-padding, 2*10px header-padding, 10px header-bottom-margin, 10px form-margin*/
-    position: absolute;
+    position: relative;
     width: 100%;
     top: 0;
     opacity: 100%;
