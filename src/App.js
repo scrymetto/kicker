@@ -13,13 +13,13 @@ import PrivateRoute from "./helpers/auth&route/privateRoute";
 import AuthRoute from "./helpers/auth&route/authRoute";
 import {useGlobal} from "./store";
 
-function App (props) {
+function App(props) {
 
     const [user, setUser] = useState({
         // auth: undefined
         auth: {
-            password: 'qwe',
-            username: 'qwe@qwe.qwe'
+            password: 'asd',
+            username: 'asd@asd.asd'
         }
     });
 

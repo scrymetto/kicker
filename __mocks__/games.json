@@ -1,0 +1,47 @@
+[
+  {
+    "id": "string",
+    "gameScore": {
+      "firstTeam": {
+        "id": "string",
+        "players": [
+          {
+            "player": {
+              "id": "string",
+              "name": "string"
+            },
+            "function": "attacker/defender/solo"
+          },
+          {
+            "player": {
+              "id": "string",
+              "name": "string"
+            },
+            "function": "attacker/defender/solo"
+          }
+        ],
+        "points": "number"
+      },
+      "secondTeam": {
+        "id": "string",
+        "players": [
+          {
+            "player": {
+              "id": "string",
+              "name": "string"
+            },
+            "function": "attacker/defender/solo"
+          },
+          {
+            "player": {
+              "id": "string",
+              "name": "string"
+            },
+            "function": "attacker/defender/solo"
+          }
+        ],
+        "points": "number"
+      }
+    }
+  }
+]

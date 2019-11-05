@@ -21,15 +21,15 @@ import '../components/button/button_new.css'
 
 export function Rooms(props) {
 
+    const {user} = useAuth();
+    let [isUploaded, setUploaded] = useState(false);
+
     useEffect(() => {
         setTimeout(() => {
             getRooms(user, getSuccess, onError)
                 .then(() => setUploaded(true));
         }, 1000)
     }, []);
-
-    const {user} = useAuth();
-    let [isUploaded, setUploaded] = useState(false);
 
     let [globalState, globalActions] = useGlobal();
     let rooms = globalState.rooms;
