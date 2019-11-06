@@ -1,0 +1,12 @@
+.table {
+    margin-right: 50%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 85%;
+    background-color: #FFFFFF;
+    border: #d6d4d6 solid 1px;
+    box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
+    text-align: center;
+}

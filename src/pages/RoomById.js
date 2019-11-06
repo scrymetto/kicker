@@ -32,7 +32,9 @@ export const RoomById = (props) => {
               render={() => {
                   return (
                       <Fragment>
-                          <Table head={['team', 'score', 'team']} />
+                          <Table columns={['team', 'score', 'opponent']}
+                                 rows={[{team: 'hj', score: '5:0', opponent: 'ds'},
+                                     {team: 'hj', score: '5:2', opponent: 'ds'}]}/>
                           <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>

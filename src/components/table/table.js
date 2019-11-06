@@ -1,29 +1,43 @@
 import React, {Fragment} from 'react';
 import PropTypes from "prop-types";
 import {makeFirstLetterUppercase} from "../../helpers/makeFirstLetterUppercase";
+import {makeArrayFromObjAndTemplate} from "../../helpers/makeArrayFromObjAndTemplate";
+import './table.css'
 
 export const Table = (props) => {
-    const {head, dataCells} = props;
+    const {columns, rows} = props;
     return <Fragment>
-        <table>
+        <table className='table'>
             <thead>
             <tr>
-                {head && head.map((cell, index) => {
+                {columns.map((cell, index) => {
                     let capital = makeFirstLetterUppercase(cell);
                     return <th key={index}>{capital}</th>
                 })}
             </tr>
             </thead>
             <tbody>
-            {dataCells.map((data, index)=> {
-                let capital = makeFirstLetterUppercase(data);
-                return <td key={index}>{capital}</td>})}
+            {rows
+                ? rows.map((dataCells, index) => {
+                    let row = makeArrayFromObjAndTemplate(dataCells, columns);
+                    return <tr key={index}>
+                        {row.map((cell, index) => {
+                            let capital = makeFirstLetterUppercase(cell);
+                            return <td key={index}>{capital}</td>
+                        })}
+                    </tr>
+                })
+                : <tr>
+                    <td colSpan={columns.length}>
+                        &#128148;
+                    </td>
+                </tr>}
             </tbody>
         </table>
     </Fragment>
 };
 
 Table.Proptypes = {
-    head: PropTypes.arrayOf(PropTypes.string),
-    dataCells: PropTypes.arrayOf(PropTypes.string).isRequired
+    columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+    rows: PropTypes.arrayOf(PropTypes.object)
 };
