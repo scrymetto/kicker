@@ -9,7 +9,7 @@ export const Table = (props) => {
     return <Fragment>
         <table className='table'>
             <thead>
-            <tr>
+            <tr className='table table__columns'>
                 {columns.map((cell, index) => {
                     let capital = makeFirstLetterUppercase(cell);
                     return <th key={index}>{capital}</th>
@@ -20,7 +20,7 @@ export const Table = (props) => {
             {rows
                 ? rows.map((dataCells, index) => {
                     let row = makeArrayFromObjAndTemplate(dataCells, columns);
-                    return <tr key={index}>
+                    return <tr className='table table__rows' key={index}>
                         {row.map((cell, index) => {
                             let capital = makeFirstLetterUppercase(cell);
                             return <td key={index}>{capital}</td>
