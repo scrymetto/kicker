@@ -15,7 +15,6 @@ export const RoomById = (props) => {
     let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
     const {user} = useAuth();
     let [isUploaded, setUploaded] = useState(false);
-    console.log(globalState)
 
     useEffect(() => {
         setTimeout(() => {
@@ -26,15 +25,19 @@ export const RoomById = (props) => {
 
     let onError = (e) => globalActions.setErrorState(e);
     let getSuccess = (games) => globalActions.addGamesFromServer(games);
+    let columns = ['team', 'score', 'opponent'];
+    let rows = prepareGamesForTable(globalState.games, columns);
 
     return (
         <Card headerText={`Your games in ${room.name}`}
               render={() => {
                   return (
                       <Fragment>
-                          <Table columns={['team', 'score', 'opponent']}
-                                 rows={[{team: 'hj', score: '5:0', opponent: 'ds'},
-                                     {team: 'hj', score: '5:2', opponent: 'ds'}]}/>
+                          <Table columns={columns}
+                                 rows={rows}/>
+                          {!rows[0] && <div className='container margin_15'>
+                              <p className='text'>You haven’t played with anyone in this room yet. Let's create a new game!</p>
+                          </div>}
                           <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>
