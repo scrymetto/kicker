@@ -9,9 +9,9 @@ export const addRoomsFromServer = (store, rooms) => {
     store.setState(roomsFromServer)
 };
 
-export const setErrorState = (store, message) => {
-    store.setState({isError: message});
-    setTimeout(()=> store.setState({isError: false}), 10000)
+export const setPopup = (store, obj) => {
+    store.setState({popup: obj});
+    setTimeout(()=> store.setState({popup: {}}), 5000)
 };
 
 export const addGamesFromServer = (store, games) => {

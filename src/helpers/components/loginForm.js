@@ -14,7 +14,7 @@ export const Login = ({className}) => {
     let template = ['email', 'password'];
 
     let onError = (e) => {
-        globalActions.setErrorState(e);
+        globalActions.setPopup({error: e});
     };
     let onSuccess = (user) => {
         setUser({auth: user})

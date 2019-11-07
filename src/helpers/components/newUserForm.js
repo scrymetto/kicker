@@ -8,14 +8,13 @@ import {useGlobal} from "../../store";
 
 export const NewUserForm = ({className, endRegistration}) => {
     let template = ['login', 'email', 'password'];
-    let [success, setSuccess] = useState(false);
     let [globalState, globalActions] = useGlobal();
 
-    let onError = (e) => globalActions.setErrorState(e);
+    let onError = (e) => globalActions.setPopup({error: e});
 
     let onSuccess = () => {
         endRegistration();
-        setSuccess(true)
+        globalActions.setPopup({success: 'Success! Now you can log in.'});
     };
 
     let onSubmit = (values) => {
@@ -29,9 +28,5 @@ export const NewUserForm = ({className, endRegistration}) => {
               initial={{login: '', email: '', password: '', repeatThePassword: ''}}
               validationSchema={validationSchema_newUser}
               onSubmit={onSubmit}/>
-        {success
-            ? <Popup className='popup popup_success' text='Success! Now you can log in.' />
-            :null}
-
     </Fragment>)
 };

@@ -5,11 +5,15 @@ import {Button} from "../../../components/button/button";
 import {CSSTransition} from "react-transition-group";
 
 import './newRoomForm.css'
+import {useGlobal} from "../../../store";
 
 export const NewRoomFrom = ({onSubmit, setFormVisible}) => {
+
+    let [globalState, globalActions] = useGlobal();
     let [inProp, setInProp] = useState(true);
     let onFormSubmit = (values) => {
         onSubmit(values);
+        globalActions.setPopup({success:'Success! Now you can choose the new room!'});
         setInProp(false)
     };
 

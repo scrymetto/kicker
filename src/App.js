@@ -24,7 +24,9 @@ function App(props) {
     });
 
     let [globalState, globalActions] = useGlobal();
-    let error = globalState.isError;
+    let error = globalState.popup.error;
+    let success = globalState.popup.success;
+    let className = error ? 'popup popup_error' : success ? 'popup popup_success' : '';
     // console.log('error state '+error)
 
 
@@ -52,8 +54,8 @@ function App(props) {
                     <PrivateRoute path={`/rooms/:roomId`} component={RoomById}/>
                 </div>
             </Router>
-            {error
-                ? <Popup className='popup popup_error' text={error}/>
+            {error || success
+                ? <Popup className={className} text={error ? error : success}/>
                 : null}
         </AuthContext.Provider>
     );
