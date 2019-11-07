@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import './header.css'
 import '../text/text_header.css'
@@ -17,28 +17,29 @@ export default function Header(props) {
     let [menuIsOpen, changeMenuStatus] = useState(false);
     let {setUser} = useAuth();
 
-    let menuClassName = menuIsOpen ? 'menu_open' : 'menu_close';
     let headerClassName = props.className ? 'header ' + props.className : 'header';
     let changeMenuListener = (event) => {
         if (!event.target.closest('.menu') && (!event.target.closest('.button_menu')) && menuIsOpen) {
             changeMenuStatus(!menuIsOpen);
         }
     };
+    let status = menuIsOpen ? 'open' : 'close';
 
     let logoutFn = () => logout(setUser, changeMenuStatus, false);
 
     return (
-        props.className ? (
-            <div className={headerClassName}>
+        props.className
+            ? <Fragment>
+                <div className={headerClassName}>
+                    <p className='text_header'>{props.text}</p>
+                    <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
+                </div>
+                    <Menu status={status} logout={logoutFn}/>
+            </Fragment>
+
+            : <div className={headerClassName}>
                 <p className='text_header'>{props.text}</p>
-                <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
-                <Menu className={menuClassName} logout={logoutFn}/>
             </div>
-        ) : (
-            <div className={headerClassName}>
-                <p className='text_header'>{props.text}</p>
-            </div>
-        )
     )
 };
 
