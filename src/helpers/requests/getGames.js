@@ -9,22 +9,23 @@ export const getGames = async (user, roomId, onSuccess, onError) => {
                 "id": "0",
                 "firstTeam": {
                     "id": "0",
-                    "name": 'dfgh',
+                    // "name": '',
                     "players": [
                         {
-                            "player": {
-                                "id": "1",
-                                "name": "Vasja"
-                            },
+                            "id": "1",
+                            "name": "Vasja",
                             "function": "attacker"
                         },
                         {
-                            "player": {
-                                "id": "2",
-                                "name": "Kolja"
-                            },
+                            "id": "2",
+                            "name": "Kolja",
                             "function": "defender"
-                        }
+                        },
+                        {
+                            "id": "1",
+                            "name": "Vasja",
+                            "function": ""
+                        },
                     ],
                     "points": 8
                 },
@@ -33,13 +34,46 @@ export const getGames = async (user, roomId, onSuccess, onError) => {
                     "name": 'sdzfg',
                     "players": [
                         {
-                            "player": {
-                                "id": "3",
-                                "name": "Petja"
-                            },
+                            "id": "3",
+                            "name": "Petja",
                             "function": "solo"
                         },
-
+                    ],
+                    "points": 10
+                }
+            },
+            {
+                "id": "0",
+                "firstTeam": {
+                    "id": "0",
+                    "name": 'sgnj',
+                    "players": [
+                        {
+                            "id": "1",
+                            "name": "Vasja",
+                            "function": "attacker"
+                        },
+                        {
+                            "id": "2",
+                            "name": "Kolja",
+                            "function": "defender"
+                        },
+                        {
+                            "id": "1",
+                            "name": "Vasja",
+                            "function": ""
+                        },
+                    ],
+                    "points": 8
+                },
+                "secondTeam": {
+                    "id": "1",
+                    "players": [
+                        {
+                            "id": "3",
+                            "name": "Petja",
+                            "function": "solo"
+                        },
                     ],
                     "points": 10
                 }

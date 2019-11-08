@@ -1,73 +1,121 @@
-// export
-"use strict";
-// import {makeFirstLetterUppercase} from "./makeFirstLetterUppercase";
+import {prepareStringWithPlayers} from "./prepareStringWithPlayers";
 
-function makeFirstLetterUppercase (string) {
-    return string[0].toUpperCase() + string.slice(1)
-}
+export const prepareGamesForTable = (games) => {
 
-const prepareGamesForTable = (games, columns) => {
-    games.map((game) => {
-        console.log(game)
-        let {firstTeam, secondTeam}= game;
-        console.log(firstTeam)
-        let {name: firstTeamName, points: firstTeamScore} = firstTeam;
-        let {name: secondTeamName, points: secondTeamScore} = secondTeam;
-        let firstTeamPlayers = '';
-        firstTeam.players.forEach((player, index) => {
-            firstTeamPlayers += makeFirstLetterUppercase(player.name) + ' as ' + player.function;
-            if (index===firstTeam.players.length-2){
-                firstTeamPlayers+=' and '
-            } else if (index!==firstTeam.players.length-1) {
-                firstTeamPlayers+=', '
-            }
-        });
-        console.log(firstTeamPlayers)
+    return games.map((game) => {
+        let {firstTeam, secondTeam} = game;
+        let {name: firstTeamName = 'Unnamed team', points: firstTeamScore = '-'} = firstTeam;
+        let {name: secondTeamName = 'Unnamed team', points: secondTeamScore = '-'} = secondTeam;
+        let firstTeamPlayers = prepareStringWithPlayers(firstTeam.players);
+        let secondTeamPlayers = prepareStringWithPlayers(secondTeam.players);
+        let firstTeamCell = firstTeamName + ' (' + firstTeamPlayers + ')';
+        let secondTeamCell = secondTeamName + ' (' + secondTeamPlayers + ')';
+        let score = firstTeamScore + ':' + secondTeamScore;
+        return {
+            team: firstTeamCell,
+            score: score,
+            opponent: secondTeamCell
+        }
     })
 };
 
-let columns = ['team', 'score', 'opponent'];
-const games = [
-    {
-        "id": "0",
-        "firstTeam": {
-            "id": "0",
-            "name": 'dfgh',
-            "players": [
-                {
-                    "id": "1",
-                    "name": "Vasja",
-                    "function": "attacker"
-                },
-                {
-                    "id": "2",
-                    "name": "Kolja",
-                    "function": "defender"
-                },
-                {
-                    "id": "1",
-                    "name": "Vasja",
-                    "function": "attacker"
-                },
-            ],
-            "points": 8
-        },
-        "secondTeam": {
-            "id": "1",
-            "name": 'sdzfg',
-            "players": [
-                {
-                    "player": {
-                        "id": "3",
-                        "name": "Petja"
-                    },
-                    "function": "solo"
-                },
+// function makeFirstLetterUppercase(string) {
+//     return string[0].toUpperCase() + string.slice(1)
+// }
+//
+// const prepareStringWithPlayers = (array) => {
+//     let string = '';
+//     array.forEach((player, index) => {
+//         let playerFunction = player.function;
+//         if (playerFunction) {
+//             let article = player.function === 'attacker' ? ' an ' : ' a ';
+//             string += makeFirstLetterUppercase(player.name) + ' as' + article + player.function;
+//         } else string += makeFirstLetterUppercase(player.name);
+//         if (index === array.length - 2) {
+//             string += ' and '
+//         } else if (index !== array.length - 1) {
+//             string += ', '
+//         }
+//     });
+//     return string
+// };
 
-            ],
-            "points": 10
-        }
-    }
-];
-
-prepareGamesForTable(games, columns);
+// let columns = ['team', 'score', 'opponent'];
+// const games = [
+//     {
+//         "id": "0",
+//         "firstTeam": {
+//             "id": "0",
+//             "name": 'dfgh',
+//             "players": [
+//                 {
+//                     "id": "1",
+//                     "name": "Vasja",
+//                     "function": "attacker"
+//                 },
+//                 {
+//                     "id": "2",
+//                     "name": "Kolja",
+//                     "function": "defender"
+//                 },
+//                 {
+//                     "id": "1",
+//                     "name": "Vasja",
+//                     "function": ""
+//                 },
+//             ],
+//             "points": 8
+//         },
+//         "secondTeam": {
+//             "id": "1",
+//             "name": 'sdzfg',
+//             "players": [
+//                 {
+//                     "id": "3",
+//                     "name": "Petja",
+//                     "function": "solo"
+//                 },
+//             ],
+//             "points": 10
+//         }
+//     },
+//     {
+//         "id": "0",
+//         "firstTeam": {
+//             "id": "0",
+//             "name": 'dfgh',
+//             "players": [
+//                 {
+//                     "id": "1",
+//                     "name": "Vasja",
+//                     "function": "attacker"
+//                 },
+//                 {
+//                     "id": "2",
+//                     "name": "Kolja",
+//                     "function": "defender"
+//                 },
+//                 {
+//                     "id": "1",
+//                     "name": "Vasja",
+//                     "function": ""
+//                 },
+//             ],
+//             "points": 8
+//         },
+//         "secondTeam": {
+//             "id": "1",
+//             "name": 'sdzfg',
+//             "players": [
+//                 {
+//                     "id": "3",
+//                     "name": "Petja",
+//                     "function": "solo"
+//                 },
+//             ],
+//             "points": 10
+//         }
+//     }
+// ];
+//
+// prepareGamesForTable(games, columns);

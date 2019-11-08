@@ -7,6 +7,7 @@ import {Table} from "../components/table/table";
 import {useAuth} from "../helpers/auth&route/authContext";
 import {useGlobal} from "../store";
 import {getGames} from "../helpers/requests/getGames";
+import {prepareGamesForTable} from "../helpers/prepareGamesForTable";
 
 export const RoomById = (props) => {
     //TODO: globalState can be undefined and it crashes the app
@@ -26,7 +27,8 @@ export const RoomById = (props) => {
     let onError = (e) => globalActions.setErrorState(e);
     let getSuccess = (games) => globalActions.addGamesFromServer(games);
     let columns = ['team', 'score', 'opponent'];
-    let rows = prepareGamesForTable(globalState.games, columns);
+    let rows = prepareGamesForTable(globalState.games);
+    console.log(rows)
 
     return (
         <Card headerText={`Your games in ${room.name}`}
