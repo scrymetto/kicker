@@ -1,4 +1,6 @@
+import React, {Fragment} from 'react';
 import {prepareStringWithPlayers} from "./prepareStringWithPlayers";
+import '../components/text/text_oblique.css'
 
 export const prepareGamesForTable = (games) => {
 
@@ -8,8 +10,24 @@ export const prepareGamesForTable = (games) => {
         let {name: secondTeamName = 'Unnamed team', points: secondTeamScore = '-'} = secondTeam;
         let firstTeamPlayers = prepareStringWithPlayers(firstTeam.players);
         let secondTeamPlayers = prepareStringWithPlayers(secondTeam.players);
-        let firstTeamCell = firstTeamName + ' (' + firstTeamPlayers + ')';
-        let secondTeamCell = secondTeamName + ' (' + secondTeamPlayers + ')';
+        let firstTeamCell =
+            <Fragment>
+                <p className='text text_oblique'>
+                    {firstTeamName}
+                </p>
+                <p className='text text_additional'>
+                    {firstTeamPlayers}
+                </p>
+            </Fragment>;
+        let secondTeamCell =
+            <Fragment>
+                <p className='text text_oblique'>
+                    {secondTeamName}
+                </p>
+                <p className='text text_additional'>
+                    {secondTeamPlayers}
+                </p>
+            </Fragment>;
         let score = firstTeamScore + ':' + secondTeamScore;
         return {
             team: firstTeamCell,

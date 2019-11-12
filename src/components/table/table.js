@@ -22,8 +22,7 @@ export const Table = (props) => {
                     let row = makeArrayFromObjAndTemplate(dataCells, columns);
                     return <tr className='table table__rows' key={index}>
                         {row.map((cell, index) => {
-                            let capital = makeFirstLetterUppercase(cell);
-                            return <td key={index}>{capital}</td>
+                            return <td key={index}>{cell}</td>
                         })}
                     </tr>
                 })
