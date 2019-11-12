@@ -1,47 +1,61 @@
 [
   {
-    "id": "string",
-    "gameScore": {
-      "firstTeam": {
-        "id": "string",
-        "players": [
-          {
-            "player": {
-              "id": "string",
-              "name": "string"
-            },
-            "function": "attacker/defender/solo"
-          },
-          {
-            "player": {
-              "id": "string",
-              "name": "string"
-            },
-            "function": "attacker/defender/solo"
-          }
-        ],
-        "points": "number"
-      },
-      "secondTeam": {
-        "id": "string",
-        "players": [
-          {
-            "player": {
-              "id": "string",
-              "name": "string"
-            },
-            "function": "attacker/defender/solo"
-          },
-          {
-            "player": {
-              "id": "string",
-              "name": "string"
-            },
-            "function": "attacker/defender/solo"
-          }
-        ],
-        "points": "number"
-      }
+    "id": "Hundred Years' War: Edwardian phase",
+    "firstTeam": {
+      "id": "1",
+      "name": "Kingdom of England",
+      "players": [
+        {
+          "id": "3",
+          "name": "Edward III",
+          "function": "attacker"
+        }
+      ],
+      "points": 0
+    },
+    "secondTeam": {
+      "id": "0",
+      "name": "France",
+      "players": [
+        {
+          "id": "2",
+          "name": "Philip of France",
+          "function": "defender"
+        }
+      ],
+      "points": 1
+    }
+  },
+  {
+    "id": "Hundred Years' War: Caroline phase",
+    "firstTeam": {
+      "id": "0",
+      "name": "France",
+      "players": [
+        {
+          "id": "1",
+          "name": "Charles V",
+          "function": "attacker"
+        }
+      ],
+      "points": 2
+    },
+    "secondTeam": {
+      "id": "1",
+      "name": "Kingdom of England",
+      "players": [
+        {
+          "id": "3",
+          "name": "Edward III",
+          "function": "defender"
+        },
+        {
+          "id": "4",
+          "name": "Black Prince",
+          "function": "defender"
+        }
+      ],
+      "points": 0
     }
   }
 ]
