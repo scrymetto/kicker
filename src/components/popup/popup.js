@@ -7,6 +7,7 @@ import {Button} from "../button/button";
 
 export const Popup = ({text, className}) => {
     let [inProp, setInProp] = useState(true);
+
     let timer = setTimeout(setInProp, 5000, false);
 
     let closePopup = () => {

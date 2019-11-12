@@ -18,13 +18,11 @@ export const RoomById = (props) => {
     let [isUploaded, setUploaded] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
             getGames(user, room.id, getSuccess, onError)
                 .then(() => setUploaded(true));
-        }, 1000)
     }, []);
 
-    let onError = (e) => globalActions.setErrorState(e);
+    let onError = (e) => globalActions.setPopup({error: e});
     let getSuccess = (games) => globalActions.addGamesFromServer(games);
     let columns = ['team', 'score', 'opponent'];
     let rows = prepareGamesForTable(globalState.games);

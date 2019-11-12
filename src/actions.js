@@ -11,7 +11,7 @@ export const addRoomsFromServer = (store, rooms) => {
 
 export const setPopup = (store, obj) => {
     store.setState({popup: obj});
-    setTimeout(()=> store.setState({popup: {}}), 5000)
+    setTimeout(()=> store.setState({popup: {}}), 6000)
 };
 
 export const addGamesFromServer = (store, games) => {
