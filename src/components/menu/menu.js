@@ -13,11 +13,11 @@ function Menu(props) {
     return (
             <CSSTransition in={inProp} timeout={300} classNames='menu'>
                 {user.auth
-                    ?<ul className='menu'>
+                    ?<ul className='menu' test='menu'>
                         <li><p className='text text_menu'>Settings</p></li>
                         <li><p className='text text_menu' onClick={logout}>Logout</p></li>
                     </ul>
-                    :<ul className='menu'>
+                    :<ul className='menu' test='menu' test='menu'>
                         <li><p className='text text_menu'>Github repo</p></li>
                     </ul>
                 }
