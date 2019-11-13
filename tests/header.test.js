@@ -15,8 +15,8 @@ describe('Main header', () => {
     });
 
     it('should have class .header', () => {
-        let node = wrapper.findWhere(node => node.props().test === 'header');
-        expect(wrapper.findWhere(node => node.props().test === 'header').hasClass('header header_main')).to.equal(true)
+        let node = wrapper.find('[data-testid="header"]');
+        expect(node.hasClass('header header_main')).to.equal(true)
     });
     it('should contain correct paragraph', () => {
         let text = wrapper.findWhere(node => node.hasClass('text_header') && node.text() === 'test');

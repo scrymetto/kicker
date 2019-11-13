@@ -15,11 +15,11 @@ describe('Menu with empty context', () => {
     let logout = sinon.spy();
 
     it('should start animation, if status === \'open\'', () => {
-        let menu = wrapper.findWhere(node => node.props().test === 'menu').parent();
+        let menu = wrapper.find('[data-testid="menu"]').parent();
         expect(menu.props().in).to.equal(false);
     });
     it('should NOT start animation, if status === \'close\'', () => {
-        let menu = wrapper.findWhere(node => node.props().test === 'menu').parent();
+        let menu = wrapper.find('[data-testid="menu"]').parent();
         expect(menu.props().in).to.equal(false);
     });
     it('should NOT have \'log out\' button with empty context', () => {
@@ -37,11 +37,11 @@ describe('Menu with context', () => {
     });
     let logout = sinon.spy();
     it('should start animation, if status === \'open\'', () => {
-        let menu = wrapper.findWhere(node => node.props().test === 'menu').parent();
+        let menu = wrapper.find('[data-testid="menu"]').parent();
         expect(menu.props().in).to.equal(false);
     });
     it('should NOT start animation, if status === \'close\'', () => {
-        let menu = wrapper.findWhere(node => node.props().test === 'menu').parent();
+        let menu = wrapper.find('[data-testid="menu"]').parent();
         expect(menu.props().in).to.equal(false);
     });
     it('should have \'log out\' button with context', () => {

@@ -30,14 +30,14 @@ export default function Header(props) {
     return (
         props.className
             ? <Fragment>
-                <div className={headerClassName} test='header'>
+                <div className={headerClassName} data-testid='header'>
                     <p className='text_header'>{props.text}</p>
                     <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
                 </div>
                     <Menu status={status} logout={logoutFn}/>
             </Fragment>
 
-            : <div className={headerClassName} test='header'>
+            : <div className={headerClassName} data-testid='header'>
                 <p className='text_header'>{props.text}</p>
             </div>
     )
