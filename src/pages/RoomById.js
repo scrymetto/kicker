@@ -22,11 +22,16 @@ export const RoomById = (props) => {
                 .then(() => setUploaded(true));
     }, []);
 
-    let onError = (e) => globalActions.setPopup({error: e});
-    let getSuccess = (games) => globalActions.addGamesFromServer(games);
-    let columns = ['team', 'score', 'opponent'];
-    let rows = prepareGamesForTable(globalState.games);
-    console.log(rows)
+    const onError = (e) => globalActions.setPopup({error: e});
+    const getSuccess = (games) => globalActions.addGamesFromServer(games);
+    const columns = ['team', 'score', 'opponent'];
+    const rows = prepareGamesForTable(globalState.games);
+    const columnsStyles = new Map();
+    columnsStyles.set([1], {width:'50px'});
+    const styles = {
+        rows: {},
+        columns: columnsStyles,
+    };
 
     return (
         <Card headerText={`Your games in ${room.name}`}
@@ -34,7 +39,8 @@ export const RoomById = (props) => {
                   return (
                       <Fragment>
                           <Table columns={columns}
-                                 rows={rows}/>
+                                 rows={rows}
+                          styles={styles}/>
                           {!rows[0] && <div className='container margin_15'>
                               <p className='text'>You haven’t played with anyone in this room yet. Let's create a new game!</p>
                           </div>}
