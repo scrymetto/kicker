@@ -15,18 +15,18 @@ export const prepareGamesForTable = (games) => {
                 <p className='text text_oblique' data-testid='team'>
                     {firstTeamName}
                 </p>
-                <p className='text text_additional' data-testid='players'>
+                {firstTeamPlayers && <p className='text text_additional' data-testid='players'>
                     {firstTeamPlayers}
-                </p>
+                </p>}
             </Fragment>;
         let secondTeamCell =
             <Fragment>
                 <p className='text text_oblique' data-testid='opponent'>
                     {secondTeamName}
                 </p>
-                <p className='text text_additional' data-testid='players'>
+                {secondTeamPlayers && <p className='text text_additional' data-testid='players'>
                     {secondTeamPlayers}
-                </p>
+                </p>}
             </Fragment>;
         let score = <p className='text' data-testid='score'>{firstTeamScore} : {secondTeamScore}</p>;
         return {
