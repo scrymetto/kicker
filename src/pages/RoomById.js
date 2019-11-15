@@ -8,6 +8,7 @@ import {useAuth} from "../helpers/auth&route/authContext";
 import {useGlobal} from "../store";
 import {getGames} from "../helpers/requests/getGames";
 import {prepareGamesForTable} from "../helpers/prepareGamesForTable";
+import {prepareStylesForTable} from "../helpers/prepareStylesForTable";
 
 export const RoomById = (props) => {
     //TODO: globalState can be undefined and it crashes the app
@@ -18,8 +19,8 @@ export const RoomById = (props) => {
     let [isUploaded, setUploaded] = useState(false);
 
     useEffect(() => {
-            getGames(user, room.id, getSuccess, onError)
-                .then(() => setUploaded(true));
+        getGames(user, room.id, getSuccess, onError)
+            .then(() => setUploaded(true));
     }, []);
 
     const onError = (e) => globalActions.setPopup({error: e});
@@ -27,11 +28,11 @@ export const RoomById = (props) => {
     const columns = ['team', 'score', 'opponent'];
     const rows = prepareGamesForTable(globalState.games);
     const columnsStyles = new Map();
-    columnsStyles.set([1], {width:'50px'});
-    const styles = {
-        rows: {},
-        columns: columnsStyles,
-    };
+    columnsStyles.set([1], {width: '50px'})
+        .set([2, 0], {color: 'red'})
+        .set([2, 5], {color: 'red'})
+    const styles = prepareStylesForTable(columnsStyles)
+    console.log(styles)
 
     return (
         <Card headerText={`Your games in ${room.name}`}
@@ -40,9 +41,11 @@ export const RoomById = (props) => {
                       <Fragment>
                           <Table columns={columns}
                                  rows={rows}
-                          styles={styles}/>
+                                 //styles={styles}
+                              />
                           {!rows[0] && <div className='container margin_15'>
-                              <p className='text'>You haven’t played with anyone in this room yet. Let's create a new game!</p>
+                              <p className='text'>You haven’t played with anyone in this room yet. Let's create a new
+                                  game!</p>
                           </div>}
                           <Button
                               className='button button_back'
