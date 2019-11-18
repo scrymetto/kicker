@@ -1,8 +1,7 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment} from "react";
 import {submitNewUserForm} from "../requests/submitNewUserForm";
 import {Form} from "../../components/form/form";
 import {validationSchema_newUser} from "../../components/form/__validationSchema/form__validationSchema_newUser";
-import {Popup} from "../../components/popup/popup";
 import {prepareDataForRequest} from "../requests/prepareDataForRequest";
 import {useGlobal} from "../../store";
 

@@ -1,8 +1,9 @@
 export const prepareStylesForTable = (map) => {
     let styles = [];
     map.forEach((value, key) => {
-        key.forEach(cell => {
-            styles[cell] = styles[cell] ? Object.assign(styles[cell], value) : value
+        key.forEach(index => {
+            let newStyle = value;
+            styles[index] = styles[index] ? Object.assign(styles[index], newStyle) : Object.assign({}, newStyle);
         })
     });
     return styles
