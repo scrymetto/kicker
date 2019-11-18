@@ -26,6 +26,7 @@ export const RoomById = (props) => {
     const getSuccess = (games) => globalActions.addGamesFromServer(games);
     const columns = ['team', 'score', 'opponent'];
     const rows = prepareGamesForTable(globalState.games);
+    console.dir(rows);
     const columnsStyles = new Map();
     columnsStyles.set([1], {width: '50px'})
         .set([0, 2], {border: 'solid 2px'})
@@ -45,10 +46,6 @@ export const RoomById = (props) => {
                                  rows={rows}
                                  styles={styles}
                               />
-                          {!rows[0] && <div className='container margin_15'>
-                              <p className='text'>You haven’t played with anyone in this room yet. Let's create a new
-                                  game!</p>
-                          </div>}
                           <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>
