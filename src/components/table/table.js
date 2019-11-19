@@ -6,9 +6,9 @@ import './table.css'
 import {prepareStylesForTable} from "../../helpers/prepareStylesForTable";
 
 export const Table = (props) => {
-    const {columns, rows, styles} = props;
-    let columnsStyles = styles.columnsStyles ? prepareStylesForTable(styles.columnsStyles) : [];
-    let rowsStyles = styles.rowsStyles ? prepareStylesForTable(styles.rowsStyles) : [];
+    const {columns, rows, styles, text} = props;
+    const columnsStyles = styles ? styles.columnsStyles ? prepareStylesForTable(styles.columnsStyles) : [] : [];
+    const rowsStyles = styles ? styles.rowsStyles ? prepareStylesForTable(styles.rowsStyles) : [] : [];
 
     return <Fragment>
         <table className='table'>
@@ -39,23 +39,23 @@ export const Table = (props) => {
                 })
                 : <Fragment>
                     <tr>
-                        <td colSpan={columns.length}>
+                        <td colSpan={columns.length} data-testid='emptyRow'>
                             &#128148;
                         </td>
                     </tr>
-                    <div className='container margin_15'>
-                        <p className='text'>You haven’t played with anyone in this room yet. Let's create a new
-                            game!</p>
-                    </div>
                 </Fragment>}
             </tbody>
         </table>
+        {text && <div className='container margin_15' data-testid='helperText'>
+            <p className='text'>{text}</p>
+        </div>}
     </Fragment>
 };
 
 Table.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.string).isRequired,
     rows: PropTypes.arrayOf(PropTypes.object), //key = the string from Table.columns; value = React.element
+    text:PropTypes.string,
     styles: PropTypes.shape({
         columnsStyles: PropTypes.instanceOf(Map),
         rowsStyles: PropTypes.instanceOf(Map)
