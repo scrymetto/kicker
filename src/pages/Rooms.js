@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
 
 import {useGlobal} from "../store"
@@ -45,9 +45,9 @@ export function Rooms(props) {
 
     let onSubmitForm = (values) => {
         postRooms(user, values, onError)
-            .then(() => {
-                getRooms(user, getSuccess, onError)
-                    .then(() => setFormVisible(false))
+            .then((id) => {
+                setFormVisible(false);
+                return <Redirect to={`rooms/${id}`}/>
             })
             .catch((e) => onError(e))
     };

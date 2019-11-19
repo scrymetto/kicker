@@ -9,7 +9,6 @@ export function Card ({headerText, render, button_back, ...props}) {
         <div className='card'>
             <Header text={headerText}/>
             {render()}
-            {button_back && <Button className='button button_back'/>}
         </div>
     )
 }
@@ -17,6 +16,5 @@ export function Card ({headerText, render, button_back, ...props}) {
 Card.propTypes = {
     headerText: PropTypes.string,
     render: PropTypes.func.isRequired,
-    button_back: PropTypes.bool
 };
 
