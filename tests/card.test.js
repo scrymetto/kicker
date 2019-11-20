@@ -14,9 +14,6 @@ describe('Card', () => {
     it('should contain header', () => {
         expect(wrapper.contains(<Header/>)).to.equal(true)
     });
-    it('should have one button with class\'back\', if has prop button_back', () => {
-        expect(wrapper.contains(<Button className='button button_back'/>)).to.equal(true);
-    });
     it('should NOT have a button with class\'back\', if doesn\'t have prop button_back', () => {
         expect(wrapper2.contains(<Button className='button button_back'/>)).to.equal(false);
     });
