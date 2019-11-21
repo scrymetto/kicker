@@ -8,7 +8,7 @@ import {useAuth} from "../helpers/auth&route/authContext";
 import {useGlobal} from "../store";
 import {getGames} from "../helpers/requests/getGames";
 import {prepareGamesForTable} from "../helpers/prepareGamesForTable";
-import {Steppers} from "../components/stappers/steppers";
+import {Steppers} from "../helpers/components/stappers/steppers";
 
 export const RoomById = (props) => {
     //TODO: globalState can be undefined and it crashes the app
@@ -41,7 +41,7 @@ export const RoomById = (props) => {
                                  rows={rows}
                                  styles={styles}
                           />
-                          {form && <Steppers cancel={()=>setForm(false)} create={()=>setForm(false)}/>}
+                          {form && <Steppers cancel={()=>setForm(false)} submit={()=>setForm(false)}/>}
                           <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>
