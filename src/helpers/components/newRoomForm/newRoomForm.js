@@ -23,7 +23,7 @@ export const NewRoomFrom = ({onSubmit, setFormVisible}) => {
                 <Form className='form newRoomForm_visible'
                       initial={{name: ''}}
                       validationSchema={validationSchema_newRoom}
-                      input={[{text: 'name'}]}
+                      inputs={[{text: 'name'}]}
                       onSubmit={(values) => onFormSubmit(values)}/>
             </CSSTransition>
             <CSSTransition timeout={300} classNames='button_animation' in={inProp} appear={true}>

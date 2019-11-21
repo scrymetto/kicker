@@ -23,7 +23,7 @@ export const NewUserForm = ({className, endRegistration}) => {
 
     return (<Fragment>
         <Form className={className}
-              input={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat the password'}]}
+              inputs={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat the password'}]}
               initial={{login: '', email: '', password: '', repeatThePassword: ''}}
               validationSchema={validationSchema_newUser}
               onSubmit={onSubmit}/>

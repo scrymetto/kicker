@@ -27,7 +27,7 @@ export const Login = ({className}) => {
 
     return (<Fragment>
             <Form className={className}
-                  input={[{email: 'email'}, {password: 'password'}]}
+                  inputs={[{email: 'email'}, {password: 'password'}]}
                   initial={{email: '', password: ''}}
                   validationSchema={validationSchema_login}
                   onSubmit={(values) => onSubmit(values)}

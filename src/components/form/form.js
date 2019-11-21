@@ -8,12 +8,12 @@ import './form.css';
 import './__field/__field.css';
 import '../text/text_error.css'
 
-export const Form = ({initial, input: inputs, validationSchema, onSubmit, ...props}) => {
+//TODO: do we need setSubmitting()?
+
+export const Form = ({initial, inputs, validationSchema, onSubmit, ...props}) => {
     let formikSubmit = (values, {setSubmitting, resetForm}) => {
+        resetForm();
         onSubmit(values);
-        setSubmitting(true);
-        setTimeout(setSubmitting, 0, false);
-        setTimeout(resetForm, 0);
     };
 
     return (
@@ -30,8 +30,8 @@ export const Form = ({initial, input: inputs, validationSchema, onSubmit, ...pro
 };
 
 Form.propTypes = {
-    initial: PropTypes.object.isRequired,
+    initial: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
     validationSchema: PropTypes.object.isRequired, // all inputs with Yup.object()
-    input: PropTypes.array.isRequired, // [{key: type of input for Formik, value: name of input}, ...]
+    inputs: PropTypes.array.isRequired, // [{key: type of input for Formik, value: name of input}, ...]
     onSubmit: PropTypes.func.isRequired
 };

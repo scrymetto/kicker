@@ -10,15 +10,15 @@ describe('Form', () => {
         password: Yup.string()
     });
     let onSubmit = sinon.spy();
-    let input = [{text: 'login'}, {password: 'password'}];
+    let inputs = [{text: 'login'}, {password: 'password'}];
     let initial = {login: 'login', password: 'password'};
     let wrapper = mount(<Form validationSchema={validationSchema}
                               initial={initial}
-                              input={input}
+                              inputs={inputs}
                               onSubmit={onSubmit}
     />);
     it('should render inputs', () => {
-        expect(wrapper.find('input').length).to.equal(input.length)
+        expect(wrapper.find('input').length).to.equal(inputs.length)
     });
     it('should render submit button', () => {
         expect(wrapper.find('button').length).to.equal(1)
