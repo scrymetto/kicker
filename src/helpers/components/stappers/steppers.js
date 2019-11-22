@@ -18,7 +18,6 @@ export const Steppers = (props) => {
         [scoresForm, setScoresFormStatus]]);
     let currentStatus = states.getCurrent();
     const setNewStatus = (prevOrNext, values) => {
-        console.log(values)
         currentStatus.data[1](false);
         currentStatus = prevOrNext === 'next'
             ? currentStatus.next ? currentStatus.next : submit()
@@ -30,7 +29,10 @@ export const Steppers = (props) => {
         teamTwo: ''
     };
     const nameInput = [{string: 'team one'}, {string: 'team two'}]
-    const playersInput = [{select: 'team one', options: ['red', 'blue', 'orange']}, {select: 'team two', options: ['red', 'blue', 'orange']}]
+    const playersInput = [{
+        select: 'team one',
+        options: [{value: 'red', label: 'red'}, {value: 'blue', label: 'blue'}, {value: 'orange', label: 'orange'}]
+    }, {select: 'team two', options: [{value: 'red', label: 'red'}, {value: 'blue', label: 'blue'}, {value: 'orange', label: 'orange'}]}]
 
     return <Fragment>
         <Card headerText='Create a new game'
