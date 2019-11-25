@@ -13,7 +13,7 @@ export const NewRoomFrom = ({onSubmit, setFormVisible}) => {
     let [inProp, setInProp] = useState(true);
     let onFormSubmit = (values) => {
         onSubmit(values);
-        globalActions.setPopup({success:'Success! Now you can choose the new room!'});
+        globalActions.setPopup({success:'Success! Let\'s create a new game!'});
         setInProp(false)
     };
 
