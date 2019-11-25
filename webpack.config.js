@@ -40,6 +40,14 @@ module.exports = {
     devtool: "source-map",
     devServer: {
         historyApiFallback: true,
+        host: '192.168.1.100',
+        port: 8081,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                pathRewrite: {'^/api': ''}
+            },
+        }
     },
     plugins: [
         new HtmlWebPackPlugin({

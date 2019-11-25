@@ -4,10 +4,10 @@ export const postRooms = async (user, name, onError) => {
 
     try {
         const request = await axios.post(
-            'http://localhost:8080/room',
+            '/api/room',
             {name: name.name},
             {auth: user.auth});
-            return true
+            return request.data
     } catch (e) {
         //let serverAnswer = JSON.parse(e.request.response)
         onError(e.message);
