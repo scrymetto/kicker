@@ -5,6 +5,7 @@ import {Form} from "../../../components/form/form";
 
 import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
 import {validationSchema_newGame__name} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
+import Select from "react-select";
 
 export const Steppers = (props) => {
     const {cancel, submit} = props;
@@ -35,9 +36,17 @@ export const Steppers = (props) => {
     }, {select: 'team two', options: [{value: 'red', label: 'red'}, {value: 'blue', label: 'blue'}, {value: 'orange', label: 'orange'}]}]
 
     return <Fragment>
+        <Select
+            options={playersInput[0].options}
+            name={playersInput[0].select}
+            closeMenuOnSelect={false}
+            defaultValue={['']}
+            isMulti
+        />
         <Card headerText='Create a new game'
               render={() => {
                   return <Fragment>
+
                       {namesForm && <Form
                           initial={nameInitial}
                           inputs={nameInput}

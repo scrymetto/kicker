@@ -1,9 +1,25 @@
-import React from "react";
-import {Field} from "formik";
+import React, {Fragment} from "react";
+import {Field, useField} from "formik";
 import {makeCamelCaseFromString} from "../makeCamelCaseFromString";
 import {makeFirstLetterUppercase} from "../makeFirstLetterUppercase";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated'
+
+function SelectWithFormik(props) {
+    // this will return field props for an <input />
+    const [field, meta] = useField(props.name);
+    const animatedComponents = makeAnimated();
+    return (<>
+            <Select
+                className={props.className}
+                isMulti
+                options={props.options}
+                components={animatedComponents}
+            />
+            {meta.error && <div>{meta.error}</div>}
+        </>
+    );
+}
 
 export function renderInputFieldWithProps(input, errors, touched) {
     let props = {};
@@ -16,24 +32,24 @@ export function renderInputFieldWithProps(input, errors, touched) {
     let inputClassName = (errors[name] && touched[name])
         ? 'form__field form__field_error'
         : 'form__field';
-    const animatedComponents = makeAnimated();
 
 
     return (<div key={placeholder}
                  className='form__field form__field__container'>
         {props.as
-            ? <Select
-                closeMenuOnSelect={true}
-                isMulti
-                options={input.options}
-                components={animatedComponents}
-            />
-            : <Field
-                type={props.type}
+            ? <SelectWithFormik
                 className={inputClassName}
+                options={input.options}
                 name={name}
-                placeholder={placeholder}
-            />}
-        {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
+            />
+            : <>
+                <Field
+                    type={props.type}
+                    className={inputClassName}
+                    name={name}
+                    placeholder={placeholder}
+                />
+                {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
+            </>}
     </div>)
 }
