@@ -18,8 +18,8 @@ function App(props) {
     const [user, setUser] = useState({
         // auth: undefined
         auth: {
-            password: 'qwe',
-            username: 'qwe@qwe.qwe'
+            password: 'ert',
+            username: 'ert@ert.ert'
         }
     });
 

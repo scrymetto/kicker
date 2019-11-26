@@ -19,11 +19,10 @@ export default function Header(props) {
 
     let headerClassName = props.className ? 'header ' + props.className : 'header';
     let changeMenuListener = (event) => {
-        if (!event.target.closest('.menu') && (!event.target.closest('.button_menu')) && menuIsOpen) {
-            changeMenuStatus(!menuIsOpen);
+        if (!event.target.closest('.menu') &&  menuIsOpen) {
+            setTimeout(changeMenuStatus, 10000, false)
         }
     };
-    let status = menuIsOpen ? 'open' : 'close';
 
     let logoutFn = () => logout(setUser, changeMenuStatus, false);
 
@@ -32,9 +31,9 @@ export default function Header(props) {
             ? <Fragment>
                 <div className={headerClassName} data-testid='header'>
                     <p className='text_header'>{props.text}</p>
-                    <Button className='button button_menu' onClick={() => changeMenuStatus(!menuIsOpen)}/>
+                    <Button className='button button_menu' onClick={() => setTimeout(changeMenuStatus, 1000, !menuIsOpen)}/>
                 </div>
-                    <Menu status={status} logout={logoutFn}/>
+                {menuIsOpen && <Menu logout={logoutFn}/>}
             </Fragment>
 
             : <div className={headerClassName} data-testid='header'>

@@ -11,9 +11,9 @@
 }
 
 .newRoomForm_visible-appear-active {
-    transition: all ease-in-out 300ms;
     top: 0;
     opacity: 100%;
+    transition: all ease-in-out 300ms;
 }
 
 .newRoomForm_visible-exit {
@@ -28,8 +28,8 @@
 }
 
 .newRoomForm_visible-exit-done {
-    opacity: 0;
     top: -100%;
+    opacity: 0;
 }
 
 .button_animation {
