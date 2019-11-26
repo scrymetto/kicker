@@ -30,7 +30,8 @@ export function Rooms(props) {
                 .then(() => {
                     setUploaded({loading: false, error: false, done: true});
                 });
-        }, 1000)
+        }, 1000);
+        props.history.push(props.history.location)
     }, []);
 
     let [globalState, globalActions] = useGlobal();
@@ -70,26 +71,27 @@ export function Rooms(props) {
                           <CSSTransition timeout={300} classNames='button_animation' in={!isFormVisible} appear={true}>
                               <Button className='button button_new' onClick={createNewRoomForm}/>
                           </CSSTransition>}
-                      {isUploaded.done
-                          ? rooms.map(room => {
-                              let {id, users, name, creatorId} = room;
-                              return (
-                                  <Link key={id} to={`rooms/${id}`}>
-                                      <Paper
-                                          className='paper'
-                                          players={users}
-                                          name={name}
-                                          admin={creatorId}/>
-                                  </Link>
-                              )
-                          })
-                          : isUploaded.loading
-                              ? <Fragment>
-                                  {[1, 2, 3].map((number) => {
-                                      return <StubPaper key={number}/>
-                                  })}
-                              </Fragment>
-                              : <div className='text text_error'>Sorry, the server doesn't work. Please, try later.</div>}
+                      {isUploaded.done && rooms.map(room => {
+                          let {id, users, name, creatorId} = room;
+                          return <Link key={id} to={`rooms/${id}`}>
+                              <Paper
+                                  className='paper'
+                                  players={users}
+                                  name={name}
+                                  admin={creatorId}/>
+                          </Link>
+                      })}
+                      {isUploaded.done && !rooms[0] &&
+                      <div className='margin_15'><p className='text'>
+                          You don't have any room. Let's create the very first one!</p></div>}
+                      {isUploaded.loading && <Fragment>
+                          {[1, 2, 3].map((number) => {
+                              return <StubPaper key={number}/>
+                          })}
+                      </Fragment>}
+                      {isUploaded.error &&
+                      <div className='margin_15'><p className='text text_error'>Sorry, the server doesn't work. Please,
+                          try later.</p></div>}
                   </Fragment>
               )}
         />
