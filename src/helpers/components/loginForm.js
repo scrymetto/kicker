@@ -16,13 +16,14 @@ export const Login = ({className}) => {
     let onError = (e) => {
         globalActions.setPopup({error: e});
     };
-    let onSuccess = (user) => {
-        setUser({auth: user})
-    };
+
     let onSubmit = (values) => {
         // console.log('onSubmit works')
         let data = prepareDataForRequest(template, values);
-        loginRequest(data, onSuccess, onError)
+        loginRequest(data, onError)
+            .then(user => {
+                setUser({auth: user})
+            })
     };
 
     return (<Fragment>
