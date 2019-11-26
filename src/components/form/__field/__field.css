@@ -3,6 +3,9 @@
     padding: 5px 5px;
     border-radius: 5px;
     box-sizing: border-box;
+    height: 50px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: large;
 }
 
 .form__field__container {
@@ -11,7 +14,7 @@
     flex-direction: column;
     box-sizing: border-box;
     max-width: 220px;
-    height: 55px;
+    height: 70px;
 }
 
 .form__field_error {
