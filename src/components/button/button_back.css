@@ -1,5 +1,8 @@
 .button_back {
     position: fixed;
+    margin: 10px;
+    border-radius: 50%;
+    font-family: 'Inconsolata', monospace;
     left: 0;
     bottom: 0;
     width: 50px;
@@ -7,9 +10,10 @@
     background-color: #f04e26;
     color: #FFFFFF;
     border: #f04e26 solid 1px;
-    border-radius: 50%;
-    padding: 10px;
-    margin: 10px;
+}
+
+.button_back::before {
+    content: '\2190';
 }
 
 .button_back:hover {

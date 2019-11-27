@@ -11,6 +11,10 @@
     font-size: xx-large;
 }
 
+.button_menu::after {
+    content: '\2261';
+}
+
 .button_menu:hover {
     background-color: inherit;
     color: #38c1db;

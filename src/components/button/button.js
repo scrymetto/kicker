@@ -6,26 +6,13 @@ import "./button_menu.css"
 import "./button_close.css"
 import "./button_new.css"
 
-export function Button ({text, className, ...props}) {
+export function Button({text, className, ...props}) {
 
-        switch (className) {
-            case 'button button_back':
-                text = '←';
-                break;
-            case 'button button_menu':
-                text = '≡';
-                break;
-            case 'button button_close':
-                text = '+';
-                break;
-            case 'button button_new':
-                text = '+';
-                break
-        }
+    const content = text ? text : '';
 
-        return (
-            <button className={className} onClick={props.onClick} {...props}>{text}</button>
-        )
+    return (
+        <button className={className} onClick={props.onClick} {...props}>{text}</button>
+    )
 }
 
 Button.propTypes = {

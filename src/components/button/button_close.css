@@ -8,13 +8,15 @@
     box-shadow: none;
     border-radius: 0;
     font-family: 'Inconsolata', monospace;
-    transform: rotate(45deg);
     font-size: 1.5em;
+}
+
+.button_close::after {
+    content: '\2715';
 }
 
 .button_close:hover {
     background: rgba(0,0,0, 0.1);
     border-radius: 50%;
     cursor: pointer;
-    transform: rotate(45deg);
 }
