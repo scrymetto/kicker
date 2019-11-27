@@ -37,24 +37,27 @@ export function Rooms(props) {
     let [globalState, globalActions] = useGlobal();
     console.log(globalState)
     let rooms = globalState.rooms;
-    let onError = (e) => {
+    const onError = (e) => {
         setUploaded({loading: false, error: true, done: false});
         globalActions.setPopup({error: e})
     };
-    let getSuccess = (rooms) => globalActions.addRoomsFromServer(rooms);
+    const getSuccess = (rooms) => globalActions.addRoomsFromServer(rooms);
 
 
     let [isFormVisible, setFormVisible] = useState(false);
-    let createNewRoomForm = () => {
+    let [isFormOpening, openForm] = useState(false);
+
+    const createNewRoomForm = () => {
         scrollToTop();
-        setFormVisible(true)
+        setFormVisible(true);
+        openForm(true)
     };
 
-    let onSubmitForm = (values) => {
+    const onSubmitForm = (values) => {
         postRooms(user, values, onError)
             .then((data) => {
                 globalActions.addNewRoom(data);
-                setFormVisible(false);
+                goBack();
                 createNewRoom(data.id)
             })
             .then(()=>{
@@ -63,13 +66,18 @@ export function Rooms(props) {
             .catch((e) => onError(e))
     };
 
+    const goBack = () => {
+        openForm(false);
+        setTimeout(setFormVisible, 300, false);
+    };
+
     return (
         <Card headerText='Your rooms'
               render={() => (
                   <Fragment>
                       {newRoom && <Redirect to={`rooms/${newRoom}`}/>}
                       {isFormVisible
-                          ? <NewRoomFrom onSubmit={onSubmitForm} setFormVisible={setFormVisible}/>
+                          ? <NewRoomFrom onSubmit={onSubmitForm} goBack={goBack} status={isFormOpening}/>
                           :
                           <CSSTransition timeout={300} classNames='button_animation' in={!isFormVisible} appear={true}>
                               <Button className='button button_new' onClick={createNewRoomForm}/>
