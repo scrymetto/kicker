@@ -28,33 +28,34 @@ describe('Main header', () => {
     it('button should have class .button_menu', () => {
         expect(wrapper.find(Button).hasClass('button_menu')).to.equal(true)
     });
-    it('should contain menu', () => {
-        expect(wrapper.find(Menu)).to.have.lengthOf(1)
-    });
-    it('menu should have status \'close\'', () => {
-        expect(wrapper.find(Menu).props().status).to.equal('close')
-    });
-    it('click on button_menu should set/unset status \'open\' for menu', () => {
-        wrapper.find(Button).simulate('click');
-        expect(wrapper.find(Menu).props().status).to.equal('open');
-        wrapper.find(Button).simulate('click');
-        expect(wrapper.find(Menu).props().status).to.equal('close')
-    });
-});
-
-describe('Card header', () => {
-    let wrapper = mount(<Context><Header text="test"/></Context>);
-    it('should have class .header', () => {
-        expect(wrapper.hasClass('header'))
-    });
-    it('should contain correct paragraph', () => {
-        let text = wrapper.findWhere(node => node.hasClass('text_header') && node.text() === 'test');
-        expect(text.length).to.equal(1)
-    });
-    it('should not contain menu button', () => {
-        expect(wrapper.find(Button)).to.have.lengthOf(0)
-    });
-    it('should not contain menu', () => {
+    it('should NOT contain menu', () => {
         expect(wrapper.find(Menu)).to.have.lengthOf(0)
     });
+    it('click on button_menu should open/close menu', () => {
+        console.log(wrapper.debug())
+        wrapper.find(Button).simulate('click');
+        console.log(wrapper.debug())
+        expect(wrapper.find(Menu).props().status).to.equal(true);
+        wrapper.find(Button).simulate('click');
+        expect(wrapper.find(Menu)).to.have.lengthOf(1);
+        jest.runOnlyPendingTimers();
+        console.log(wrapper.debug())
+        expect(wrapper.find(Menu)).to.have.lengthOf(0);
+    });
 });
+    describe('Card header', () => {
+        let wrapper = mount(<Context><Header text="test"/></Context>);
+        it('should have class .header', () => {
+            expect(wrapper.hasClass('header'))
+        });
+        it('should contain correct paragraph', () => {
+            let text = wrapper.findWhere(node => node.hasClass('text_header') && node.text() === 'test');
+            expect(text.length).to.equal(1)
+        });
+        it('should not contain menu button', () => {
+            expect(wrapper.find(Button)).to.have.lengthOf(0)
+        });
+        it('should not contain menu', () => {
+            expect(wrapper.find(Menu)).to.have.lengthOf(0)
+        });
+    });

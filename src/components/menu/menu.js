@@ -25,7 +25,7 @@ function Menu(props) {
 }
 
 Menu.propTypes = {
-    className: PropTypes.string,
+    status: PropTypes.bool,
     logout: PropTypes.func
 };
 
