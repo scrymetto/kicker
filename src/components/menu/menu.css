@@ -38,9 +38,9 @@
 }
 
 .menu-exit-active {
+    transition: all ease-in-out 300ms;
     opacity: 0;
     top: -100%;
-    transition: all ease-in-out 800ms;
 }
 
 

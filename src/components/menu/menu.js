@@ -6,12 +6,12 @@ import '../text/text_menu.css'
 import {CSSTransition} from "react-transition-group";
 
 function Menu(props) {
-    let {logout} = props;
+    let {logout, status} = props;
     let {user} = useAuth();
-    // let inProp = status === 'open';
-    let [inProp, changeInProp] = useState(true);
+    // let inProp = status;
+    // let [inProp, changeInProp] = useState(true);
     return (
-            <CSSTransition in={inProp} timeout={300} classNames='menu' appear={true}>
+            <CSSTransition in={status} timeout={300} classNames='menu' appear={true}>
                 {user.auth
                     ?<ul className='menu' data-testid='menu'>
                         <li><p className='text text_menu'>Settings</p></li>
