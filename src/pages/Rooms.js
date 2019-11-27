@@ -57,6 +57,9 @@ export function Rooms(props) {
                 setFormVisible(false);
                 createNewRoom(data.id)
             })
+            .then(()=>{
+                globalActions.setPopup({success:'Success! Let\'s create a new game!'});
+            })
             .catch((e) => onError(e))
     };
 

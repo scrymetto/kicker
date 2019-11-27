@@ -6,7 +6,7 @@
 }
 
 .newRoomForm_visible-appear {
-    top: -100%;
+    top: -300px;
     opacity: 0;
 }
 
@@ -22,13 +22,13 @@
 }
 
 .newRoomForm_visible-exit-active {
-    top: -100%;
+    top: -300px;
     opacity: 0;
     transition: all ease-in-out 300ms;
 }
 
 .newRoomForm_visible-exit-done {
-    top: -100%;
+    top: -300px;
     opacity: 0;
 }
 
