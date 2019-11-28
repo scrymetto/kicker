@@ -2,7 +2,7 @@
     position: fixed;
     margin: 10px;
     border-radius: 50%;
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Lucida Console', 'Courier', monospace;
     left: 0;
     bottom: 0;
     width: 50px;
@@ -10,13 +10,15 @@
     background-color: #f04e26;
     color: #FFFFFF;
     border: #f04e26 solid 1px;
+    transform:rotate(180deg);
 }
 
 .button_back::before {
-    content: '\2190';
+    content: '\2794';
 }
 
 .button_back:hover {
     background-color: #CC2802;
     border-color: #CC2802;
+    transform:rotate(180deg);
 }
