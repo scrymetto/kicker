@@ -49,8 +49,8 @@ export function Rooms(props) {
 
     const createNewRoomForm = () => {
         scrollToTop();
+        openForm(true);
         setFormVisible(true);
-        openForm(true)
     };
 
     const onSubmitForm = (values) => {

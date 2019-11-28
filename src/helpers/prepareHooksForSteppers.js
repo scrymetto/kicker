@@ -4,7 +4,7 @@ function Hook(hook) {
     this.prev = null
 }
 
-function DoublyLinkedList(headNode, tailNode) {
+export function DoublyLinkedList(headNode, tailNode) {
     const head = Symbol('head');
     const tail = Symbol('tail');
 

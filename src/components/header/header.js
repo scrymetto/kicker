@@ -22,17 +22,17 @@ export default function Header(props) {
     const changeMenuListener = (event) => {
         if (!event.target.closest('.menu') &&  menuIsOpen) {
             changeMenuVisible(false);
-            setTimeout(changeMenuStatus, 500, false)
+            setTimeout(changeMenuStatus, 400, false)
         }
     };
 
     const buttonOnclick = () => {
         if (menuIsOpen) {
             changeMenuVisible(false);
-            setTimeout(changeMenuStatus, 500, false)
+            setTimeout(changeMenuStatus, 400, false)
         } else {
+            changeMenuStatus(true);
             changeMenuVisible(true);
-            changeMenuStatus(true)
         }
     };
 
@@ -45,7 +45,7 @@ export default function Header(props) {
                     <p className='text_header'>{props.text}</p>
                     <Button className='button button_menu' onClick={() => buttonOnclick()}/>
                 </div>
-                {menuIsOpen && <Menu logout={logoutFn} status={menuIsVisible}/>}
+                {menuIsOpen && <Menu logout={logoutFn} status={menuIsVisible} />}
             </Fragment>
 
             : <div className={headerClassName} data-testid='header'>

@@ -36,13 +36,7 @@ export const Steppers = (props) => {
     }, {select: 'team two', options: [{value: 'red', label: 'red'}, {value: 'blue', label: 'blue'}, {value: 'orange', label: 'orange'}]}]
 
     return <Fragment>
-        <Select
-            options={playersInput[0].options}
-            name={playersInput[0].select}
-            closeMenuOnSelect={false}
-            defaultValue={['']}
-            isMulti
-        />
+
         <Card headerText='Create a new game'
               render={() => {
                   return <Fragment>
