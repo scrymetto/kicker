@@ -1,4 +1,4 @@
-function Hook(hook) {
+export function Hook(hook) {
     this.next = null;
     this.data = hook;
     this.prev = null
@@ -24,7 +24,7 @@ export function DoublyLinkedList(headNode, tailNode) {
 export const prepareHooksForSteppers = (array) => {
 
     let listsNodes = [];
-    array.forEach((hook) => {
+    array.forEach((hook, index) => {
         listsNodes.push(new Hook(hook))
     });
     listsNodes.forEach((node, ind) => {
