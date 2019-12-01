@@ -5,7 +5,7 @@ import {Form} from "../../../components/form/form";
 
 import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
 import {validationSchema_newGame__name} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
-import Select from "react-select";
+import {validationSchema_newGame__scores} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 
 export const Steppers = (props) => {
     const {cancel, submit} = props;
@@ -13,27 +13,54 @@ export const Steppers = (props) => {
     const [playersForm, setPlayersFormStatus] = useState(false);
     const [scoresForm, setScoresFormStatus] = useState(false);
 
-    const states = prepareHooksForSteppers([
+    const [values, setValues] = useState(
+        {
+            names: {
+                teamOne: '',
+                teamTwo: ''
+            },
+            players: {
+                teamOne: [],
+                teamTwo: []
+            },
+            scores: {
+                teamOne: 0,
+                teamTwo: 0
+            }
+        }
+    );
+
+    const cards = prepareHooksForSteppers([
         [namesForm, setNamesFormStatus],
         [playersForm, setPlayersFormStatus],
         [scoresForm, setScoresFormStatus]]);
-    let currentStatus = states.getCurrent();
-    const setNewStatus = (prevOrNext, values) => {
-        currentStatus.data[1](false);
-        currentStatus = prevOrNext === 'next'
-            ? currentStatus.next ? currentStatus.next : submit()
-            : currentStatus.prev ? currentStatus.prev : cancel();
-        if (currentStatus) currentStatus.data[1](true)
-    };
-    const nameInitial = {
-        teamOne: '',
-        teamTwo: ''
+    let currentCard = cards.getCurrent();
+    console.log(values);
+    const setNewStatus = (prevOrNext, values, card) => {
+        if (values) {
+            let obj = {};
+            obj[card] = values;
+            setValues((prev) => Object.assign(prev, obj))
+        }
+
+        console.log(values)
+        currentCard.data[1](false);
+        currentCard = prevOrNext === 'next'
+            ? currentCard.next ? currentCard.next : submit()
+            : currentCard.prev ? currentCard.prev : cancel();
+        if (currentCard) currentCard.data[1](true);
     };
     const nameInput = [{string: 'team one'}, {string: 'team two'}]
+    const options = ['red', 'blue', 'orange'];
     const playersInput = [{
         select: 'team one',
-        options: [{value: 'red', label: 'red'}, {value: 'blue', label: 'blue'}, {value: 'orange', label: 'orange'}]
-    }, {select: 'team two', options: [{value: 'red', label: 'red'}, {value: 'blue', label: 'blue'}, {value: 'orange', label: 'orange'}]}]
+        options: options.map(i=>{ return {value:i, label: i}}),
+        values:[],
+    }, {
+        select: 'team two',
+        options: options.map(i=>{ return {value:i, label: i}}),
+        values:[]
+    }]
 
     return <Fragment>
 
@@ -42,22 +69,22 @@ export const Steppers = (props) => {
                   return <Fragment>
 
                       {namesForm && <Form
-                          initial={nameInitial}
+                          initial={values.names}
                           inputs={nameInput}
                           validationSchema={validationSchema_newGame__name}
-                          onSubmit={(values) => setNewStatus('next', values)}
+                          onSubmit={(values) => setNewStatus('next', values, 'names')}
                       />}
                       {playersForm && <Form
-                          initial={nameInitial}
+                          initial={values.names}
                           inputs={playersInput}
                           validationSchema={validationSchema_newGame__name}
-                          onSubmit={(values) => setNewStatus('next', values)}
+                          onSubmit={(values) => setNewStatus('next', values, 'players')}
                       />}
                       {scoresForm && <Form
-                          initial={nameInitial}
+                          initial={values.names}
                           inputs={nameInput}
-                          validationSchema={validationSchema_newGame__name}
-                          onSubmit={(values) => setNewStatus('next', values)}
+                          validationSchema={validationSchema_newGame__scores}
+                          onSubmit={(values) => setNewStatus('next', values, 'scores')}
                       />}
                       <button onClick={() => setNewStatus('next')}>next</button>
                       <button onClick={() => setNewStatus('prev')}>prev</button>

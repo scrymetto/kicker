@@ -35,7 +35,6 @@ export function Rooms(props) {
     }, []);
 
     let [globalState, globalActions] = useGlobal();
-    console.log(globalState)
     let rooms = globalState.rooms;
     const onError = (e) => {
         setUploaded({loading: false, error: true, done: false});
