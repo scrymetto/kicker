@@ -28,7 +28,8 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
                         input={input}
                         errors={props.errors}
                         touched={props.touched}
-                        setFieldValue={props.setFieldValue}/>
+                        setFieldValue={props.setFieldValue}
+                        value={initial[name]}/>
                     )}
                     <Button text='Submit' type='submit' className='button' disabled={props.isSubmitting}/>
                 </FormikForm>)
@@ -41,6 +42,6 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
 Form.propTypes = {
     initial: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
     validationSchema: PropTypes.object.isRequired, // all inputs with Yup.object()
-    inputs: PropTypes.array.isRequired, // [{key: type of input for Formik, value: name of input}, ...]
+    inputs: PropTypes.arrayOf(PropTypes.object).isRequired, // [{key: type of input for Formik, value: name of input}, ...]
     onSubmit: PropTypes.func.isRequired
 };

@@ -4,25 +4,11 @@ import {makeCamelCaseFromString} from "../../../helpers/makeCamelCaseFromString"
 import {makeFirstLetterUppercase} from "../../../helpers/makeFirstLetterUppercase";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated'
+import PropTypes from "prop-types";
 
-function SelectWithFormik(props) {
-    const [field, meta] = useField(props);
+export function CustomField({input, errors, touched, setFieldValue, value}) {
     const animatedComponents = makeAnimated();
-    return (<Fragment>
-            <Select
-                className={props.className}
-                isMulti
-                options={props.options}
-                components={animatedComponents}
-                name={props.name}
-                onChange={props.onChange}
-            />
-            {meta.error && <div>{meta.error}</div>}
-        </Fragment>
-    );
-}
-
-export function CustomField({input, errors, touched, setFieldValue}) {
+    console.log(value)
     let props = {};
     const type = Object.keys(input)[0];
     if (type === 'select') {
@@ -35,26 +21,42 @@ export function CustomField({input, errors, touched, setFieldValue}) {
         : 'form__field';
 
 
-    return (<div key={placeholder}
-                 className='form__field form__field__container'>
-        {props.as
-            ? <SelectWithFormik
-                className={inputClassName}
-                options={input.options}
-                name={name}
-                onChange={value => {
-                    setFieldValue(name, value.map(option => option.value))
-                }}
-            />
-            : <Fragment>
-                <Field
-                    type={props.type}
-                    className={inputClassName}
-                    name={name}
-                    placeholder={placeholder}
-                    onChange={event => setFieldValue(name, event.target.value)}
-                />
-                {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
-            </Fragment>}
-    </div>)
+    return (
+        <div className='form__field form__field__container'>
+
+            {props.as
+                ? <Fragment>
+                    <Select
+                        className={inputClassName + ' select'}
+                        classNamePrefix={'form__field'}
+                        options={input.options}
+                        name={name}
+                        value={value[name]}
+                        onChange={value => {
+                            setFieldValue(name, value)
+                        }}
+                        isMulti
+                        components={animatedComponents}
+                    />
+                    {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
+                </Fragment>
+                : <Fragment>
+                    <Field
+                        type={props.type}
+                        className={inputClassName}
+                        name={name}
+                        placeholder={placeholder}
+                        onChange={event => setFieldValue(name, event.target.value)}
+                    />
+                    {errors[name] && touched[name] && <p className='text text_error'>{errors[name]}</p>}
+                </Fragment>
+            }
+        </div>)
 }
+
+CustomField.propTypes = {
+    input: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
+    touched: PropTypes.object.isRequired, // all inputs with Yup.object()
+    setFieldValue: PropTypes.func.isRequired
+};

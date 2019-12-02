@@ -6,11 +6,12 @@ import {Form} from "../../../components/form/form";
 import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
 import {validationSchema_newGame__name} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 import {validationSchema_newGame__scores} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
+import {validationSchema_newGame__players} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 
 export const Steppers = (props) => {
     const {cancel, submit} = props;
-    const [namesForm, setNamesFormStatus] = useState(true);
-    const [playersForm, setPlayersFormStatus] = useState(false);
+    const [namesForm, setNamesFormStatus] = useState(false);
+    const [playersForm, setPlayersFormStatus] = useState(true);
     const [scoresForm, setScoresFormStatus] = useState(false);
 
     const [values, setValues] = useState(
@@ -20,7 +21,7 @@ export const Steppers = (props) => {
                 teamTwo: ''
             },
             players: {
-                teamOne: [],
+                teamOne: [{value:'red', label:'red'}],
                 teamTwo: []
             },
             scores: {
@@ -31,8 +32,8 @@ export const Steppers = (props) => {
     );
 
     const cards = prepareHooksForSteppers([
-        [namesForm, setNamesFormStatus],
         [playersForm, setPlayersFormStatus],
+        [namesForm, setNamesFormStatus],
         [scoresForm, setScoresFormStatus]]);
     let currentCard = cards.getCurrent();
     console.log(values);
@@ -51,16 +52,15 @@ export const Steppers = (props) => {
         if (currentCard) currentCard.data[1](true);
     };
     const nameInput = [{string: 'team one'}, {string: 'team two'}]
-    const options = ['red', 'blue', 'orange'];
+    const options = ['red', 'blue', 'orange', 'black', 'ftgyhifghjliulgfljgfdylutdkydrkyhdtrl,jhuft'];
     const playersInput = [{
         select: 'team one',
         options: options.map(i=>{ return {value:i, label: i}}),
-        values:[],
     }, {
         select: 'team two',
         options: options.map(i=>{ return {value:i, label: i}}),
-        values:[]
     }]
+
 
     return <Fragment>
 
@@ -68,18 +68,20 @@ export const Steppers = (props) => {
               render={() => {
                   return <Fragment>
 
+                      {playersForm && <Form
+                          initial={values.players}
+                          inputs={playersInput}
+                          validationSchema={validationSchema_newGame__players}
+                          onSubmit={(values) => setNewStatus('next', values, 'players')}
+                      />}
+
                       {namesForm && <Form
                           initial={values.names}
                           inputs={nameInput}
                           validationSchema={validationSchema_newGame__name}
                           onSubmit={(values) => setNewStatus('next', values, 'names')}
                       />}
-                      {playersForm && <Form
-                          initial={values.names}
-                          inputs={playersInput}
-                          validationSchema={validationSchema_newGame__name}
-                          onSubmit={(values) => setNewStatus('next', values, 'players')}
-                      />}
+
                       {scoresForm && <Form
                           initial={values.names}
                           inputs={nameInput}

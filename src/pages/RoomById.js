@@ -8,7 +8,7 @@ import {useAuth} from "../helpers/auth&route/authContext";
 import {useGlobal} from "../store";
 import {getGames} from "../helpers/requests/getGames";
 import {prepareGamesForTable} from "../helpers/prepareGamesForTable";
-import {Steppers} from "../helpers/components/stappers/steppers";
+import {Steppers} from "../helpers/components/steppers/steppers";
 
 export const RoomById = (props) => {
     //TODO: globalState can be undefined and it crashes the app
@@ -18,7 +18,13 @@ export const RoomById = (props) => {
             .then(() => setUploaded(true));
     }, []);
     let [globalState, globalActions] = useGlobal();
-    let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
+    // let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
+    let room = [{
+        creatorId: "5ddd145a7679161f53e091aa",
+        id: "5ddd23867679161f53e091ab",
+        name: "1",
+        users: ["5ddd145a7679161f53e091aa"]
+    }];
     const {user} = useAuth();
     let [isUploaded, setUploaded] = useState(false);
     let [form, setForm] = useState(false)

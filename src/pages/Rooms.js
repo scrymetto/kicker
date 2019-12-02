@@ -58,8 +58,8 @@ export function Rooms(props) {
                 globalActions.addNewRoom(data);
                 createNewRoom(data.id)
             })
-            .then(()=>{
-                globalActions.setPopup({success:'Success! Let\'s create a new game!'});
+            .then(() => {
+                globalActions.setPopup({success: 'Success! Let\'s create a new game!'});
             })
             .catch((e) => onError(e))
     };
