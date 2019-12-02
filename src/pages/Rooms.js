@@ -56,7 +56,6 @@ export function Rooms(props) {
         postRooms(user, values, onError)
             .then((data) => {
                 globalActions.addNewRoom(data);
-                goBack();
                 createNewRoom(data.id)
             })
             .then(()=>{

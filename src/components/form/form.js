@@ -10,7 +10,7 @@ import '../text/text_error.css'
 
 //TODO: do we need setSubmitting()?
 
-export const Form = ({initial, inputs, validationSchema, onSubmit, ...props}) => {
+export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) => {
     let formikSubmit = (values, {setSubmitting, resetForm}) => {
         resetForm();
         onSubmit(values);
@@ -19,11 +19,12 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...props}) =>
     return (
         <Formik initialValues={initial}
                 onSubmit={(values, {setSubmitting, resetForm}) => formikSubmit(values, {setSubmitting, resetForm})}
-                validationSchema={validationSchema}>
-            {({errors, touched, isSubmitting}) => {
-                return (<FormikForm className='form'>
-                    {inputs.map((input, index) => renderInputFieldWithProps(input, errors, touched))}
-                    <Button text='Submit' type='submit' className='button' disabled={isSubmitting}/>
+                validationSchema={validationSchema}
+                >
+            {(props) => {
+                return (<FormikForm className='form' {...other}>
+                    {inputs.map((input) => renderInputFieldWithProps(input, props.errors, props.touched, props.setFieldValue))}
+                    <Button text='Submit' type='submit' className='button' disabled={props.isSubmitting}/>
                 </FormikForm>)
             }}
         </Formik>

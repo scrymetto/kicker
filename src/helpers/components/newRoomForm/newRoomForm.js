@@ -8,10 +8,6 @@ import './newRoomForm.css'
 
 export const NewRoomFrom = ({onSubmit, goBack, status}) => {
 
-    let onFormSubmit = (values) => {
-        onSubmit(values);
-    };
-
     return (
         <Fragment>
             <CSSTransition timeout={300} classNames='newRoomForm_visible' in={status} appear={true}>
@@ -19,7 +15,7 @@ export const NewRoomFrom = ({onSubmit, goBack, status}) => {
                       initial={{name: ''}}
                       validationSchema={validationSchema_newRoom}
                       inputs={[{text: 'name'}]}
-                      onSubmit={(values) => onFormSubmit(values)}/>
+                      onSubmit={(values) => onSubmit(values)}/>
             </CSSTransition>
             <CSSTransition timeout={300} classNames='button_animation' in={status} appear={true}>
                 <Button

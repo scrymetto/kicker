@@ -7,23 +7,22 @@ import makeAnimated from 'react-select/animated'
 
 function SelectWithFormik(props) {
     const [field, meta] = useField(props);
-    console.dir(meta)
     const animatedComponents = makeAnimated();
     return (<Fragment>
             <Select
-                {...field}
                 className={props.className}
                 isMulti
                 options={props.options}
                 components={animatedComponents}
                 name={props.name}
+                onChange={props.onChange}
             />
             {meta.error && <div>{meta.error}</div>}
         </Fragment>
     );
 }
 
-export function renderInputFieldWithProps(input, errors, touched) {
+export function renderInputFieldWithProps(input, errors, touched, setFieldValue) {
     let props = {};
     const type = Object.keys(input)[0];
     if (type === 'select') {
@@ -43,6 +42,9 @@ export function renderInputFieldWithProps(input, errors, touched) {
                 className={inputClassName}
                 options={input.options}
                 name={name}
+                onChange={value => {
+                    setFieldValue(name, value.map(option => option.value))
+                }}
             />
             : <Fragment>
                 <Field
@@ -50,6 +52,7 @@ export function renderInputFieldWithProps(input, errors, touched) {
                     className={inputClassName}
                     name={name}
                     placeholder={placeholder}
+                    onChange={event => setFieldValue(name, event.target.value)}
                 />
                 {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
             </Fragment>}
