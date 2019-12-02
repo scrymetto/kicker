@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import {Field, useField} from "formik";
-import {makeCamelCaseFromString} from "../makeCamelCaseFromString";
-import {makeFirstLetterUppercase} from "../makeFirstLetterUppercase";
+import {makeCamelCaseFromString} from "../../../helpers/makeCamelCaseFromString";
+import {makeFirstLetterUppercase} from "../../../helpers/makeFirstLetterUppercase";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated'
 
@@ -22,7 +22,7 @@ function SelectWithFormik(props) {
     );
 }
 
-export function renderInputFieldWithProps(input, errors, touched, setFieldValue) {
+export function CustomField({input, errors, touched, setFieldValue}) {
     let props = {};
     const type = Object.keys(input)[0];
     if (type === 'select') {

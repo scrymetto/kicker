@@ -15,7 +15,7 @@ describe('prepareGamesForTable() ', () => {
         secondTeam: {}
     }]);
 
-    it('should return an obj with fields \'team\', \'score\', \'opponent\', count of elements in each field must be like count of games', () => {
+    it('should return an obj with CustomField \'team\', \'score\', \'opponent\', count of elements in each field must be like count of games', () => {
         component = mount(
             <div>
                 {games.map((game, index) =>
@@ -29,7 +29,7 @@ describe('prepareGamesForTable() ', () => {
         expect(opponent.length).to.equal(hundredYearsWar.length);
         expect(score.length).to.equal(hundredYearsWar.length);
     });
-    it('should return an obj with fields \'team\', \'score\', \'opponent\', even \'games\' don\'t have them', () => {
+    it('should return an obj with CustomField \'team\', \'score\', \'opponent\', even \'games\' don\'t have them', () => {
         component = mount(
             <div>
                 {empty.map((game, index) =>
@@ -56,7 +56,7 @@ describe('prepareGamesForTable() ', () => {
             expect(opponent).to.equal(hundredYearsWar[i].secondTeam.name);
         }
     });
-    it('should return the correct team names, if \'games\' don\'t have this fields', () => {
+    it('should return the correct team names, if \'games\' don\'t have this CustomField', () => {
         component = mount(
             <div>
                 {empty.map((game, index) =>
