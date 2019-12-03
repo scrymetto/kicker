@@ -9,3 +9,11 @@ a {
 button {
     outline: none;
 }
+input, select, textarea, button {
+    -moz-box-shadow:none;
+    -moz-appearance:none;
+}
+
+*:focus {
+    outline: none;
+}

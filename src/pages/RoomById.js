@@ -43,11 +43,11 @@ export const RoomById = (props) => {
               render={() => {
                   return (
                       <Fragment>
+                          {form && <Steppers cancel={() => setForm(false)} submit={() => setForm(false)}/>}
                           <Table columns={columns}
                                  rows={rows}
                                  styles={styles}
                           />
-                          {form && <Steppers cancel={() => setForm(false)} submit={() => setForm(false)}/>}
                           {!form && <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>}

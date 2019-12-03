@@ -3,7 +3,7 @@
     padding: 5px 5px;
     border-radius: 5px;
     box-sizing: border-box;
-    height: 35px;
+    min-height: 50px;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: large;
 }
@@ -14,7 +14,7 @@
     flex-direction: column;
     box-sizing: border-box;
     min-width: 220px;
-    min-height: 70px;
+    min-height: 85px;
 }
 
 .form__field_error {
@@ -26,12 +26,20 @@
 }
 
 .select {
-    border: none;
     padding: 0;
     border-radius: 5px;
     box-sizing: border-box;
-    min-height: 35px;
+    min-height: 50px;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: large;
-    min-width: 220px;
+    min-width: 250px;
+    max-width: 95%;
 }
+
+.form__field__control {
+    border: none;
+    min-height: 50px;
+    max-height: 80px;
+    overflow: auto;
+}
+
