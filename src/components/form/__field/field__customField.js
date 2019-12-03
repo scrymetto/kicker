@@ -1,21 +1,21 @@
 import React, {Fragment} from "react";
-import {Field, useField} from "formik";
+import {Field} from "formik";
 import {makeCamelCaseFromString} from "../../../helpers/makeCamelCaseFromString";
 import {makeFirstLetterUppercase} from "../../../helpers/makeFirstLetterUppercase";
-import Select from "react-select";
-import makeAnimated from 'react-select/animated'
 import PropTypes from "prop-types";
+import {CustomField_Select} from "./field__cusromField_select";
 
-export function CustomField({input, errors, touched, setFieldValue, value}) {
-    const animatedComponents = makeAnimated();
-    console.log(value)
-    let props = {};
+export function CustomField({input, errors, touched, setFieldValue, initialValues}) {
     const type = Object.keys(input)[0];
+    let name = makeCamelCaseFromString(input[type]);
+
+    let props = {};
+    let placeholder = makeFirstLetterUppercase(input[type]);
+
     if (type === 'select') {
         props.as = "select";
     } else props.type = type;
-    let name = makeCamelCaseFromString(input[type]);
-    let placeholder = makeFirstLetterUppercase(input[type]);
+
     let inputClassName = (errors[name] && touched[name])
         ? 'form__field form__field_error'
         : 'form__field';
@@ -26,18 +26,14 @@ export function CustomField({input, errors, touched, setFieldValue, value}) {
 
             {props.as
                 ? <Fragment>
-                    <Select
+                    <CustomField_Select
                         className={inputClassName + ' select'}
                         classNamePrefix={'form__field'}
                         options={input.options}
                         name={name}
-                        value={value[name]}
-                        onChange={value => {
-                            setFieldValue(name, value)
-                        }}
-                        isMulti
-                        components={animatedComponents}
-                    />
+                        initialValues={initialValues[name]}
+                        setFieldValue={setFieldValue}
+                        />
                     {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
                 </Fragment>
                 : <Fragment>

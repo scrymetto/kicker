@@ -21,7 +21,7 @@ export const Steppers = (props) => {
                 teamTwo: ''
             },
             players: {
-                teamOne: [{value:'red', label:'red'}],
+                teamOne: ['red'],
                 teamTwo: []
             },
             scores: {
@@ -52,13 +52,13 @@ export const Steppers = (props) => {
         if (currentCard) currentCard.data[1](true);
     };
     const nameInput = [{string: 'team one'}, {string: 'team two'}]
-    const options = ['red', 'blue', 'orange', 'black', 'ftgyhifghjliulgfljgfdylutdkydrkyhdtrl,jhuft'];
+
     const playersInput = [{
         select: 'team one',
-        options: options.map(i=>{ return {value:i, label: i}}),
+        options: ['red', 'blue', 'orange', 'black', 'ftgyhifghjliulgfljgfdylutdkydrkyhdtrl,jhuft'],
     }, {
         select: 'team two',
-        options: options.map(i=>{ return {value:i, label: i}}),
+        options: ['red', 'blue', 'orange', 'black', 'ftgyhifghjliulgfljgfdylutdkydrkyhdtrl,jhuft'],
     }]
 
 

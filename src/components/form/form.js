@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import {Formik, Form as FormikForm} from "formik";
 
 import {Button} from "../button/button";
-import {CustomField} from "./__field/__customField";
+import {CustomField} from "./__field/field__customField";
 import './form.css';
-import './__field/__customField.css';
+import './__field/field__customField.css';
 import '../text/text_error.css'
 
 //TODO: do we need setSubmitting()?
@@ -29,7 +29,7 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
                         errors={props.errors}
                         touched={props.touched}
                         setFieldValue={props.setFieldValue}
-                        value={initial[name]}/>
+                        initialValues={initial}/>
                     )}
                     <Button text='Submit' type='submit' className='button' disabled={props.isSubmitting}/>
                 </FormikForm>)

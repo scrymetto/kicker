@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const validationSchema_newGame__name = Yup.object().shape({
-    teamOne: Yup.string(),
+    teamOne: Yup.string().required('fghk'),
     teamTwo: Yup.string(),
 });
 
