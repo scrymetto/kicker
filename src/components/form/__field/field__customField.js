@@ -7,10 +7,10 @@ import {CustomField_Select} from "./field__cusromField_select";
 
 export function CustomField({input, errors, touched, setFieldValue, initialValues}) {
     const type = Object.keys(input)[0];
-    let name = makeCamelCaseFromString(input[type]);
+    const name = makeCamelCaseFromString(input[type]);
 
     let props = {};
-    let placeholder = makeFirstLetterUppercase(input[type]);
+    const placeholder = makeFirstLetterUppercase(input[type]);
 
     if (type === 'select') {
         props.as = "select";
@@ -33,6 +33,7 @@ export function CustomField({input, errors, touched, setFieldValue, initialValue
                         name={name}
                         initialValues={initialValues[name]}
                         setFieldValue={setFieldValue}
+                        placeholder={placeholder}
                         />
                     {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
                 </Fragment>

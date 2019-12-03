@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const validationSchema_newGame__name = Yup.object().shape({
-    teamOne: Yup.string().required('fghk'),
+    teamOne: Yup.string(),
     teamTwo: Yup.string(),
 });
 
@@ -13,8 +13,6 @@ export const validationSchema_newGame__players = Yup.object().shape({
 });
 
 export const validationSchema_newGame__scores = Yup.object().shape({
-    teamOne: Yup.number()
-        .required('Please, select a number.'),
-    teamTwo: Yup.number()
-        .required('Please, select a number.'),
+    teamOne: Yup.number(),
+    teamTwo: Yup.number(),
 });

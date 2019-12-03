@@ -19,12 +19,12 @@ export const RoomById = (props) => {
     }, []);
     let [globalState, globalActions] = useGlobal();
     // let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
-    let room = [{
+    let room = {
         creatorId: "5ddd145a7679161f53e091aa",
         id: "5ddd23867679161f53e091ab",
         name: "1",
         users: ["5ddd145a7679161f53e091aa"]
-    }];
+    };
     const {user} = useAuth();
     let [isUploaded, setUploaded] = useState(false);
     let [form, setForm] = useState(false)
@@ -43,7 +43,7 @@ export const RoomById = (props) => {
               render={() => {
                   return (
                       <Fragment>
-                          {form && <Steppers cancel={() => setForm(false)} submit={() => setForm(false)}/>}
+                          {form && <Steppers cancel={() => setTimeout(setForm, 10,false)} submit={() => setTimeout(setForm, 50,false)}/>}
                           <Table columns={columns}
                                  rows={rows}
                                  styles={styles}

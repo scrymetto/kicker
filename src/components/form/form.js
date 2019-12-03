@@ -22,7 +22,8 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
                 validationSchema={validationSchema}
         >
             {(props) => {
-                return (<FormikForm className='form' {...other}>
+
+                return (<FormikForm className={other.className}>
                     {inputs.map((input, index) => <CustomField
                         key={index}
                         input={input}
@@ -31,7 +32,10 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
                         setFieldValue={props.setFieldValue}
                         initialValues={initial}/>
                     )}
-                    <Button text='Submit' type='submit' className='button' disabled={props.isSubmitting}/>
+                    {other.withRoundButton
+                        ? <Button type='submit' className='button button_next' disabled={props.isSubmitting}/>
+                        : <Button text='Submit' type='submit' className='button' disabled={props.isSubmitting}/>
+                    }
                 </FormikForm>)
             }}
         </Formik>
@@ -40,8 +44,10 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
 };
 
 Form.propTypes = {
+    className:PropTypes.string,
     initial: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
     validationSchema: PropTypes.object.isRequired, // all inputs with Yup.object()
     inputs: PropTypes.arrayOf(PropTypes.object).isRequired, // [{key: type of input for Formik, value: name of input}, ...]
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    withRoundButton:PropTypes.bool
 };

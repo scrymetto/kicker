@@ -1,0 +1,18 @@
+.button_next {
+    position: fixed;
+    font-family: 'Lucida Console', 'Courier', monospace;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.button_next::before {
+    content: '\2794';
+}
+
+.button_next:hover {
+    cursor: pointer;
+}

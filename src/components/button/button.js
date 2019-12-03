@@ -5,6 +5,7 @@ import "./button_back.css"
 import "./button_menu.css"
 import "./button_close.css"
 import "./button_new.css"
+import "./button_next.css"
 
 export function Button({text, className, ...props}) {
 

@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from "react";
 
 import "../components/text/text_link.css";
-import "../components/container/margin_15.css";
+import "../components/container/margin.css";
 
 import {Card} from "../components/card/card";
 import {Login} from "../helpers/components/loginForm";

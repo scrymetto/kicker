@@ -10,8 +10,8 @@ import {validationSchema_newGame__players} from "../../../components/form/__vali
 
 export const Steppers = (props) => {
     const {cancel, submit} = props;
-    const [namesForm, setNamesFormStatus] = useState(false);
-    const [playersForm, setPlayersFormStatus] = useState(true);
+    const [namesForm, setNamesFormStatus] = useState(true);
+    const [playersForm, setPlayersFormStatus] = useState(false);
     const [scoresForm, setScoresFormStatus] = useState(false);
 
     const [values, setValues] = useState(
@@ -32,8 +32,8 @@ export const Steppers = (props) => {
     );
 
     const cards = prepareHooksForSteppers([
-        [playersForm, setPlayersFormStatus],
         [namesForm, setNamesFormStatus],
+        [playersForm, setPlayersFormStatus],
         [scoresForm, setScoresFormStatus]]);
     let currentCard = cards.getCurrent();
     console.log(values);
@@ -47,9 +47,9 @@ export const Steppers = (props) => {
         console.log(values)
         currentCard.data[1](false);
         currentCard = prevOrNext === 'next'
-            ? currentCard.next ? currentCard.next : submit()
-            : currentCard.prev ? currentCard.prev : cancel();
-        if (currentCard) currentCard.data[1](true);
+            ? currentCard.next ? currentCard.next : submit
+            : currentCard.prev ? currentCard.prev : cancel;
+        if (currentCard.data) {currentCard.data[1](true)} else {currentCard()}
     };
     const nameInput = [{string: 'team one'}, {string: 'team two'}]
 
@@ -59,7 +59,17 @@ export const Steppers = (props) => {
     }, {
         select: 'team two',
         options: ['red', 'blue', 'orange', 'black', 'ftgyhifghjliulgfljgfdylutdkydrkyhdtrl,jhuft'],
-    }]
+    }];
+
+    const scoresOptions = new Array(10).fill(1, 0, 10).map((number, index) => number + index)
+
+    const scoresInput = [{
+            select: 'team one',
+            options: scoresOptions
+        }, {
+            select: 'team two',
+            options: scoresOptions
+        }];
 
 
     return <Fragment>
@@ -67,29 +77,47 @@ export const Steppers = (props) => {
         <Card headerText='Create a new game'
               render={() => {
                   return <Fragment>
+                      {namesForm &&
+                      <Fragment>
+                          <div className='margin_left_50'><p className='text'>
+                              Come up with names for the teams &#9917;</p></div>
+                          <Form
+                              className='form'
+                              initial={values.names}
+                              inputs={nameInput}
+                              validationSchema={validationSchema_newGame__name}
+                              onSubmit={(values) => setNewStatus('next', values, 'names')}
+                              withRoundButton
+                          />
+                      </Fragment>}
 
-                      {playersForm && <Form
-                          initial={values.players}
-                          inputs={playersInput}
-                          validationSchema={validationSchema_newGame__players}
-                          onSubmit={(values) => setNewStatus('next', values, 'players')}
-                      />}
+                      {playersForm &&
+                      <Fragment>
+                          <div className='margin_left_50'><p className='text'>
+                              Select the players &#127939;</p></div>
+                          <Form
+                              className='form'
+                              initial={values.players}
+                              inputs={playersInput}
+                              validationSchema={validationSchema_newGame__players}
+                              onSubmit={(values) => setNewStatus('next', values, 'players')}
+                              withRoundButton
+                          />
+                      </Fragment>}
 
-                      {namesForm && <Form
-                          initial={values.names}
-                          inputs={nameInput}
-                          validationSchema={validationSchema_newGame__name}
-                          onSubmit={(values) => setNewStatus('next', values, 'names')}
-                      />}
-
-                      {scoresForm && <Form
-                          initial={values.names}
-                          inputs={nameInput}
-                          validationSchema={validationSchema_newGame__scores}
-                          onSubmit={(values) => setNewStatus('next', values, 'scores')}
-                      />}
-                      <button onClick={() => setNewStatus('next')}>next</button>
-                      <button onClick={() => setNewStatus('prev')}>prev</button>
+                      {scoresForm &&
+                      <Fragment>
+                          <div className='margin_left_50'><p className='text'>
+                              Select your scores &#127919;</p></div>
+                          <Form
+                              className='form'
+                              initial={values.scores}
+                              inputs={scoresInput}
+                              validationSchema={validationSchema_newGame__scores}
+                              onSubmit={(values) => setNewStatus('next', values, 'scores')}
+                          />
+                      </Fragment>}
+                      <Button className='button button_back' onClick={() => setNewStatus('prev')}>prev</Button>
                   </Fragment>
               }}
         />
