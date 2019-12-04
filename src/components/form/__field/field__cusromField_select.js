@@ -20,7 +20,6 @@ export const CustomField_Select = ({className, classNamePrefix, options, name, i
     });
 
     const onSelectChange = (values) => {
-        console.log('onchange '+values)
         let validValues;
         let valuesForState;
         if (isMulti) {
@@ -30,7 +29,7 @@ export const CustomField_Select = ({className, classNamePrefix, options, name, i
             validValues = values;
             valuesForState = values.value;
         }
-        setFieldValue(name, valuesForState)
+        setFieldValue(name, valuesForState);
         setRenderedValues(validValues);
     };
 
@@ -39,20 +38,32 @@ export const CustomField_Select = ({className, classNamePrefix, options, name, i
             ...prev,
             border: 'none',
             borderRadius: '5px',
-            minHeight: '48px',
-            maxHeight: '78px',
+            minHeight: '43px',
+            maxHeight: '73px',
+            minWidth: '278px',
             overflow: 'auto',
             boxSizing: 'border-box',
         }),
+        option: (prev) => ({
+            ...prev,
+            fontFamily: 'IBM Plex Sans, sans-serif'
+        }),
         multiValue: (prev) => ({
             ...prev,
-            // backgroundColor:'white',
             borderRadius: '5px',
         }),
         multiValueLabel: (prev) => ({
             ...prev,
             fontSize: '18px',
 
+        }),
+        multiValueRemove: (prev) => ({
+            ...prev,
+            ':hover':
+                {
+                    backgroundColor: '#f04e26',
+                    color:'white'
+                }
         }),
     };
 
@@ -63,7 +74,8 @@ export const CustomField_Select = ({className, classNamePrefix, options, name, i
             primary: '#38c1db',
             primary50: 'rgba(56,193,219, 0.5)',
             primary25: 'rgba(56,193,219, 0.25)',
-            dangerLight: 'rgba(94,31,15, 0.1)'
+            danger:'#f04e26',
+            dangerLight:'rgba(240,78,38, 0.5)'
         }
     });
 
