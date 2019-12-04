@@ -22,7 +22,7 @@ export function Rooms(props) {
 
     const {user} = useAuth();
     let [isUploaded, setUploaded] = useState({loading: true, error: false, done: false});
-    let [newRoom, createNewRoom] = useState(false);
+    let [redirect, doRedirect] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
@@ -40,8 +40,7 @@ export function Rooms(props) {
         setUploaded({loading: false, error: true, done: false});
         globalActions.setPopup({error: e})
     };
-    const getSuccess = (rooms) => globalActions.addRoomsFromServer(rooms);
-
+    const getSuccess = (rooms) => globalActions.addStateFromServer(rooms, 'rooms');
 
     let [isFormVisible, setFormVisible] = useState(false);
     let [isFormOpening, openForm] = useState(false);
@@ -55,8 +54,8 @@ export function Rooms(props) {
     const onSubmitForm = (values) => {
         postRooms(user, values, onError)
             .then((data) => {
-                globalActions.addNewRoom(data);
-                createNewRoom(data.id)
+                globalActions.addNewInState(data, 'rooms');
+                doRedirect(data.id)
             })
             .then(() => {
                 globalActions.setPopup({success: 'Success! Let\'s create a new game!'});
@@ -73,7 +72,7 @@ export function Rooms(props) {
         <Card headerText='Your rooms'
               render={() => (
                   <Fragment>
-                      {newRoom && <Redirect to={`rooms/${newRoom}`}/>}
+                      {redirect && <Redirect to={`rooms/${redirect}`}/>}
                       {isFormVisible
                           ? <NewRoomFrom onSubmit={onSubmitForm} goBack={goBack} status={isFormOpening}/>
                           :
