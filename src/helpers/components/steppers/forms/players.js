@@ -14,7 +14,7 @@ export const Players = ({initial, setNewStatus}) => {
     }];
 
     return <Fragment>
-        <div className='margin_left_50'>
+        <div className='margin_left_40'>
             <p className='text'>Select the players &#127939;</p>
         </div>
         <Form

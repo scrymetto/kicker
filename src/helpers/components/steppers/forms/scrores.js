@@ -14,7 +14,7 @@ export const Scores = ({initial, setNewStatus}) => {
     }];
 
   return <Fragment>
-      <div className='margin_left_50'>
+      <div className='margin_left_40'>
           <p className='text'>Select your scores &#127919;</p>
       </div>
       <Form

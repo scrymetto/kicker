@@ -8,7 +8,7 @@ export const Names = ({initial, setNewStatus})=>{
     const inputs = [{string: 'team one'}, {string: 'team two'}]
 
     return <Fragment>
-        <div className='margin_left_50'>
+        <div className='margin_left_40'>
             <p className='text'>Come up with names for the teams &#9917;</p>
         </div>
         <Form

@@ -1,14 +1,19 @@
 import React, {Fragment, useState} from "react";
-import {Card} from "../../../components/card/card";
-import {Button} from "../../../components/button/button";
+import {CSSTransition} from "react-transition-group";
 
 import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
+
+import {Card} from "../../../components/card/card";
+import {Button} from "../../../components/button/button";
 import {Names} from "./forms/names";
 import {Players} from "./forms/players";
 import {Scores} from "./forms/scrores";
 
+import './steppers.css'
+
 export const Steppers = ({cancel, submit}) => {
 
+    const [visible, setVisible] = useState(true);
     const [userValues, setUserValues] = useState(
         {
             names: {
@@ -36,7 +41,6 @@ export const Steppers = ({cancel, submit}) => {
         [scoresForm, setScoresFormStatus]]);
 
     let currentCard = cards.getCurrent();
-    console.log(userValues)
 
     const setNewStatus = (prevOrNext, values, card) => {
         if (values) {
@@ -51,13 +55,15 @@ export const Steppers = ({cancel, submit}) => {
         if (currentCard.data) {
             currentCard.data[1](true) // if there is next card, make it visible
         } else {
-            currentCard() // else close <Steppers/>
+            setVisible(false);
+            setTimeout(currentCard, 350, userValues) // else close <Steppers/>
         }
     };
 
-    return <Fragment>
-
+    return <CSSTransition in={visible} timeout={300} classNames='steppers' appear={true}>
+        <div className='overlay'>
         <Card headerText='Create a new game'
+              style={{marginTop:'15px'}}
               render={() => {
                   return <Fragment>
                       {namesForm && <Names initial={userValues.names}
@@ -70,9 +76,11 @@ export const Steppers = ({cancel, submit}) => {
                       {scoresForm && <Scores initial={userValues.scores}
                                              setNewStatus={setNewStatus}/>
                       }
+
                       <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
                   </Fragment>
               }}
         />
-    </Fragment>
+        </div>
+    </CSSTransition>
 };
