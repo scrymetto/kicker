@@ -9,7 +9,7 @@ import {Scores} from "./forms/scrores";
 
 export const Steppers = ({cancel, submit}) => {
 
-    const [values, setValues] = useState(
+    const [userValues, setUserValues] = useState(
         {
             names: {
                 teamOne: '',
@@ -30,27 +30,28 @@ export const Steppers = ({cancel, submit}) => {
     const [playersForm, setPlayersFormStatus] = useState(false);
     const [scoresForm, setScoresFormStatus] = useState(false);
 
-    const cards = prepareHooksForSteppers([
+    const cards = prepareHooksForSteppers([ // create doubly linked list with hooks
         [namesForm, setNamesFormStatus],
         [playersForm, setPlayersFormStatus],
         [scoresForm, setScoresFormStatus]]);
+
     let currentCard = cards.getCurrent();
-    console.log(values)
+    console.log(userValues)
 
     const setNewStatus = (prevOrNext, values, card) => {
         if (values) {
             let obj = {};
             obj[card] = values;
-            setValues((prev) => Object.assign(prev, obj))
+            setUserValues((prev) => Object.assign(prev, obj)) //set new state
         }
-        currentCard.data[1](false);
-        currentCard = prevOrNext === 'next'
+        currentCard.data[1](false); // make the current card invisible
+        currentCard = prevOrNext === 'next' // find next card
             ? currentCard.next ? currentCard.next : submit
             : currentCard.prev ? currentCard.prev : cancel;
         if (currentCard.data) {
-            currentCard.data[1](true)
+            currentCard.data[1](true) // if there is next card, make it visible
         } else {
-            currentCard()
+            currentCard() // else close <Steppers/>
         }
     };
 
@@ -59,14 +60,14 @@ export const Steppers = ({cancel, submit}) => {
         <Card headerText='Create a new game'
               render={() => {
                   return <Fragment>
-                      {namesForm && <Names initial={values.names}
+                      {namesForm && <Names initial={userValues.names}
                                            setNewStatus={setNewStatus}/>}
 
-                      {playersForm && <Players initial={values.players}
+                      {playersForm && <Players initial={userValues.players}
                                                setNewStatus={setNewStatus}/>
                       }
 
-                      {scoresForm && <Scores initial={values.scores}
+                      {scoresForm && <Scores initial={userValues.scores}
                                              setNewStatus={setNewStatus}/>
                       }
                       <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
