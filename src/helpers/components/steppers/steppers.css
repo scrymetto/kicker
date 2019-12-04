@@ -1,0 +1,35 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+}
+
+.steppers-appear {
+    top: -300px;
+    opacity: 0;
+}
+
+.steppers-appear-active {
+    top: 0;
+    opacity: 100%;
+    transition: all ease-in-out 300ms;
+}
+
+.steppers-exit {
+    top: 0;
+    opacity: 100%;
+}
+
+.steppers-exit-active {
+    top: -300px;
+    opacity: 0;
+    transition: all ease-in-out 300ms;
+}
+
+.steppers-exit-done {
+    top: -300px;
+    opacity: 0;
+}

@@ -6,7 +6,7 @@ import {Button} from "../button/button";
 
 export function Card ({headerText, render, button_back, ...props}) {
     return (
-        <div className='card'>
+        <div className='card' {...props}>
             <Header text={headerText}/>
             {render()}
         </div>

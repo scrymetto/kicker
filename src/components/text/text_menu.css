@@ -3,4 +3,6 @@
     font-size: 2em;
     display: block;
     cursor: pointer;
+    margin: 15px 0;
+    padding: 10px 0;
 }

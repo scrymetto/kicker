@@ -43,6 +43,7 @@ export const CustomField_Select = ({className, classNamePrefix, options, name, i
             minWidth: '278px',
             overflow: 'auto',
             boxSizing: 'border-box',
+            fontFamily: 'IBM Plex Sans, sans-serif',
         }),
         option: (prev) => ({
             ...prev,
@@ -92,5 +93,6 @@ export const CustomField_Select = ({className, classNamePrefix, options, name, i
         styles={styles}
         theme={theme}
         placeholder={placeholder}
+        isSearchable={false}
     />
 };
