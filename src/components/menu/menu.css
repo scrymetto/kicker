@@ -1,6 +1,6 @@
 .menu {
     position: absolute;
-    top: -100%;
+    top: 70px; /*height of header*/
     right: 0;
     box-sizing: border-box;
     margin: 0;
@@ -17,36 +17,36 @@
 }
 
 .menu-appear {
-    opacity: 0;
-    top: -100%;
+    /*opacity: 0;*/
+    transform: translateY(-200%);
 }
 
 .menu-appear-active {
     transition: all ease-in-out 300ms;
-    opacity: 1;
-    top: 70px; /*height of header*/
+    /*opacity: 1;*/
+    transform: none;
 }
 
 .menu-appear-done {
-    opacity: 1;
-    top: 70px;
+    /*opacity: 1;*/
+    transform: none;
 }
 
 .menu-exit {
-    opacity: 1;
-    top: 70px;
+    /*opacity: 1;*/
+    transform: none;
 }
 
 .menu-exit-active {
     transition: all ease-in-out 300ms;
-    opacity: 0;
-    top: -100%;
+    /*opacity: 0;*/
+    transform: translateY(-200%);
 }
 
 
 .menu-exit-done {
-    opacity: 0;
-    top: -100%;
+    /*opacity: 0;*/
+    transform: translateY(-200%);
 }
 
 .menu > li {

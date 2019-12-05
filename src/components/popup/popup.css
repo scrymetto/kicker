@@ -15,25 +15,25 @@
 }
 
 .popup-appear {
-    bottom: -100%;
+    transform: translateY(200%);
 }
 
 .popup-appear-active {
-    transition: bottom ease-in-out 300ms;
-    bottom: 0;
+    transition: all ease-in-out 300ms;
+    transform: none;
 }
 
 .popup-exit {
-    bottom: 0;
+    transform: none;
 }
 
 .popup-exit-active {
-    bottom: -100%;
-    transition: bottom ease-in-out 300ms;
+    transform: translateY(200%);
+    transition: all ease-in-out 300ms;
 }
 
 .popup-exit-done {
-    bottom: -100%;
+    transform: translateY(200%);
 }
 
 .popup_success {

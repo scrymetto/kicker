@@ -6,29 +6,29 @@
 }
 
 .newRoomForm_visible-appear {
-    top: -300px;
+    transform: translateY(-200%);
     opacity: 0;
 }
 
 .newRoomForm_visible-appear-active {
-    top: 0;
+    transform: none;
     opacity: 100%;
     transition: all ease-in-out 300ms;
 }
 
 .newRoomForm_visible-exit {
-    top: 0;
+    transform: none;
     opacity: 100%;
 }
 
 .newRoomForm_visible-exit-active {
-    top: -300px;
+    transform: translateY(-200%);
     opacity: 0;
     transition: all ease-in-out 300ms;
 }
 
 .newRoomForm_visible-exit-done {
-    top: -300px;
+    transform: translateY(-200%);
     opacity: 0;
 }
 
