@@ -5,7 +5,7 @@ import {Formik, Form as FormikForm} from "formik";
 import {Button} from "../button/button";
 import {CustomField} from "./__field/field__customField";
 import './form.css';
-import './__field/field__customField.css';
+import './__field/__customField_select/field__customField.css';
 import '../text/text_error.css'
 
 //TODO: do we need setSubmitting()?

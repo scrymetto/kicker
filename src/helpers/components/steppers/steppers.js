@@ -5,9 +5,9 @@ import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
 
 import {Card} from "../../../components/card/card";
 import {Button} from "../../../components/button/button";
-import {Names} from "./forms/names";
-import {Players} from "./forms/players";
-import {Scores} from "./forms/scrores";
+import {Names} from "../newGameForms/names";
+import {Players} from "../newGameForms/players";
+import {Scores} from "../newGameForms/scrores";
 
 import './steppers.css'
 
@@ -53,10 +53,10 @@ export const Steppers = ({cancel, submit}) => {
             ? currentCard.next ? currentCard.next : submit
             : currentCard.prev ? currentCard.prev : cancel;
         if (currentCard.data) {
-            currentCard.data[1](true) // if there is next card, make it visible
+            currentCard.data[1](true) // if the next card exist, make it visible
         } else {
             setVisible(false);
-            setTimeout(currentCard, 350, userValues) // else close <Steppers/>
+            setTimeout(currentCard, 350, userValues) // else close <Steppers/> after animation
         }
     };
 

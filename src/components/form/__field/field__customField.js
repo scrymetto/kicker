@@ -3,7 +3,7 @@ import {Field} from "formik";
 import {makeCamelCaseFromString} from "../../../helpers/makeCamelCaseFromString";
 import {makeFirstLetterUppercase} from "../../../helpers/makeFirstLetterUppercase";
 import PropTypes from "prop-types";
-import {CustomField_Select} from "./field__cusromField_select";
+import {CustomField_Select} from "./__customField_select/field__cusromField_select";
 
 export function CustomField({input, errors, touched, setFieldValue, initialValues}) {
     const type = Object.keys(input)[0];

@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 
-import {Form} from "../../../../components/form/form";
-import {validationSchema_newGame__name} from "../../../../components/form/__validationSchema/form__validationSchema_newGame";
+import {Form} from "../../../components/form/form";
+import {validationSchema_newGame__name} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 
 export const Names = ({initial, setNewStatus})=>{
 

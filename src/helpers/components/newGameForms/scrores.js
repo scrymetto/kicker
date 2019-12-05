@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
-import {Form} from "../../../../components/form/form";
-import {validationSchema_newGame__scores} from "../../../../components/form/__validationSchema/form__validationSchema_newGame";
+import {Form} from "../../../components/form/form";
+import {validationSchema_newGame__scores} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 
 export const Scores = ({initial, setNewStatus}) => {
 
@@ -23,6 +23,7 @@ export const Scores = ({initial, setNewStatus}) => {
           inputs={inputs}
           validationSchema={validationSchema_newGame__scores}
           onSubmit={(values) => setNewStatus('next', values, 'scores')}
+          withRoundButton
       />
   </Fragment>
 };
