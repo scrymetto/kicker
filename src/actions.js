@@ -14,8 +14,4 @@ export const setPopup = (store, obj) => {
     setTimeout(()=> store.setState({popup: {}}), 6000)
 };
 
-export const addGamesFromServer = (store, games) => {
-    let gamesFromServer = {games: [...games]};
-    store.setState(gamesFromServer)
-};
 

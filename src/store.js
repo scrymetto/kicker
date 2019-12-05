@@ -5,6 +5,7 @@ import * as actions from './actions'
 let store = {
     rooms: [],
     games: [],
+    players:[],
     popup: {
         // error: undefined,
         // message: undefined

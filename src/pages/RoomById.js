@@ -2,13 +2,12 @@ import React, {Fragment, useEffect, useState} from 'react';
 
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
-import {Table} from "../components/table/table";
-
-import {useAuth} from "../helpers/auth&route/authContext";
-import {useGlobal} from "../store";
-import {getGames} from "../helpers/requests/getGames";
-import {prepareGamesForTable} from "../helpers/prepareGamesForTable";
 import {Steppers} from "../helpers/components/steppers/steppers";
+import {GameHistoryTable} from "../helpers/components/gameHistoryTable";
+
+import {useGlobal} from "../store";
+import {useAuth} from "../helpers/auth&route/authContext";
+import {getGames} from "../helpers/requests/getGames";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {postGame} from "../helpers/requests/postGame";
 
@@ -24,14 +23,16 @@ export const RoomById = (props) => {
     const onError = (e) => globalActions.setPopup({error: e});
     const getSuccess = (games) => globalActions.addStateFromServer(games, 'games');
 
-    let [globalState, globalActions] = useGlobal();
+    const [globalState, globalActions] = useGlobal();
     // let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
-    let room = {
+    const room = {
         creatorId: "5ddd145a7679161f53e091aa",
         id: "5ddd23867679161f53e091ab",
         name: "1",
         users: ["5ddd145a7679161f53e091aa"]
     };
+
+    const players = room.users;
 
     let [isUploaded, setUploaded] = useState(false);
 
@@ -43,15 +44,8 @@ export const RoomById = (props) => {
             .then((data)=>{
                 globalActions.addNewInState(data, 'games');
             });
-        console.log(data);
         setTimeout(setForm, 400, false)
     };
-
-    const columns = ['team', 'score', 'opponent'];
-    const columnsStyles = new Map();
-    columnsStyles.set([1], {width: '50px'});
-    const styles = {columnsStyles: columnsStyles};
-    let rows = prepareGamesForTable(globalState.games);
 
     return (
         <Card headerText={`Your games in ${room.name}`}
@@ -61,10 +55,7 @@ export const RoomById = (props) => {
                           {form && <Steppers cancel={() => setForm(false)}
                                              submit={createNewGame}
                           />}
-                          <Table columns={columns}
-                                 rows={rows}
-                                 styles={styles}
-                          />
+                          <GameHistoryTable games={globalState.games}/>
                           {!form && <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>}
