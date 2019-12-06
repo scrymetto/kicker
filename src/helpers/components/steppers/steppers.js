@@ -1,5 +1,5 @@
 import React, {Fragment, useState} from "react";
-import {CSSTransition} from "react-transition-group";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
 
@@ -10,6 +10,7 @@ import {Players} from "../newGameForms/players";
 import {Scores} from "../newGameForms/scrores";
 
 import './steppers.css'
+import '../../../components/container/fixed.css'
 
 export const Steppers = ({cancel, submit}) => {
 
@@ -53,34 +54,40 @@ export const Steppers = ({cancel, submit}) => {
             ? currentCard.next ? currentCard.next : submit
             : currentCard.prev ? currentCard.prev : cancel;
         if (currentCard.data) {
-            currentCard.data[1](true) // if the next card exist, make it visible
+            currentCard.data[1](true) // if the next card exist, make it visibleOverlay
         } else {
             setVisible(false);
             setTimeout(currentCard, 350, userValues) // else close <Steppers/> after animation
         }
     };
 
-    return <CSSTransition in={visible} timeout={300} classNames='steppers' appear={true}>
-        <div className='overlay'>
-        <Card headerText='Create a new game'
-              style={{marginTop:'15px'}}
-              render={() => {
-                  return <Fragment>
-                      {namesForm && <Names initial={userValues.names}
-                                           setNewStatus={setNewStatus}/>}
+    return <TransitionGroup appear className='steppers'>
+        {visible && <CSSTransition classNames='steppers__overlay'
+                                   timeout={300}>
+            <div className='steppers__overlay'>
+                <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
+            </div>
+        </CSSTransition>}
+        {visible && <CSSTransition classNames='steppers__cards'
+                           timeout={300}>
+            <div className='container fixed'>
+                <Card headerText='Create a new game'
+                      render={() => {
+                          return <Fragment>
+                              {namesForm && <Names initial={userValues.names}
+                                                   setNewStatus={setNewStatus}/>}
 
-                      {playersForm && <Players initial={userValues.players}
-                                               setNewStatus={setNewStatus}/>
-                      }
+                              {playersForm && <Players initial={userValues.players}
+                                                       setNewStatus={setNewStatus}/>
+                              }
 
-                      {scoresForm && <Scores initial={userValues.scores}
-                                             setNewStatus={setNewStatus}/>
-                      }
-
-                      <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
-                  </Fragment>
-              }}
-        />
-        </div>
-    </CSSTransition>
+                              {scoresForm && <Scores initial={userValues.scores}
+                                                     setNewStatus={setNewStatus}/>
+                              }
+                          </Fragment>
+                      }}
+                />
+            </div>
+        </CSSTransition>}
+    </TransitionGroup>
 };
