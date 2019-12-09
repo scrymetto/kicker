@@ -10,7 +10,7 @@ import {Players} from "../newGameForms/players";
 import {Scores} from "../newGameForms/scrores";
 
 import './steppers.css'
-import '../../../components/container/fixed.css'
+import '../../../components/container/absolute.css'
 
 export const Steppers = ({cancel, submit}) => {
 
@@ -64,14 +64,13 @@ export const Steppers = ({cancel, submit}) => {
     return <TransitionGroup appear className='steppers'>
         {visible && <CSSTransition classNames='steppers__overlay'
                                    timeout={300}>
-            <div className='steppers__overlay'>
-                <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
-            </div>
+            <div className='steppers__overlay'/>
         </CSSTransition>}
         {visible && <CSSTransition classNames='steppers__cards'
                            timeout={300}>
-            <div className='container fixed'>
+            <div className='container absolute'>
                 <Card headerText='Create a new game'
+                      style={{width:'100%', margin:'0'}}
                       render={() => {
                           return <Fragment>
                               {namesForm && <Names initial={userValues.names}
@@ -87,6 +86,7 @@ export const Steppers = ({cancel, submit}) => {
                           </Fragment>
                       }}
                 />
+                <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
             </div>
         </CSSTransition>}
     </TransitionGroup>

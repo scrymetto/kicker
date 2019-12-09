@@ -48,3 +48,23 @@
     transform: translateY(-200%);
     transition: all 300ms;
 }
+
+.steppers__cards-appear .button {
+    opacity: 0;
+}
+
+.steppers__cards-appear-active .button {
+    opacity: 0;
+}
+
+.steppers__cards-appear-done .button {
+    opacity: 1;
+}
+
+.steppers__cards-exit .button {
+    opacity: 0;
+}
+
+.steppers__cards-exit-active .button {
+    opacity: 0;
+}
