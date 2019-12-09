@@ -42,7 +42,7 @@ export default function Header(props) {
         props.className
             ? <Fragment>
                 <div className={headerClassName} data-testid='header'>
-                    <p className='text_header'>{props.text}</p>
+                    <p className='text_header_main'>{props.text}</p>
                     <Button className='button button_menu' onClick={() => buttonOnclick()}/>
                 </div>
                 {menuIsOpen && <Menu logout={logoutFn} status={menuIsVisible} />}

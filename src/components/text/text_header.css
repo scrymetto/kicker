@@ -1,6 +1,13 @@
-.text_header {
+.text_header_main {
     color: #FFF;
     font-family: 'Lacquer', sans-serif;
     font-size: 2em;
+    margin: 5px;
+}
+
+.text_header {
+    color: #FFF;
+    font-family: 'Lacquer', sans-serif;
+    font-size: 1.7em;
     margin: 5px;
 }
