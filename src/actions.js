@@ -11,7 +11,6 @@ export const addStateFromServer = (store, something, key) => {
 
 export const setPopup = (store, obj) => {
     store.setState({popup: obj});
-    setTimeout(()=> store.setState({popup: {}}), 6000)
 };
 
 

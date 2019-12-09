@@ -44,7 +44,8 @@ export const RoomById = (props) => {
             .then((data)=>{
                 globalActions.addNewInState(data, 'games');
             });
-        setTimeout(setForm, 400, false)
+        console.log(globalState)
+        setTimeout(setForm, 300, false)
     };
 
     return (

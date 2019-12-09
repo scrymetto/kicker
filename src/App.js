@@ -28,6 +28,7 @@ function App(props) {
     let success = globalState.popup.success;
     let className = error ? 'popup popup_error' : success ? 'popup popup_success' : '';
     // console.log('error state '+error)
+    console.log(globalState.popup)
 
 
     // console.log(user)
@@ -55,8 +56,8 @@ function App(props) {
                 </div>
             </Router>
             {error || success
-                ? <Popup className={className} text={error ? error : success}/>
-                : null}
+                && <Popup className={className} text={error ? error : success}/>
+                }
         </AuthContext.Provider>
     );
 }

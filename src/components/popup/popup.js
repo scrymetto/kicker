@@ -4,22 +4,27 @@ import {CSSTransition} from "react-transition-group";
 import './popup.css';
 import '../text/text.css';
 import {Button} from "../button/button";
+import {useGlobal} from "../../store";
 
 export const Popup = ({text, className}) => {
+
     useEffect(() => {
         return () => {
             clearTimeout(timer);
-            setInProp(false)
+            setInProp(false);
+            setTimeout(globalActions.setPopup, 300, {});
         }
     });
+    const [globalState, globalActions] = useGlobal();
     const [inProp, setInProp] = useState(true);
     const timer = setTimeout(setInProp, 5000, false);
     const closePopup = () => {
         clearTimeout(timer);
-        setInProp(false)
+        setInProp(false);
+        setTimeout(globalActions.setPopup, 300, {});
     };
     return (
-        <CSSTransition timeout={300} classNames='popup' in={inProp} appear={true}>
+        <CSSTransition timeout={300} classNames='popup' in={inProp} appear unmountOnExit>
             <div className={className}>
                 <p className='text'>{text}</p>
                 <Button className='button button_close' onClick={closePopup}/>
