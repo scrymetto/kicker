@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {CSSTransition} from "react-transition-group";
 import './popup.css';
@@ -6,11 +6,15 @@ import '../text/text.css';
 import {Button} from "../button/button";
 
 export const Popup = ({text, className}) => {
-    let [inProp, setInProp] = useState(true);
-
-    let timer = setTimeout(setInProp, 5000, false);
-
-    let closePopup = () => {
+    useEffect(() => {
+        return () => {
+            clearTimeout(timer);
+            setInProp(false)
+        }
+    });
+    const [inProp, setInProp] = useState(true);
+    const timer = setTimeout(setInProp, 5000, false);
+    const closePopup = () => {
         clearTimeout(timer);
         setInProp(false)
     };
