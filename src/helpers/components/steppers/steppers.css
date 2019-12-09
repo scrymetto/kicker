@@ -1,30 +1,3 @@
-.steppers__overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.steppers__overlay-appear {
-    opacity: 0;
-}
-
-.steppers__overlay-appear-active {
-    opacity: 1;
-    transition: all 300ms;
-}
-
-.steppers__overlay-exit {
-    opacity: 1;
-}
-
-.steppers__overlay-exit-active {
-    opacity: 0;
-    transition: all 300ms;
-}
-
 .steppers__cards-appear {
     transform: translateY(-200%);
 }
@@ -32,10 +5,6 @@
 .steppers__cards-appear-active {
     transform: none;
     transition: all 300ms;
-}
-
-.steppers__cards-appear-done {
-    opacity: 1;
 }
 
 .steppers__cards-exit {
@@ -47,6 +16,11 @@
     opacity: 0;
     transform: translateY(-200%);
     transition: all 300ms;
+}
+
+.steppers__cards-exit-done {
+    opacity: 0;
+    transform: translateY(-200%);
 }
 
 .steppers__cards-appear .button {

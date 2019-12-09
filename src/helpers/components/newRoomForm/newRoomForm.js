@@ -15,7 +15,7 @@ export const NewRoomFrom = ({onSubmit, goBack, status}) => {
                       initial={{name: ''}}
                       validationSchema={validationSchema_newRoom}
                       inputs={[{text: 'name'}]}
-                      onSubmit={(values) => onSubmit(values)}/>
+                      onSubmit={onSubmit}/>
             </CSSTransition>
             <CSSTransition timeout={300} classNames='button_animation' in={status} appear={true}>
                 <Button

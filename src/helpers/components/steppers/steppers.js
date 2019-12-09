@@ -11,6 +11,7 @@ import {Scores} from "../newGameForms/scrores";
 
 import './steppers.css'
 import '../../../components/container/absolute.css'
+import {Overlay} from "../../../components/overlay/overlay";
 
 export const Steppers = ({cancel, submit}) => {
 
@@ -54,23 +55,22 @@ export const Steppers = ({cancel, submit}) => {
             ? currentCard.next ? currentCard.next : submit
             : currentCard.prev ? currentCard.prev : cancel;
         if (currentCard.data) {
-            currentCard.data[1](true) // if the next card exist, make it visibleOverlay
+            currentCard.data[1](true) // if the next card exist, make it visible
         } else {
             setVisible(false);
-            setTimeout(currentCard, 350, userValues) // else close <Steppers/> after animation
+            setTimeout(currentCard, 300, userValues) // else close <Steppers/> after animation
         }
     };
 
-    return <TransitionGroup appear className='steppers'>
-        {visible && <CSSTransition classNames='steppers__overlay'
-                                   timeout={300}>
-            <div className='steppers__overlay'/>
-        </CSSTransition>}
-        {visible && <CSSTransition classNames='steppers__cards'
-                           timeout={300}>
+    return <Fragment>
+        <Overlay visible={visible}/>
+        <CSSTransition in={visible}
+                       classNames='steppers__cards'
+                       timeout={300}
+                       appear>
             <div className='container absolute'>
                 <Card headerText='Create a new game'
-                      style={{width:'100%', margin:'0'}}
+                      style={{width: '100%', margin: '0'}}
                       render={() => {
                           return <Fragment>
                               {namesForm && <Names initial={userValues.names}
@@ -88,6 +88,6 @@ export const Steppers = ({cancel, submit}) => {
                 />
                 <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
             </div>
-        </CSSTransition>}
-    </TransitionGroup>
+        </CSSTransition>
+    </Fragment>
 };
