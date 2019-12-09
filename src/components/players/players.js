@@ -11,8 +11,8 @@ export const Players = (props) => {
                 <p className='text text_additional'>Players: </p>
                 {
                     players.map(player => {
-                        return (<p key={player}
-                                   className='text text_additional'>{player}</p>)
+                        return (<p key={player.id}
+                                   className='text text_additional'>{player.nickname || player.id}</p>)
                     })
                 }
             </div>

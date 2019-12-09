@@ -80,7 +80,8 @@ export function Rooms(props) {
                               <Button className='button button_new' onClick={createNewRoomForm}/>
                           </CSSTransition>}
                       {isUploaded.done && rooms.map(room => {
-                          let {id, users, name, creatorId} = room;
+                          let {id, users, name} = room;
+                          let creatorId=room.creator.id;
                           return <Link key={id} to={`rooms/${id}`}>
                               <Paper
                                   className='paper'
