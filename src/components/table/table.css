@@ -21,6 +21,6 @@
     box-shadow: none;
 }
 
-.width {
-    width: 50px;
+.table .text {
+    overflow: hidden;
 }

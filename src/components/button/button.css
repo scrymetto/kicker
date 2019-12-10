@@ -11,6 +11,7 @@
     font-size: larger;
     text-align: center;
     line-height: 100%;
+    z-index: 1;
 }
 
 .button::-moz-focus-inner {

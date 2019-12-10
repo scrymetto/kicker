@@ -46,9 +46,13 @@ export const styles = {
     menu: (prev) => ({
         ...prev,
         marginTop: '3px',
+        zIndex: 9999
     }),
-    menuList: (prev)=>({
-        ...prev,
-        maxHeight: '300px'
-    })
+    menuList: (prev)=>({...prev,
+        maxHeight: '300px',
+    }),
+    input: prev => ({ ...prev,
+        fontSize: '18px',
+        fontFamily: 'IBM Plex Sans, sans-serif'
+    }),
 };

@@ -1,5 +1,6 @@
 .text_link {
-    width: fit-content;
+    display: inline-block;
+    margin: 0;
     cursor: pointer;
     font-style: italic;
     border-bottom: #bababa dashed 1px;
