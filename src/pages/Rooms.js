@@ -69,9 +69,13 @@ export function Rooms(props) {
         setTimeout(setFormVisible, 300, false);
     };
 
-    const deleteRoom1 = id => {
+    const deleteRoomFromState = id => {
         deleteRoom(user, id, onError)
-        globalActions.setPopup({success: '♻ The room has been deleted!'});
+            .then(()=>{
+                globalActions.deleteFromState(id, 'rooms')
+            })
+            .then(()=> globalActions.setPopup({success: '♻ The room has been deleted!'}));
+
     };
 
     return (
@@ -88,7 +92,7 @@ export function Rooms(props) {
                           </CSSTransition>}
                       {isUploaded.done && rooms.map(room => {
                           const {id, users, name} = room;
-                          let creatorId = room.creator.id;
+                          const creator = room.creator;
                           return <div key={id} style={{position: 'relative'}}>
                               <Link to={`rooms/${id}`}>
                                   <Paper
@@ -96,11 +100,11 @@ export function Rooms(props) {
                                       id={id}
                                       players={users}
                                       name={name}
-                                      admin={creatorId}
-                                      remove={(id) => deleteRoom1(id)}/>
+                                      admin={creator.nickname||creator.id}
+                                      remove={(id) => deleteRoomFromState(id)}/>
                               </Link>
                               <Button className='button button_close'
-                                      onClick={() => deleteRoom1(id)}
+                                      onClick={() => deleteRoomFromState(id)}
                                       style={{position: 'absolute', top: '10px', right: '10px'}}
                               />
                           </div>
