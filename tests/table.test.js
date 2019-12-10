@@ -95,6 +95,6 @@ describe('<Table/> ', () => {
     it('should have empty prop \'styles\', if there is NO prop \'style\' in <Table/>', () => {
         wrapper = english;
         let randomCell = wrapper.find('th').at(0).props().style;
-        expect(randomCell).is.empty;
+        expect(randomCell).to.be.empty; //it's normal, see https://www.chaijs.com/api/bdd/#method_empty
     })
 });

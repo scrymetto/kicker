@@ -20,7 +20,7 @@ describe('Main header', () => {
         expect(node.hasClass('header header_main')).to.equal(true)
     });
     it('should contain correct paragraph', () => {
-        let text = wrapper.findWhere(node => node.hasClass('text_header') && node.text() === 'test');
+        let text = wrapper.findWhere(node => node.hasClass('text_header_main') && node.text() === 'test');
         expect(text.length).to.equal(1)
     });
     it('should contain button', () => {
