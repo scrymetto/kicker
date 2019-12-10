@@ -7,10 +7,12 @@ export const Scores = ({initial, setNewStatus}) => {
     const scoresOptions = new Array(10).fill(1, 0, 10).map((number, index) => number + index);
     const inputs = [{
         select: 'team one',
-        options: scoresOptions
+        options: scoresOptions,
+        isSearchable:false
     }, {
         select: 'team two',
-        options: scoresOptions
+        options: scoresOptions,
+        isSearchable:false
     }];
 
   return <Fragment>

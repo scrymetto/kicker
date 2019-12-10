@@ -13,9 +13,12 @@ export const Players = ({initial, setNewStatus}) => {
     const inputs = [{
         select: 'team one',
         options: players,
+        isSearchable: false
+
     }, {
         select: 'team two',
         options: players,
+        isSearchable: false
     }];
 
     return <Fragment>

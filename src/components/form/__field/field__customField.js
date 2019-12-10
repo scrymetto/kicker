@@ -34,6 +34,7 @@ export function CustomField({input, errors, touched, setFieldValue, initialValue
                         initialValues={initialValues[name]}
                         setFieldValue={setFieldValue}
                         placeholder={placeholder}
+                        isSearchable={input.isSearchable}
                         />
                     {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
                 </Fragment>
