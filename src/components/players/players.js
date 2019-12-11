@@ -25,5 +25,8 @@ export const Players = (props) => {
 };
 
 Players.propTypes = {
-    players: PropTypes.array
+    players: PropTypes.arrayOf(PropTypes.shape({
+        id:PropTypes.string,
+        nickname: PropTypes.string
+    }))
 };
