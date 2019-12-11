@@ -8,24 +8,24 @@ import {act, render, cleanup} from "@testing-library/react";
 describe('Popup', () => {
 
     afterEach(cleanup);
-
-    let text = 'You are awesome';
+    let wrapper;
+    const text = 'You are awesome';
     let className = 'popup popup_error';
     it('should have text from props', () => {
-        let wrapper = shallow(<Popup text={text} className={className}/>);
+        wrapper = shallow(<Popup text={text} className={className}/>);
         expect(wrapper.find('.text').text()).to.be.equal(text)
     });
     it('should have correct className', () => {
-        let wrapper = shallow(<Popup text={text} className={className}/>);
+        wrapper = shallow(<Popup text={text} className={className}/>);
         expect(wrapper.find('div').hasClass(className)).to.be.equal(true)
     });
     it('should have button', () => {
-        let wrapper = shallow(<Popup text={text} className={className}/>);
+        wrapper = shallow(<Popup text={text} className={className}/>);
         expect(wrapper.find(Button).length).to.be.equal(1)
     });
     it('should close Popup, if button clicked', () => {
-        let wrapper = shallow(<Popup text={text} className={className}/>);
-        let button = wrapper.find(Button);
+        wrapper = shallow(<Popup text={text} className={className}/>);
+        const button = wrapper.find(Button);
         button.simulate('click');
         expect(wrapper.props().in).to.equal(false)
     });
@@ -34,7 +34,7 @@ describe('Popup', () => {
         className = 'popup popup_success';
         const {container} = render(<Popup text={text} className={className}/>);
         expect(container.childNodes.length).to.be.equal(1);
-        act(()=>jest.advanceTimersByTime(6005));
+        act(()=>jest.advanceTimersByTime(5300)); //5000ms for setTimeout + 300ms for animation
         expect(container.childNodes.length).to.be.equal(0);
         });
 });
