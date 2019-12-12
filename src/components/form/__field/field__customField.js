@@ -36,6 +36,7 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
                         setFieldValue={setFieldValue}
                         placeholder={placeholder}
                         isSearchable={input.isSearchable}
+                        data-testid='custom_select'
                     />
                     {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
                 </Fragment>
@@ -46,6 +47,7 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
                         name={name}
                         placeholder={placeholder}
                         onChange={event => setFieldValue(name, event.target.value)}
+                        data-testid='custom_input'
                     />
                     {errors[name] && touched[name] && <p className='text text_error'>{errors[name]}</p>}
                 </Fragment>
@@ -59,15 +61,15 @@ CustomField.propTypes = {
         if (!prop) {
             return new Error(`Prop \'${propName}\' is required.`)
         }
-        if (props['input'].select) {
-            if (!props['input'].options) {
+        if (prop.select) {
+            if (!prop.options) {
                 return new Error(`Prop \'${propName}\' must be an object, the field 'options' is required.`)
             } else {
-                if (!Array.isArray(props['input'].options)) {
+                if (!Array.isArray(prop.options)) {
                     return new Error(`Field 'options' in prop \'${propName}\' must be an array.`)
                 }
             }
-            if (!props['input'].isSearchable) {
+            if (typeof prop.isSearchable === 'undefined') {
                 return new Error(`Prop \'${propName}\' must be an object, the field 'isSearchable' is required.`)
             } else {
                 if (typeof props['input'].isSearchable !== 'boolean') {
@@ -79,12 +81,5 @@ CustomField.propTypes = {
     initialValues: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
     errors: PropTypes.object.isRequired, // from Formik
     touched: PropTypes.object.isRequired, // from Formik
-    setFieldValue: function (props, propName) {
-        const prop = props[propName];
-        if (props['input'].select) {
-            if (!prop) {
-                return new Error(`Prop \'${propName}\' is required for inputs with a select.`)
-            }
-        }
-    } // fn from Formik
+    setFieldValue: PropTypes.func.isRequired // fn from Formik
 };

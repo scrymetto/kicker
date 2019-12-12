@@ -2,11 +2,8 @@ import React from "react";
 import {act, render, cleanup, prettyDOM} from "@testing-library/react";
 
 import {CustomField} from "../src/components/form/__field/field__customField";
-import {CustomField_Select} from "../src/components/form/__field/__customField_select/field__cusromField_select";
 
-const textInitial = {
 
-};
 
 const selectInput = {
     select: 'colors',
@@ -15,7 +12,7 @@ const selectInput = {
 }
 
 const selectInitial = {
-    colors: 'blue'
+    colors: []
 }
 
 const makeFlag = (obj, trueOrFalse) =>{
@@ -29,11 +26,12 @@ const makeFlag = (obj, trueOrFalse) =>{
 describe('CustomField ', ()=>{
     afterEach(cleanup);
     test('should render a text input, if there is no field \'select\' in prop \'input\'', ()=>{
-        const {container, getByTestid} = render(<CustomField initialValues={selectInitial}
-                                                             errors={makeFlag(selectInitial, false)}
-                                                             touched={makeFlag(selectInitial, false)}
+        const {container, getByTestid} = render(<CustomField initialValues={textInitial}
+                                                             errors={makeFlag(textInitial, false)}
+                                                             touched={makeFlag(textInitial, false)}
+                                                             input={textInput}
                                                              setFieldValue={()=>true}
-                                                             input={selectInput}/>)
+        />)
         console.log(prettyDOM(container))
     })
 });

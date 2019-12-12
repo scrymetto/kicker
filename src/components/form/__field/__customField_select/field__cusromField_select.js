@@ -3,9 +3,7 @@ import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import {styles, theme} from "./styles";
 
-export const CustomField_Select = (props) => {
-
-    const {className, classNamePrefix, options, name, initialValues, setFieldValue, placeholder, isSearchable} = props;
+export const CustomField_Select = ({className, classNamePrefix, options, name, initialValues, setFieldValue, placeholder, isSearchable, ...props}) => {
 
     const isMulti = Array.isArray(initialValues);
 
@@ -39,6 +37,7 @@ export const CustomField_Select = (props) => {
     const animatedComponents = makeAnimated();
 
     return <Select
+        {...props}
         className={className}
         classNamePrefix={classNamePrefix}
         options={optionsWithLabel}
