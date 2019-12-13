@@ -2,7 +2,23 @@ import React from 'react';
 import {Paper} from '../src/components/paper/paper'
 
 describe('Paper ', () => {
-    let players = ['Balakirev', 'Cui', 'Mussorgsky', 'Rimsky-Korsakov', 'Borodin'];
+    let players = [
+        {
+            id: '0',
+            nickname: 'Balakirev'
+        }, {
+            id: '1',
+            nickname: 'Cui'
+        }, {
+            id: '2',
+            nickname: 'Mussorgsky'
+        }, {
+            id: '3',
+            nickname: 'Rimsky-Korsakov'
+        }, {
+            id: '4',
+            nickname: 'Borodin'
+        }];
     let admin = 'Balakirev';
     let name = 'The Mighty Group';
     let wrapper = shallow(<Paper players={players} admin={admin} name={name}/>);

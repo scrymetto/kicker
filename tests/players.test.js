@@ -2,10 +2,10 @@ import React from 'react';
 import {Players} from '../src/components/players/players'
 
 describe('Players ', () => {
-    let label = <p className='text text_additional'>Players: </p>;
-    let emptyLabel = <p className='text text_additional'>There are no players yet.</p>;
-    let users = [{id:0, name:'Hulk'}, {id: 1, name:'Iron Man'}, {id:1, name:'Ms. Marvel'}];
-    let noUsers = [];
+    const label = <p className='text text_additional'>Players: </p>;
+    const emptyLabel = <p className='text text_additional'>There are no players yet.</p>;
+    const users = [{id:'0', name:'Hulk'}, {id: '1', name:'Iron Man'}, {id:'2', name:'Ms. Marvel'}];
+    const noUsers = [];
     it('should have text \'Players\'', () => {
         let wrapper = shallow(<Players players={users}/>);
         expect(wrapper.contains(label)).to.equal(true)
