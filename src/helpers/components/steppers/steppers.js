@@ -12,6 +12,7 @@ import {Scores} from "../newGameForms/scrores";
 import './steppers.css'
 import '../../../components/container/absolute.css'
 import {Overlay} from "../../../components/overlay/overlay";
+import PropTypes from "prop-types";
 
 export const Steppers = ({cancel, submit}) => {
 
@@ -37,7 +38,7 @@ export const Steppers = ({cancel, submit}) => {
     const [playersForm, setPlayersFormStatus] = useState(false);
     const [scoresForm, setScoresFormStatus] = useState(false);
 
-    const cards = prepareHooksForSteppers([ // create doubly linked list with hooks
+    const cards = prepareHooksForSteppers([ // create a doubly linked list with hooks
         [namesForm, setNamesFormStatus],
         [playersForm, setPlayersFormStatus],
         [scoresForm, setScoresFormStatus]]);
@@ -90,4 +91,9 @@ export const Steppers = ({cancel, submit}) => {
             </div>
         </CSSTransition>
     </Fragment>
+};
+
+Steppers.propTypes = {
+    cancel: PropTypes.func.isRequired,
+    submit: PropTypes.func.isRequired
 };

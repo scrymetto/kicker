@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from 'yup';
 import sinon from "sinon";
-import {fireEvent, render, cleanup, prettyDOM, waitForElement} from "@testing-library/react";
+import {fireEvent, render, cleanup} from "@testing-library/react";
 
 import {Form} from "../src/components/form/form";
 import {Button} from "../src/components/button/button";

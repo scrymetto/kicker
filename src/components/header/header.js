@@ -9,49 +9,48 @@ import {logout} from "../../helpers/auth&route/logout";
 
 export default function Header(props) {
 
-    useEffect(() => {
-        document.addEventListener('click', changeMenuListener);
-        return () => document.removeEventListener('click', changeMenuListener)
-    });
+    if (props.className) {
+        useEffect(() => {
+            document.addEventListener('click', changeMenuListener);
+            return () => document.removeEventListener('click', changeMenuListener)
+        });
 
-    let [menuIsOpen, changeMenuStatus] = useState(false);
-    let [menuIsVisible, changeMenuVisible] = useState(false);
-    const {setUser} = useAuth();
+        const [menuIsOpen, changeMenuStatus] = useState(false);
+        const [menuIsVisible, changeMenuVisible] = useState(false);
+        const {setUser} = useAuth();
+        const headerClassName = 'header ' + props.className;
+        const changeMenuListener = (event) => {
+            if (!event.target.closest('.menu') && menuIsOpen) {
+                changeMenuVisible(false);
+                setTimeout(changeMenuStatus, 400, false)
+            }
+        };
 
-    let headerClassName = props.className ? 'header ' + props.className : 'header';
-    const changeMenuListener = (event) => {
-        if (!event.target.closest('.menu') &&  menuIsOpen) {
-            changeMenuVisible(false);
-            setTimeout(changeMenuStatus, 400, false)
-        }
-    };
+        const buttonOnclick = () => {
+            if (menuIsOpen) {
+                changeMenuVisible(false);
+                setTimeout(changeMenuStatus, 400, false)
+            } else {
+                changeMenuStatus(true);
+                changeMenuVisible(true);
+            }
+        };
 
-    const buttonOnclick = () => {
-        if (menuIsOpen) {
-            changeMenuVisible(false);
-            setTimeout(changeMenuStatus, 400, false)
-        } else {
-            changeMenuStatus(true);
-            changeMenuVisible(true);
-        }
-    };
-
-    const logoutFn = () => logout(setUser, changeMenuStatus, false);
-
-    return (
-        props.className
-            ? <Fragment>
-                <div className={headerClassName} data-testid='header'>
-                    <p className='text_header_main'>{props.text}</p>
-                    <Button className='button button_menu' onClick={() => buttonOnclick()}/>
-                </div>
-                {menuIsOpen && <Menu logout={logoutFn} status={menuIsVisible} />}
-            </Fragment>
-
-            : <div className={headerClassName} data-testid='header'>
-                <p className='text_header'>{props.text}</p>
+        const logoutFn = () => logout(setUser, changeMenuStatus, false);
+        return <Fragment>
+            <div className={headerClassName} data-testid='header'>
+                <p className='text_header_main'>{props.text}</p>
+                <Button className='button button_menu' onClick={() => buttonOnclick()}/>
             </div>
-    )
+            {menuIsOpen && <Menu logout={logoutFn} status={menuIsVisible}/>}
+        </Fragment>
+    } else {
+
+        const headerClassName = 'header';
+        return <div className={headerClassName} data-testid='header'>
+            <p className='text_header'>{props.text}</p>
+        </div>
+    }
 };
 
 Header.propTypes = {
