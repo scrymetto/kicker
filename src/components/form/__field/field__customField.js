@@ -29,14 +29,12 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
                 ? <Fragment>
                     <CustomField_Select
                         className={inputClassName + ' select'}
-                        classNamePrefix={'form__field'}
                         options={input.options}
                         name={name}
                         initialValues={initialValues[name]}
                         setFieldValue={setFieldValue}
                         placeholder={placeholder}
                         isSearchable={input.isSearchable}
-                        data-testid='custom_select'
                     />
                     {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
                 </Fragment>
