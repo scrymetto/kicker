@@ -9,7 +9,7 @@ export const Names = ({initial, setNewStatus})=>{
 
     return <Fragment>
         <div className='margin_left_40'>
-            <p className='text' data-testid='names'>Come up with names for the teams &#9917;</p>
+            <p className='text' data-testid='names'>Come up with names for teams &#9917;</p>
         </div>
         <Form
             className='form'
@@ -20,4 +20,4 @@ export const Names = ({initial, setNewStatus})=>{
             withRoundButton
         />
     </Fragment>
-}
+};

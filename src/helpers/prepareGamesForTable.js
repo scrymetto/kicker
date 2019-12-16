@@ -5,12 +5,12 @@ import '../components/text/text_oblique.css'
 export const prepareGamesForTable = (games) => {
 
     return games.map((game) => {
-        let {firstTeam, secondTeam} = game;
-        let {name: firstTeamName = 'Unnamed team', points: firstTeamScore} = firstTeam;
-        let {name: secondTeamName = 'Unnamed team', points: secondTeamScore} = secondTeam;
-        let firstTeamPlayers = firstTeam.players ? prepareStringWithPlayers(firstTeam.players) : null;
-        let secondTeamPlayers = secondTeam.players ? prepareStringWithPlayers(secondTeam.players) : null;
-        let firstTeamCell =
+        const {firstTeam, secondTeam} = game;
+        const {name: firstTeamName = 'Unnamed team', points: firstTeamScore} = firstTeam;
+        const {name: secondTeamName = 'Unnamed team', points: secondTeamScore} = secondTeam;
+        const firstTeamPlayers = firstTeam.players ? prepareStringWithPlayers(firstTeam.players) : null;
+        const secondTeamPlayers = secondTeam.players ? prepareStringWithPlayers(secondTeam.players) : null;
+        const firstTeamCell =
             <Fragment>
                 <p className='text text_oblique' data-testid='team'>
                     {firstTeamName}
@@ -19,7 +19,7 @@ export const prepareGamesForTable = (games) => {
                     {firstTeamPlayers}
                 </p>}
             </Fragment>;
-        let secondTeamCell =
+        const secondTeamCell =
             <Fragment>
                 <p className='text text_oblique' data-testid='opponent'>
                     {secondTeamName}
@@ -28,7 +28,7 @@ export const prepareGamesForTable = (games) => {
                     {secondTeamPlayers}
                 </p>}
             </Fragment>;
-        let score = <p className='text' data-testid='score'>{firstTeamScore} : {secondTeamScore}</p>;
+        const score = <p className='text' data-testid='score'>{firstTeamScore} : {secondTeamScore}</p>;
         return {
             team: firstTeamCell,
             score: score,

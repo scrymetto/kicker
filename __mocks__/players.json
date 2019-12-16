@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "nickname": "Switzerland",
+    "points":"10",
+    "loose": "1",
+    "win": "6"
+  },
+  {
+    "id": "2",
+    "nickname": "Japan",
+    "points":"9.8",
+    "loose": "4",
+    "win": "17"
+  },
+  {
+    "id": "3",
+    "nickname": "Canada",
+    "points":"9.7",
+    "loose": "0",
+    "win": "18"
+  },
+  {
+    "id": "4",
+    "nickname": "Germany",
+    "points":"9.6",
+    "loose": "3",
+    "win": "14"
+  },
+  {
+    "id": "5",
+    "nickname": "United Kingdom",
+    "points":"9.4",
+    "loose": "14",
+    "win": "94"
+  }
+]

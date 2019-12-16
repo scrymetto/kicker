@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Suspense} from "react";
 import {BrowserRouter as Router} from "react-router-dom";
 import "./App.css";
 
+import {LoginPage} from "./pages/Login";
 import {Rooms} from "./pages/Rooms";
 import {RoomById} from "./pages/RoomById";
 
 import {AuthContext} from "./helpers/auth&route/authContext"
-import {LoginPage} from "./pages/Login";
 import {Popup} from "./components/popup/popup";
 import Header from "./components/header/header";
 import PrivateRoute from "./helpers/auth&route/privateRoute";
@@ -23,11 +23,11 @@ function App(props) {
         }
     });
 
-    let [globalState, globalActions] = useGlobal();
-    let error = globalState.popup.error;
-    let success = globalState.popup.success;
-    let className = error ? 'popup popup_error' : success ? 'popup popup_success' : '';
-    // console.log('error state '+error)
+    const [globalState, globalActions] = useGlobal();
+    const error = globalState.popup.error;
+    const success = globalState.popup.success;
+    const className = error ? 'popup popup_error' : success ? 'popup popup_success' : '';
+    console.log(globalState)
 
 
     // console.log(user)
@@ -55,8 +55,8 @@ function App(props) {
                 </div>
             </Router>
             {error || success
-                && <Popup className={className} text={error ? error : success}/>
-                }
+            && <Popup className={className} text={error ? error : success}/>
+            }
         </AuthContext.Provider>
     );
 }
