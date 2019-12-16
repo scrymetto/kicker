@@ -18,7 +18,7 @@ export const Table = (props) => {
                     let styles = {};
                     if (rowsStyles[0]) styles = Object.assign(styles, rowsStyles[0]);
                     if (columnsStyles[index]) styles = Object.assign(styles, columnsStyles[index]);
-                    let capital = makeFirstLetterUppercase(cell);
+                    const capital = makeFirstLetterUppercase(cell);
                     return <th key={index} style={styles}>{capital}</th>
                 })
                 }
@@ -27,7 +27,7 @@ export const Table = (props) => {
             <tbody>
             {rows
                 ? rows.map((dataCells, rowIndex) => {
-                    let row = makeArrayFromObjAndTemplate(dataCells, columns);
+                    const row = makeArrayFromObjAndTemplate(dataCells, columns);
                     return <tr className='table table__rows' key={rowIndex}>
                         {row.map((cell, index) => {
                             let styles = {};
@@ -54,8 +54,30 @@ export const Table = (props) => {
 
 Table.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.string).isRequired,
-    rows: PropTypes.arrayOf(PropTypes.object), //key = the string from Table.columns; value = React.element
-    text:PropTypes.string,
+
+    //key = the string from Table.columns; value = React.element
+    rows: function (props, propName) {
+        const rows = props[propName];
+        if (!rows) return;
+        if (!Array.isArray(rows)) return new Error(`\'${propName}\' must be an array`);
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            for (let key in row) {
+                if (props['columns'].indexOf(key) < 0) {
+                    return new Error(`The array '${propName}\' must contain objects, each key of them must be a string from props.columns.`)
+                } else {
+                    if (!React.isValidElement(row[key])) {
+                        return new Error(`The array '${propName}\' must contain objects, each value of them must be a React.Element.`)
+                    }
+                }
+            }
+        }
+    },
+    text: function (props, propName) {
+        if(!props['rows']&&!props[propName]){
+            return new Error(`If you don't have a prop \'rows\', a prop '${propName}\' is required.`)
+        }
+    },
     styles: PropTypes.shape({
         columnsStyles: PropTypes.instanceOf(Map),
         rowsStyles: PropTypes.instanceOf(Map)
