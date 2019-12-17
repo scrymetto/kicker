@@ -6,16 +6,18 @@ export const RatingTable = ({players}) => {
 
     const makeElement = string => <p className='text'>{string}</p>;
     const columnStyles = new Map();
-    columnStyles.set([1,2, 3], {width: '70px'});
+    columnStyles.set([1, 2, 3, 4], {width: '70px'});
     const styles = {columnsStyles: columnStyles};
 
 
-    const columns = ['player', 'win', 'loose', 'points'];
+    const columns = ['player', 'win/ loose', 'winrate', 'points'];
     const rows = players.map(player => {
+        const win = Number.parseInt(player.win);
+        const loose = Number.parseInt(player.loose);
         return {
             player: makeElement(player.nickname),
-            win: makeElement(player.win) || makeElement(0),
-            loose: makeElement(player.loose) || makeElement(0),
+            'win/ loose': makeElement(win + '/' + loose) || makeElement(0 + '/' + 0),
+            winrate: makeElement(Math.round(win / (win + loose) * 100) + '%'),
             points: makeElement(player.points) || makeElement(0)
         }
 
