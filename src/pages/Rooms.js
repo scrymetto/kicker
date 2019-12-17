@@ -12,10 +12,9 @@ import {scrollToTop} from "../helpers/scrollToTop";
 import {Card} from "../components/card/card";
 import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
-import {NewRoomFrom} from "../helpers/components/newRoomForm/newRoomForm";
+import {Form_simple} from "../components/form/form_simple/newRoomForm";
 import {StubPaper} from "../components/paper/paper_stub";
-
-import '../components/button/button_new.css'
+import {validationSchema_newRoom} from "../components/form/__validationSchema/form__validationSchema_newRoom";
 
 //TODO: change height of card if <NewRoomForm/> is open!
 
@@ -26,11 +25,9 @@ export function Rooms(props) {
     let [redirect, doRedirect] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
-            getRooms(user, getSuccess, onError)
-        }, 1000);
-        props.history.push(props.history.location);
-    }, []);
+            getRooms(user, getSuccess, onError);
+            props.history.push(props.history.location);
+        },[]);
 
     const [globalState, globalActions] = useGlobal();
     let rooms = globalState.rooms;
@@ -71,10 +68,10 @@ export function Rooms(props) {
 
     const deleteRoomFromState = id => {
         deleteRoom(user, id, onError)
-            .then(()=>{
+            .then(() => {
                 globalActions.deleteFromState(id, 'rooms')
             })
-            .then(()=> globalActions.setPopup({success: '♻ The room has been deleted!'}));
+            .then(() => globalActions.setPopup({success: '♻ The room has been deleted!'}));
 
     };
 
@@ -84,7 +81,13 @@ export function Rooms(props) {
                   <Fragment>
                       {redirect && <Redirect to={`rooms/${redirect}`}/>}
                       {isFormVisible
-                          ? <NewRoomFrom onSubmit={onSubmitForm} goBack={goBack} status={isFormOpening}/>
+                          ? <Form_simple onSubmit={onSubmitForm}
+                                         goBack={goBack}
+                                         status={isFormOpening}
+                                         initial={{name:''}}
+                                         inputs={'name'}
+                                         validationSchema={validationSchema_newRoom}
+                          />
                           :
                           !isUploaded.error &&
                           <CSSTransition timeout={300} classNames='button_animation' in={!isFormVisible} appear={true}>
@@ -100,7 +103,7 @@ export function Rooms(props) {
                                       id={id}
                                       players={users}
                                       name={name}
-                                      admin={creator.nickname||creator.id}
+                                      admin={creator.nickname || creator.id}
                                       remove={(id) => deleteRoomFromState(id)}/>
                               </Link>
                               <Button className='button button_close'

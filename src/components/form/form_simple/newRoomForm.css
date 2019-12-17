@@ -1,33 +1,33 @@
-.newRoomForm_visible {
+.form_simple {
     position: relative;
     width: 100%;
     top: 0;
     opacity: 100%;
 }
 
-.newRoomForm_visible-appear {
+.form_simple-appear {
     transform: translateY(-200%);
     opacity: 0;
 }
 
-.newRoomForm_visible-appear-active {
+.form_simple-appear-active {
     transform: none;
     opacity: 100%;
     transition: all ease-in-out 300ms;
 }
 
-.newRoomForm_visible-exit {
+.form_simple-exit {
     transform: none;
     opacity: 100%;
 }
 
-.newRoomForm_visible-exit-active {
+.form_simple-exit-active {
     transform: translateY(-200%);
     opacity: 0;
     transition: all ease-in-out 300ms;
 }
 
-.newRoomForm_visible-exit-done {
+.form_simple-exit-done {
     transform: translateY(-200%);
     opacity: 0;
 }
@@ -56,4 +56,8 @@
 
 .button_animation-exit-done {
     opacity: 0;
+}
+
+.form__field__container {
+    min-height: 72px;
 }
