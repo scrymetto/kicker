@@ -1,0 +1,25 @@
+.gameHistory-appear {
+    transform: translateY(-500%);
+}
+
+.gameHistory-appear-active {
+    transform: none;
+    transition: all ease-in-out 300ms;
+}
+
+.gameHistory-done {
+    transform: none;
+}
+
+.gameHistory-exit {
+    transform: none;
+}
+
+.gameHistory-exit-active {
+    transform: translateY(300%);
+    transition: all ease-in-out 300ms;
+}
+
+.gameHistory-exit-done {
+    transform: translateY(300%);
+}
