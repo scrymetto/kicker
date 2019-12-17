@@ -2,7 +2,6 @@ import React, {Fragment, Suspense, useEffect, useState} from 'react';
 
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
-import {Steppers} from "../helpers/components/steppers/steppers";
 import {RatingTable} from "../helpers/components/ratingTable";
 
 import {useGlobal} from "../store";
@@ -18,10 +17,12 @@ export const RoomById = (props) => {
     useEffect(() => {
         getGames(user, room.id, getGamesSuccess, onError)
             .then(() => getPlayers(user, room.id, getPlayersSuccess, onError))
-            .then(() => setUploaded(true));
     }, []);
 
-    const GameHistoryTable = React.lazy(()=> import("../helpers/components/gameHistoryTable"));
+    const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
+    const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
+
+    const [history, showHistory] = useState(false);
 
     const {user} = useAuth();
     const onError = (e) => globalActions.setPopup({error: e});
@@ -29,7 +30,7 @@ export const RoomById = (props) => {
     const getPlayersSuccess = (players) => globalActions.addStateFromServer(players, 'players');
 
     const [globalState, globalActions] = useGlobal();
-    // let room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
+    // const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
     const room = {
         creatorId: "5ddd145a7679161f53e091aa",
         id: "5ddd23867679161f53e091ab",
@@ -38,9 +39,6 @@ export const RoomById = (props) => {
     };
 
     const players = globalState.players;
-    console.log(players)
-
-    const [isUploaded, setUploaded] = useState(false);
 
     const [form, setForm] = useState(false);
 
@@ -50,7 +48,7 @@ export const RoomById = (props) => {
             .then((data) => {
                 globalActions.addNewInState(data, 'games');
             });
-        setTimeout(setForm, 300, false)
+        setForm(false)
     };
 
     return (
@@ -58,21 +56,28 @@ export const RoomById = (props) => {
               render={() => {
                   return (
                       <Fragment>
-                          {form && <Steppers cancel={() => setForm(false)}
-                                             submit={createNewGame}
-                          />}
+                          {form && <Suspense fallback={<div>Loading..</div>}>
+                              <Steppers
+                                  cancel={() => setForm(false)}
+                                  submit={createNewGame}
+                              />
+                          </Suspense>}
                           <RatingTable players={players}/>
-                          <Suspense fallback={<div>Loading...</div>}>
-                              <GameHistoryTable games={globalState.games}/>
-                          </Suspense>
                           {!form && <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>}
                           {!form && <Button className='button button_new' onClick={() => setForm(true)}/>}
-                          <div className='container margin_15'>
-                              <p className='text text_link'
-                              >Show game history</p>
-                          </div>
+                          {!history
+                              ? <div className='container margin_15'>
+                                  <p className='text text_link' onClick={() => showHistory(true)}
+                                  >Show game history</p>
+                              </div>
+                              : <Fragment>
+                                  <Suspense fallback={<div>Loading...</div>}>
+                                      <GameHistoryTable games={globalState.games} changeState={showHistory}/>
+                                  </Suspense>
+                              </Fragment>}
+
                           {!form && <Button className='button button_settings'/>}
                       </Fragment>
                   )
