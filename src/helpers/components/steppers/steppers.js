@@ -1,5 +1,5 @@
 import React, {Fragment, useState} from "react";
-import {CSSTransition, TransitionGroup} from "react-transition-group";
+import {CSSTransition} from "react-transition-group";
 
 import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
 
@@ -14,7 +14,7 @@ import '../../../components/container/absolute.css'
 import {Overlay} from "../../../components/overlay/overlay";
 import PropTypes from "prop-types";
 
-export const Steppers = ({cancel, submit}) => {
+const Steppers = ({cancel, submit}) => {
 
     const [visible, setVisible] = useState(true);
     const [userValues, setUserValues] = useState(
@@ -97,3 +97,5 @@ Steppers.propTypes = {
     cancel: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired
 };
+
+export default Steppers;

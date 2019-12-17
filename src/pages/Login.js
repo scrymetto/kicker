@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, Suspense, useState} from "react";
 
 import "../components/text/text_link.css";
 import "../components/container/margin.css";
@@ -33,8 +33,8 @@ export const LoginPage = () => {
             headerText='Hi, stranger!'
             render={() =>
                 <Fragment>
-                    <Login className={loginFormClassName}/>
-                    <NewUserForm className={newUserFormClassName} endRegistration={endRegistration}/>
+                        <Login className={loginFormClassName}/>
+                        <NewUserForm className={newUserFormClassName} endRegistration={endRegistration}/>
                     <div className='container margin_15'>
                         <p className='text text_link'
                            onClick={() => setDisplayLoginForm(!displayLoginForm)}>{text}</p>
