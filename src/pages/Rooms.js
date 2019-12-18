@@ -12,7 +12,7 @@ import {scrollToTop} from "../helpers/scrollToTop";
 import {Card} from "../components/card/card";
 import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
-import {Form_simple} from "../components/form/form_simple/newRoomForm";
+import {Form_simple} from "../components/form/form_simple/_simple";
 import {StubPaper} from "../components/paper/paper_stub";
 import {validationSchema_newRoom} from "../components/form/__validationSchema/form__validationSchema_newRoom";
 
@@ -85,7 +85,7 @@ export function Rooms(props) {
                                          goBack={goBack}
                                          status={isFormOpening}
                                          initial={{name:''}}
-                                         inputs={'name'}
+                                         input={'name'}
                                          validationSchema={validationSchema_newRoom}
                           />
                           :

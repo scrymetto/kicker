@@ -1,4 +1,4 @@
-.button_settings {
+.button_actions {
     background-color: #D3D3D3;
     border-color: #D3D3D3;
     color: #808080;
@@ -10,11 +10,11 @@
     box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px;
 }
 
-.button_settings::before {
+.button_actions::before {
     content: 'Actions \2699';
 }
 
-.button_settings:hover {
+.button_actions:hover {
     background-color: #D3D3D3;
     border-color: #D3D3D3;
     cursor: pointer;
