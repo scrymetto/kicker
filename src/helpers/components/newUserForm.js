@@ -6,18 +6,19 @@ import {prepareDataForRequest} from "../requests/prepareDataForRequest";
 import {useGlobal} from "../../store";
 
 export const NewUserForm = ({className, endRegistration}) => {
-    let template = ['login', 'email', 'password'];
-    let [globalState, globalActions] = useGlobal();
+    const template = ['login', 'email', 'password'];
+    const [globalState, globalActions] = useGlobal();
 
-    let onError = (e) => globalActions.setPopup({error: e});
+    const onError = (e) => {
+        globalActions.setPopup({error: e})};
 
-    let onSuccess = () => {
+    const onSuccess = () => {
         endRegistration();
         globalActions.setPopup({success: 'Success! Now you can log in.'});
     };
 
-    let onSubmit = (values) => {
-        let data = prepareDataForRequest(template, values);
+    const onSubmit = (values) => {
+        const data = prepareDataForRequest(template, values);
         submitNewUserForm(data, onSuccess, onError);
     };
 

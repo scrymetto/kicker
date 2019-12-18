@@ -1,5 +1,5 @@
 import React from "react";
-import {Steppers} from "../src/helpers/components/steppers/steppers";
+import Steppers from "../src/helpers/components/steppers/steppers";
 import {fireEvent, render, cleanup, waitForElement, act, prettyDOM} from "@testing-library/react";
 import sinon from "sinon";
 

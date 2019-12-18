@@ -21,8 +21,8 @@ import {validationSchema_newRoom} from "../components/form/__validationSchema/fo
 export function Rooms(props) {
 
     const {user} = useAuth();
-    let [isUploaded, setUploaded] = useState({loading: true, error: false, done: false});
-    let [redirect, doRedirect] = useState(false);
+    const [isUploaded, setUploaded] = useState({loading: true, error: false, done: false});
+    const [redirect, doRedirect] = useState(false);
 
     useEffect(() => {
             getRooms(user, getSuccess, onError);
@@ -30,7 +30,7 @@ export function Rooms(props) {
         },[]);
 
     const [globalState, globalActions] = useGlobal();
-    let rooms = globalState.rooms;
+    const rooms = globalState.rooms;
     const onError = (e) => {
         globalActions.setPopup({error: e});
         setUploaded({loading: false, error: true, done: false})
@@ -40,8 +40,8 @@ export function Rooms(props) {
         setUploaded({loading: false, error: false, done: true})
     };
 
-    let [isFormVisible, setFormVisible] = useState(false);
-    let [isFormOpening, openForm] = useState(false);
+    const [isFormVisible, setFormVisible] = useState(false);
+    const [isFormOpening, openForm] = useState(false);
 
     const createNewRoomForm = () => {
         scrollToTop();

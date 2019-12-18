@@ -4,7 +4,7 @@ import "./App.css";
 
 import {LoginPage} from "./pages/Login";
 import {Rooms} from "./pages/Rooms";
-import {RoomById} from "./pages/RoomById";
+import {Games} from "./pages/Games";
 
 import {AuthContext} from "./helpers/auth&route/authContext"
 import {Popup} from "./components/popup/popup";
@@ -27,7 +27,7 @@ function App(props) {
     const error = globalState.popup.error;
     const success = globalState.popup.success;
     const className = error ? 'popup popup_error' : success ? 'popup popup_success' : '';
-    console.log(globalState)
+    // console.log(globalState)
 
 
     // console.log(user)
@@ -51,10 +51,10 @@ function App(props) {
                 <div className="App">
                     <AuthRoute path="/login" component={LoginPage}/>
                     <PrivateRoute exact path="/" component={Rooms}/>
-                    <PrivateRoute path={`/rooms/:roomId`} component={RoomById}/>
+                    <PrivateRoute path={`/rooms/:roomId`} component={Games}/>
                 </div>
             </Router>
-            {error || success
+            {(error || success)
             && <Popup className={className} text={error ? error : success}/>
             }
         </AuthContext.Provider>

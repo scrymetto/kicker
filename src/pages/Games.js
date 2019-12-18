@@ -11,25 +11,26 @@ import {getPlayers} from "../helpers/requests/getPlayers";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 
-export const RoomById = (props) => {
+export const Games = (props) => {
     //TODO: globalState can be undefined and it crashes the app
+    const [globalState, globalActions] = useGlobal();
+    const {user} = useAuth();
 
     useEffect(() => {
-        getGames(user, room.id, getGamesSuccess, onError)
-            .then(() => getPlayers(user, room.id, getPlayersSuccess, onError))
+        getGames(user, room.id, getGamesSuccess, onError);
+        getPlayers(user, room.id, getPlayersSuccess, onError)
     }, []);
 
-    const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
-    const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
-
-    const [history, showHistory] = useState(false);
-
-    const {user} = useAuth();
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
     const getPlayersSuccess = (players) => globalActions.addStateFromServer(players, 'players');
 
-    const [globalState, globalActions] = useGlobal();
+    const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
+    const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
+
+    const [form, setForm] = useState(false);
+    const [history, showHistory] = useState(false);
+
     // const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
     const room = {
         creatorId: "5ddd145a7679161f53e091aa",
@@ -39,8 +40,6 @@ export const RoomById = (props) => {
     };
 
     const players = globalState.players;
-
-    const [form, setForm] = useState(false);
 
     const createNewGame = (userValues) => {
         const data = prepareUserValuesForNewGame(userValues);
