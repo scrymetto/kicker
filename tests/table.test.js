@@ -25,13 +25,17 @@ const germanDefiniteArticle = [
         akkusativ: smallWrapper('das')
     }
 ];
+const color = {backgroundColor: 'yellow'};
+const width = {width: '100px'};
+
 const casesColumns = ['genus', 'nominativ', 'genitiv', 'dativ', 'akkusativ'];
 const text = "English has only one version of the definite article - 'the'.";
-const rowsStyles = new Map();
-rowsStyles.set([0], {backgroundColor: 'yellow'});
-const columnsStyles = new Map();
-columnsStyles.set([1, 3], {backgroundColor: 'yellow'});
-columnsStyles.set([0], {width: '100px'});
+const rowsStyles = new Array(germanDefiniteArticle.length);
+rowsStyles[0] = color;
+const columnsStyles = new Array(casesColumns.length);
+columnsStyles[1] = color;
+columnsStyles[3]=color;
+columnsStyles[0] = width;
 const styles = {rowsStyles: rowsStyles, columnsStyles: columnsStyles};
 
 describe('<Table/> ', () => {
@@ -51,13 +55,13 @@ describe('<Table/> ', () => {
 
     it('should render the table with all rows, if they were in props', () => {
         wrapper = deutsch;
-        let rows = wrapper.find('tr');
+        const rows = wrapper.find('tr');
         expect(rows.length).to.equal(germanDefiniteArticle.length + 1) //all rows + 1 row for columns' names
     });
 
     it('should render one row, if <Table/> doesn\'t have \'row\' props', () => {
         wrapper = english;
-        let row = wrapper.find('tr');
+        const row = wrapper.find('tr');
         expect(row.length).to.equal(2); //one row for broken heart + one row for columns' names
         expect(wrapper.find('[data-testid="emptyRow"]').props().colSpan).to.equal(casesColumns.length)
     });
@@ -74,19 +78,19 @@ describe('<Table/> ', () => {
 
     it('should return a <div> with the helper text, if there is the prop \'text\'', () => {
         wrapper = english;
-        let tableText = wrapper.find('[data-testid="helperText"]').children().text();
+        const tableText = wrapper.find('[data-testid="helperText"]').children().text();
         expect(tableText).to.equal(text);
         wrapper = deutsch;
-        let noText = wrapper.find('[data-testid="helperText"]');
+        const noText = wrapper.find('[data-testid="helperText"]');
         expect(noText.length).to.equal(0)
     });
 
     it('should return cells with styles, if there is the prop \'style\'', () => {
         wrapper = deutsch;
-        let randomCell = wrapper.find('th').at(0).getDOMNode();
+        const randomCell = wrapper.find('th').at(0).getDOMNode();
         expect(getComputedStyle(randomCell).getPropertyValue('background-color')).to.equal('yellow');
         expect(getComputedStyle(randomCell).getPropertyValue('width')).to.equal('100px');
-        let randomCell2 = wrapper.find('td').at(3).getDOMNode();
+        const randomCell2 = wrapper.find('td').at(3).getDOMNode();
         expect(getComputedStyle(randomCell2).getPropertyValue('background-color')).to.equal('yellow');
         expect(getComputedStyle(randomCell2).getPropertyValue('width')).to.equal('');
 
@@ -94,7 +98,7 @@ describe('<Table/> ', () => {
 
     it('should have empty prop \'styles\', if there is NO prop \'style\' in <Table/>', () => {
         wrapper = english;
-        let randomCell = wrapper.find('th').at(0).props().style;
+        const randomCell = wrapper.find('th').at(0).props().style;
         expect(randomCell).to.be.empty; //it's normal, see https://www.chaijs.com/api/bdd/#method_empty
     })
 });

@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import {makeFirstLetterUppercase} from "../../helpers/makeFirstLetterUppercase";
 import {makeArrayFromObjAndTemplate} from "../../helpers/makeArrayFromObjAndTemplate";
 import './table.css'
-import {prepareStylesForTable} from "../../helpers/prepareStylesForTable";
 
 export const Table = (props) => {
-    const {columns, rows, styles, text} = props;
-    const columnsStyles = styles ? styles.columnsStyles ? prepareStylesForTable(styles.columnsStyles) : [] : [];
-    const rowsStyles = styles ? styles.rowsStyles ? prepareStylesForTable(styles.rowsStyles) : [] : [];
+    const {columns, rows, text, styles} = props;
+    const columnsStyles = styles ? styles.columnsStyles ? styles.columnsStyles : [] : [];
+    const rowsStyles = styles ? styles.rowsStyles ? styles.rowsStyles : [] : [];
 
     return <Fragment>
         <table className='table'>
@@ -79,7 +78,7 @@ Table.propTypes = {
         }
     },
     styles: PropTypes.shape({
-        columnsStyles: PropTypes.instanceOf(Map),
-        rowsStyles: PropTypes.instanceOf(Map)
+        columnsStyles: PropTypes.array,
+        rowsStyles: PropTypes.array
     })
 };

@@ -16,8 +16,8 @@ const GameHistoryTable = ({games, changeState}) => {
     };
 
     const columns = ['team', 'score', 'opponent'];
-    const columnsStyles = new Map();
-    columnsStyles.set([1], {width: '70px'});
+    const columnsStyles = new Array(columns.length);
+    columnsStyles[1]={width: '70px'};
     const styles = {columnsStyles: columnsStyles};
     const rows = prepareGamesForTable(games);
 

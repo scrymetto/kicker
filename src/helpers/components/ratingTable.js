@@ -4,13 +4,13 @@ import {Table} from "../../components/table/table";
 
 export const RatingTable = ({players}) => {
 
+    const columns = ['player', 'win/ loose', 'winrate', 'points'];
+
     const makeElement = string => <p className='text'>{string}</p>;
-    const columnStyles = new Map();
-    columnStyles.set([1, 2, 3, 4], {width: '70px'});
+    const width = {width: '70px'};
+    const columnStyles = new Array(columns.length).fill(width, 1, columns.length);
     const styles = {columnsStyles: columnStyles};
 
-
-    const columns = ['player', 'win/ loose', 'winrate', 'points'];
     const rows = players.map(player => {
         const win = Number.parseInt(player.win);
         const loose = Number.parseInt(player.loose);
