@@ -3,6 +3,7 @@ import React, {Fragment, Suspense, useEffect, useState} from 'react';
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
 import {RatingTable} from "../helpers/components/ratingTable";
+import ActionsMenu from "../helpers/components/actionsMenu/actionsMenu";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
@@ -28,8 +29,9 @@ export const Games = (props) => {
     const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
     const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
 
-    const [form, setForm] = useState(false);
+    const [newGameSteppers, openNewGameSteppers] = useState(false);
     const [history, showHistory] = useState(false);
+    const [menuIsOpen, openMenu] = useState(false);
 
     // const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
     const room = {
@@ -47,7 +49,7 @@ export const Games = (props) => {
             .then((data) => {
                 globalActions.addNewInState(data, 'games');
             });
-        setForm(false)
+        openNewGameSteppers(false)
     };
 
     return (
@@ -55,17 +57,18 @@ export const Games = (props) => {
               render={() => {
                   return (
                       <Fragment>
-                          {form && <Suspense fallback={<div>Loading..</div>}>
+                          {newGameSteppers && <Suspense fallback={<div>Loading..</div>}>
                               <Steppers
-                                  cancel={() => setForm(false)}
+                                  cancel={() => openNewGameSteppers(false)}
                                   submit={createNewGame}
                               />
                           </Suspense>}
                           <RatingTable players={players}/>
-                          {!form && <Button
+                          {!newGameSteppers && <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>}
-                          {!form && <Button className='button button_new' onClick={() => setForm(true)}/>}
+                          {!newGameSteppers &&
+                          <Button className='button button_new' onClick={() => openNewGameSteppers(true)}/>}
                           {!history
                               ? <div className='container margin_15'>
                                   <p className='text text_link' onClick={() => showHistory(true)}
@@ -76,8 +79,9 @@ export const Games = (props) => {
                                       <GameHistoryTable games={globalState.games} changeState={showHistory}/>
                                   </Suspense>
                               </Fragment>}
-
-                          {!form && <Button className='button button_settings'/>}
+                          {menuIsOpen && <ActionsMenu room={room}/>}
+                          {!newGameSteppers &&
+                          <Button className='button button_actions' onClick={() => openMenu(true)}/>}
                       </Fragment>
                   )
               }}
