@@ -1,0 +1,44 @@
+.actionsMenu-appear {
+    transform: translateY(-200%);
+}
+
+.actionsMenu-appear-active {
+    transform: none;
+    transition: all 300ms;
+}
+
+.actionsMenu-exit {
+    opacity: 1;
+    transform: none;
+}
+
+.actionsMenu-exit-active {
+    opacity: 0;
+    transform: translateY(-200%);
+    transition: all 300ms;
+}
+
+.actionsMenu-exit-done {
+    opacity: 0;
+    transform: translateY(-200%);
+}
+
+.actionsMenu-appear .button {
+    opacity: 0;
+}
+
+.actionsMenu-appear-active .button {
+    opacity: 0;
+}
+
+.actionsMenu-appear-done .button {
+    opacity: 1;
+}
+
+.actionsMenu-exit .button {
+    opacity: 0;
+}
+
+.actionsMenu-exit-active .button {
+    opacity: 0;
+}

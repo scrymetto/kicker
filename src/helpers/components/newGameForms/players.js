@@ -7,8 +7,8 @@ import {useGlobal} from "../../../store";
 export const Players = ({initial, setNewStatus}) => {
 
     const [globalState, globalActions] = useGlobal();
-    // const players = globalState.players;
-    const players = ['red', 'blue'];
+    const players = globalState.players.map(player => player.nickname);
+    // const players = ['red', 'blue'];
 
     const inputs = [{
         select: 'team one',

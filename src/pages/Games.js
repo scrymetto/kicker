@@ -8,7 +8,6 @@ import ActionsMenu from "../helpers/components/actionsMenu/actionsMenu";
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
 import {getGames} from "../helpers/requests/getGames";
-import {getPlayers} from "../helpers/requests/getPlayers";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 
@@ -18,13 +17,20 @@ export const Games = (props) => {
     const {user} = useAuth();
 
     useEffect(() => {
-        getGames(user, room.id, getGamesSuccess, onError);
-        getPlayers(user, room.id, getPlayersSuccess, onError)
+        getGames(user, room.id, getGamesSuccess, onError)
+            .then(()=>{
+                // const players = room.players;
+                const players = require('../../__mocks__/players');
+                globalActions.addStateFromServer(players, 'players')
+            })
     }, []);
+    console.log(globalState)
 
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
-    const getPlayersSuccess = (players) => globalActions.addStateFromServer(players, 'players');
+
+    // const players = room.players;
+    const players = globalState.players;
 
     const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
     const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
@@ -38,10 +44,10 @@ export const Games = (props) => {
         creatorId: "5ddd145a7679161f53e091aa",
         id: "5ddd23867679161f53e091ab",
         name: "1",
-        users: ["5ddd145a7679161f53e091aa"]
+        users: ["5ddd145a7679161f53e091aa"],
     };
 
-    const players = globalState.players;
+    // const players = room.players;
 
     const openSteppers = () => {
         showHistory(false);
@@ -49,7 +55,7 @@ export const Games = (props) => {
     };
 
     const createNewGame = (userValues) => {
-        if(userValues.players.teamOne.length>0){
+        if (userValues.players.teamOne.length > 0) {
             const data = prepareUserValuesForNewGame(userValues);
             postGame(user, room.id, data, onError)
                 .then((data) => {
@@ -71,11 +77,11 @@ export const Games = (props) => {
                               />
                           </Suspense>}
                           <RatingTable players={players}/>
-                          {(!newGameSteppers && !menuIsOpen)&&
+                          {(!newGameSteppers && !menuIsOpen) &&
                           <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>}
-                          {(!newGameSteppers && !menuIsOpen)&&
+                          {(!newGameSteppers && !menuIsOpen) &&
                           <Button className='button button_new' onClick={openSteppers}/>}
                           {!history
                               ? <div className='container margin_15'>
@@ -88,8 +94,8 @@ export const Games = (props) => {
                                   </Suspense>
                               </Fragment>}
                           {menuIsOpen &&
-                          <ActionsMenu room={room} closeMenu={()=>openMenu(false)}/>}
-                          {(!newGameSteppers && !menuIsOpen)&&
+                          <ActionsMenu room={room} closeMenu={() => openMenu(false)}/>}
+                          {(!newGameSteppers && !menuIsOpen) &&
                           <Button className='button button_actions' onClick={() => openMenu(true)}/>}
                       </Fragment>
                   )
