@@ -43,12 +43,19 @@ export const Games = (props) => {
 
     const players = globalState.players;
 
+    const openSteppers = () => {
+        showHistory(false);
+        openNewGameSteppers(true)
+    };
+
     const createNewGame = (userValues) => {
-        const data = prepareUserValuesForNewGame(userValues);
-        postGame(user, room.id, data, onError)
-            .then((data) => {
-                globalActions.addNewInState(data, 'games');
-            });
+        if(userValues.players.teamOne.length>0){
+            const data = prepareUserValuesForNewGame(userValues);
+            postGame(user, room.id, data, onError)
+                .then((data) => {
+                    globalActions.addNewInState(data, 'games');
+                });
+        }
         openNewGameSteppers(false)
     };
 
@@ -60,7 +67,6 @@ export const Games = (props) => {
                           {newGameSteppers &&
                           <Suspense fallback={<div>Loading..</div>}>
                               <Steppers
-                                  cancel={() => openNewGameSteppers(false)}
                                   submit={createNewGame}
                               />
                           </Suspense>}
@@ -70,7 +76,7 @@ export const Games = (props) => {
                               className='button button_back'
                               onClick={props.history.goBack}/>}
                           {(!newGameSteppers && !menuIsOpen)&&
-                          <Button className='button button_new' onClick={() => openNewGameSteppers(true)}/>}
+                          <Button className='button button_new' onClick={openSteppers}/>}
                           {!history
                               ? <div className='container margin_15'>
                                   <p className='text text_link' onClick={() => showHistory(true)}

@@ -8,6 +8,7 @@ export const Overlay = ({visible}) => {
                           classNames='overlay'
                           timeout={300}
                           appear
+                          unmountOnExit
     >
         <div className='overlay'/>
     </CSSTransition>

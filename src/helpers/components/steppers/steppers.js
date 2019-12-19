@@ -14,7 +14,7 @@ import '../../../components/container/absolute.css'
 import {Overlay} from "../../../components/overlay/overlay";
 import PropTypes from "prop-types";
 
-const Steppers = ({cancel, submit}) => {
+const Steppers = ({submit}) => {
 
     const [visible, setVisible] = useState(true);
     const [userValues, setUserValues] = useState(
@@ -53,13 +53,12 @@ const Steppers = ({cancel, submit}) => {
         }
         currentCard.data[1](false); // make the current card invisible
         currentCard = prevOrNext === 'next' // find next card
-            ? currentCard.next ? currentCard.next : submit
-            : currentCard.prev ? currentCard.prev : cancel;
+            ? currentCard.next ? currentCard.next : {}
+            : currentCard.prev ? currentCard.prev : {};
         if (currentCard.data) {
             currentCard.data[1](true) // if the next card exist, make it visible
         } else {
             setVisible(false);
-            setTimeout(currentCard, 300, userValues) // else close <Steppers/> after animation
         }
     };
 
@@ -68,7 +67,9 @@ const Steppers = ({cancel, submit}) => {
         <CSSTransition in={visible}
                        classNames='steppers__cards'
                        timeout={300}
-                       appear>
+                       appear
+                       onExited={()=>submit(userValues)}
+        >
             <div className='container absolute'>
                 <Card headerText='Create a new game'
                       style={{width: '100%', margin: '0'}}
@@ -94,7 +95,6 @@ const Steppers = ({cancel, submit}) => {
 };
 
 Steppers.propTypes = {
-    cancel: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired
 };
 
