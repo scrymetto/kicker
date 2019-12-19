@@ -61,9 +61,8 @@ export function Rooms(props) {
             .catch((e) => onError(e))
     };
 
-    const goBack = () => {
+    const closeForm = () => {
         openForm(false);
-        setTimeout(setFormVisible, 300, false);
     };
 
     const deleteRoomFromState = id => {
@@ -82,8 +81,7 @@ export function Rooms(props) {
                       {redirect && <Redirect to={`rooms/${redirect}`}/>}
                       {isFormVisible
                           ? <Form_simple onSubmit={onSubmitForm}
-                                         goBack={goBack}
-                                         status={isFormOpening}
+                                         close={closeForm}
                                          initial={{name:''}}
                                          input={'name'}
                                          validationSchema={validationSchema_newRoom}

@@ -57,17 +57,19 @@ export const Games = (props) => {
               render={() => {
                   return (
                       <Fragment>
-                          {newGameSteppers && <Suspense fallback={<div>Loading..</div>}>
+                          {newGameSteppers &&
+                          <Suspense fallback={<div>Loading..</div>}>
                               <Steppers
                                   cancel={() => openNewGameSteppers(false)}
                                   submit={createNewGame}
                               />
                           </Suspense>}
                           <RatingTable players={players}/>
-                          {!newGameSteppers && <Button
+                          {(!newGameSteppers && !menuIsOpen)&&
+                          <Button
                               className='button button_back'
                               onClick={props.history.goBack}/>}
-                          {!newGameSteppers &&
+                          {(!newGameSteppers && !menuIsOpen)&&
                           <Button className='button button_new' onClick={() => openNewGameSteppers(true)}/>}
                           {!history
                               ? <div className='container margin_15'>
@@ -79,8 +81,9 @@ export const Games = (props) => {
                                       <GameHistoryTable games={globalState.games} changeState={showHistory}/>
                                   </Suspense>
                               </Fragment>}
-                          {menuIsOpen && <ActionsMenu room={room}/>}
-                          {!newGameSteppers &&
+                          {menuIsOpen &&
+                          <ActionsMenu room={room} closeMenu={()=>openMenu(false)}/>}
+                          {(!newGameSteppers && !menuIsOpen)&&
                           <Button className='button button_actions' onClick={() => openMenu(true)}/>}
                       </Fragment>
                   )

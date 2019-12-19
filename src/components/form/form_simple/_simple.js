@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Form} from "../form";
 import {Button} from "../../button/button";
 import {CSSTransition} from "react-transition-group";
@@ -6,22 +6,28 @@ import {CSSTransition} from "react-transition-group";
 import './_simple.css'
 import PropTypes from "prop-types";
 
-export const Form_simple = ({onSubmit, goBack, status, initial, validationSchema, input}) => {
+export const Form_simple = ({onSubmit, initial, validationSchema, input, close}) => {
+
+    const [visible, setVisible] = useState(true);
+    const onSubmitForm = value => {
+      setVisible(false);
+      onSubmit(value);
+    };
 
     return (
         <Fragment>
-            <CSSTransition timeout={300} classNames='form_simple' in={status} appear={true}>
+            <CSSTransition timeout={300} classNames='form_simple' in={visible} appear={true} onExited={close}>
                 <Form className='form form_simple'
                       initial={initial}
                       validationSchema={validationSchema}
                       inputs={[{text: input}]}
-                      onSubmit={onSubmit}/>
+                      onSubmit={onSubmitForm}/>
             </CSSTransition>
-            <CSSTransition timeout={300} classNames='button_animation' in={status} appear={true}>
+            <CSSTransition timeout={300} classNames='button_animation' in={visible} appear={true}>
                 <Button
                     className='button button_back'
                     onClick={() => {
-                        goBack()
+                        setVisible(false)
                     }}/>
             </CSSTransition>
         </Fragment>
@@ -29,10 +35,9 @@ export const Form_simple = ({onSubmit, goBack, status, initial, validationSchema
 };
 
 Form_simple.propTypes = {
-    status:PropTypes.bool.isRequired,
     initial: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
     validationSchema: PropTypes.object.isRequired, // all inputs with Yup.object()
     input: PropTypes.string.isRequired, // name of the field
     onSubmit: PropTypes.func.isRequired,
-    goBack:PropTypes.func.isRequired
+    close: PropTypes.func.isRequired
 };
