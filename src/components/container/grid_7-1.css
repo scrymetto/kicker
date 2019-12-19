@@ -1,0 +1,5 @@
+.grid_7-1 {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+}
