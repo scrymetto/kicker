@@ -41,11 +41,9 @@ export function Rooms(props) {
     };
 
     const [isFormVisible, setFormVisible] = useState(false);
-    const [isFormOpening, openForm] = useState(false);
 
     const createNewRoomForm = () => {
         scrollToTop();
-        openForm(true);
         setFormVisible(true);
     };
 
@@ -62,7 +60,7 @@ export function Rooms(props) {
     };
 
     const closeForm = () => {
-        openForm(false);
+        setFormVisible(false);
     };
 
     const deleteRoomFromState = id => {

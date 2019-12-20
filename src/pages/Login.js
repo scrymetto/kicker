@@ -24,7 +24,7 @@ export const LoginPage = () => {
         newUserFormClassName = 'form form_newUser_visible';
         text = 'Already have an account?'
     }
-    let endRegistration = () => {
+    const endRegistration = () => {
         setDisplayLoginForm(true)
     };
 

@@ -7,13 +7,14 @@ import {Button} from "../button/button";
 import {useGlobal} from "../../store";
 
 export const Popup = ({text, className}) => {
+    const [globalState, globalActions] = useGlobal();
+    const [inProp, setInProp] = useState(true);
+
     let timer;
     useEffect(() => {
         timer = setTimeout(setInProp, 5000, false);
-        return () => closePopup()
+        return () => clearTimeout(timer);
     });
-    const [globalState, globalActions] = useGlobal();
-    const [inProp, setInProp] = useState(true);
     const closePopup = () => {
         clearTimeout(timer);
         setInProp(false);
@@ -21,7 +22,7 @@ export const Popup = ({text, className}) => {
     const setState = () => globalActions.setPopup({});
 
     return (
-        <CSSTransition timeout={300} classNames='popup' in={inProp} appear onExited={setState} unmountOnExit>
+        <CSSTransition timeout={300} classNames='popup' in={inProp} appear onExited={setState}>
             <div className={className}>
                 <p className='text'>{text}</p>
                 <Button className='button button_close' onClick={closePopup}/>

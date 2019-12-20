@@ -18,8 +18,8 @@ function App(props) {
     const [user, setUser] = useState({
         // auth: undefined
         auth: {
-            password: 'ert',
-            username: 'ert@ert.ert'
+            password: 'qwe',
+            username: 'qwe@qwe.qwe'
         }
     });
 
@@ -49,7 +49,7 @@ function App(props) {
             <Header className="header_main" text="Let's play kicker!"/>
             <Router>
                 <div className="App">
-                    <AuthRoute path="/login" component={LoginPage}/>
+                    <AuthRoute exact path="/login" component={LoginPage}/>
                     <PrivateRoute exact path="/" component={Rooms}/>
                     <PrivateRoute path={`/rooms/:roomId`} component={Games}/>
                 </div>

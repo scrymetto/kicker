@@ -9,18 +9,18 @@ import {loginRequest} from "../requests/loginRequest";
 
 export const Login = ({className}) => {
 
-    let [globalState, globalActions] = useGlobal();
-    let {setUser} = useAuth();
+    const [globalState, globalActions] = useGlobal();
+    const {setUser} = useAuth();
 
-    let template = ['email', 'password'];
+    const template = ['email', 'password'];
 
-    let onError = (e) => {
+    const onError = (e) => {
         globalActions.setPopup({error: e});
     };
 
-    let onSubmit = (values) => {
+    const onSubmit = (values) => {
         // console.log('onSubmit works')
-        let data = prepareDataForRequest(template, values);
+        const data = prepareDataForRequest(template, values);
         loginRequest(data, onError)
             .then(user => {
                 setUser({auth: user})
