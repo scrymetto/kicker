@@ -15,7 +15,7 @@ import {postPlayer} from "../../requests/postPlayer";
 import './actionsMenu.css'
 import '../../../components/container/absolute.css';
 
-const ActionsMenu = ({room, closeMenu}) => {
+const ActionsMenu = ({room, addNewPlayer, closeMenu}) => {
 
     const [globalState, globalActions] = useGlobal();
 
@@ -24,12 +24,8 @@ const ActionsMenu = ({room, closeMenu}) => {
     const [form, openForm] = useState(false);
     const [visible, setVisible] = useState(true);
 
-    const onError = (e) => {
-        globalActions.setPopup({error: e})};
-
-        const addNewPlayer = name => {
-        console.log(name.name)
-        postPlayer(user, room.id, name.name, onError)
+    const onSubmit = (name) =>{
+      addNewPlayer(name)
     };
 
     return <Fragment>
@@ -48,11 +44,11 @@ const ActionsMenu = ({room, closeMenu}) => {
                               {form && <Form_simple
                                   initial={{name: ''}}
                                   input='name'
-                                  onSubmit={addNewPlayer}
+                                  onSubmit={onSubmit}
                                   close={() => openForm(false)}
                                   validationSchema={validationSchema_newPlayer}
                               />}
-                              {!form && <Point1 onClick={()=>openForm(true)}/>}
+                              {!form && <Point1 onClick={() => openForm(true)}/>}
                               {!form && <Button
                                   className='button button_back'
                                   onClick={() => setVisible(false)}/>}

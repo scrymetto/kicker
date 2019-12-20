@@ -3,13 +3,14 @@ import React, {Fragment, Suspense, useEffect, useState} from 'react';
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
 import {RatingTable} from "../helpers/components/ratingTable";
-import ActionsMenu from "../helpers/components/actionsMenu/actionsMenu";
+// import ActionsMenu from "../helpers/components/actionsMenu/actionsMenu";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
 import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
+import {postPlayer} from "../helpers/requests/postPlayer";
 
 export const Games = (props) => {
     //TODO: globalState can be undefined and it crashes the app
@@ -18,40 +19,36 @@ export const Games = (props) => {
 
     useEffect(() => {
         getGames(user, room.id, getGamesSuccess, onError)
-            .then(()=>{
-                // const players = room.players;
-                const players = require('../../__mocks__/players');
+            .then(() => {
+                const players = room.players;
+                // const players = require('../../__mocks__/players');
                 globalActions.addStateFromServer(players, 'players')
             })
     }, []);
-    console.log(globalState)
 
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
 
-    // const players = room.players;
     const players = globalState.players;
 
     const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
     const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
+    const ActionsMenu = React.lazy(() => import("../helpers/components/actionsMenu/actionsMenu"));
 
     const [newGameSteppers, openNewGameSteppers] = useState(false);
     const [history, showHistory] = useState(false);
     const [menuIsOpen, openMenu] = useState(false);
 
-    // const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
-    const room = {
-        creatorId: "5ddd145a7679161f53e091aa",
-        id: "5ddd23867679161f53e091ab",
-        name: "1",
-        users: ["5ddd145a7679161f53e091aa"],
-    };
-
-    // const players = room.players;
+    const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
 
     const openSteppers = () => {
         showHistory(false);
         openNewGameSteppers(true)
+    };
+
+    const openActions = () => {
+        showHistory(false);
+        openMenu(true)
     };
 
     const createNewGame = (userValues) => {
@@ -63,6 +60,13 @@ export const Games = (props) => {
                 });
         }
         openNewGameSteppers(false)
+    };
+
+    const addNewPlayer = name => {
+        postPlayer(user, room.id, name.name, onError)
+            .then((data) => {
+                globalActions.addStateFromServer(data.players, 'players');
+            });
     };
 
     return (
@@ -94,9 +98,12 @@ export const Games = (props) => {
                                   </Suspense>
                               </Fragment>}
                           {menuIsOpen &&
-                          <ActionsMenu room={room} closeMenu={() => openMenu(false)}/>}
+                          <Suspense fallback={<div>Loading...</div>}>
+                              <ActionsMenu room={room} addNewPlayer={addNewPlayer} closeMenu={() => openMenu(false)}/>
+                          </Suspense>
+                          }
                           {(!newGameSteppers && !menuIsOpen) &&
-                          <Button className='button button_actions' onClick={() => openMenu(true)}/>}
+                          <Button className='button button_actions' onClick={openActions}/>}
                       </Fragment>
                   )
               }}

@@ -3,7 +3,6 @@ import axios from "axios";
 export const postPlayer = async (user, roomId, name, onError) => {
 
     try {
-        console.log(name)
         const request = await axios.post(
             `/api/room/${roomId}/create-player/`,
             {nickname:name+''},
