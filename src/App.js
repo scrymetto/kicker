@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Suspense} from "react";
+import React, {useState} from "react";
 import {BrowserRouter as Router} from "react-router-dom";
 import "./App.css";
 
@@ -49,9 +49,9 @@ function App(props) {
             <Header className="header_main" text="Let's play kicker!"/>
             <Router>
                 <div className="App">
-                    <AuthRoute exact path="/login" component={LoginPage}/>
+                    <AuthRoute  path="/login" component={LoginPage}/>
                     <PrivateRoute exact path="/" component={Rooms}/>
-                    <PrivateRoute path={`/rooms/:roomId`} component={Games}/>
+                    <PrivateRoute exact path={`/rooms/:roomId`} component={Games}/>
                 </div>
             </Router>
             {(error || success)

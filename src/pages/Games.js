@@ -3,14 +3,13 @@ import React, {Fragment, Suspense, useEffect, useState} from 'react';
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
 import {RatingTable} from "../helpers/components/ratingTable";
-// import ActionsMenu from "../helpers/components/actionsMenu/actionsMenu";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
 import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
-import {postPlayer} from "../helpers/requests/postPlayer";
+import {scrollToTop} from "../helpers/scrollToTop";
 
 export const Games = (props) => {
     //TODO: globalState can be undefined and it crashes the app
@@ -42,11 +41,13 @@ export const Games = (props) => {
     const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
 
     const openSteppers = () => {
+        scrollToTop();
         showHistory(false);
         openNewGameSteppers(true)
     };
 
     const openActions = () => {
+        scrollToTop();
         showHistory(false);
         openMenu(true)
     };
@@ -62,11 +63,11 @@ export const Games = (props) => {
         openNewGameSteppers(false)
     };
 
-    const addNewPlayer = name => {
-        postPlayer(user, room.id, name.name, onError)
-            .then((data) => {
-                globalActions.addStateFromServer(data.players, 'players');
-            });
+    const doActions = (something) => {
+        if (something.newUsers){
+            globalActions.addNewInState(something.newUsers, 'players')
+        }
+        openMenu(false);
     };
 
     return (
@@ -99,7 +100,7 @@ export const Games = (props) => {
                               </Fragment>}
                           {menuIsOpen &&
                           <Suspense fallback={<div>Loading...</div>}>
-                              <ActionsMenu room={room} addNewPlayer={addNewPlayer} closeMenu={() => openMenu(false)}/>
+                              <ActionsMenu room={room} closeMenu={doActions}/>
                           </Suspense>
                           }
                           {(!newGameSteppers && !menuIsOpen) &&

@@ -1,6 +1,11 @@
 export const addNewInState = (store, something, key) => {
     const prev = store.state[key];
-    const somethingNew = {[key]: [...prev, something]};
+    let somethingNew;
+    if(Array.isArray(something)){
+        somethingNew = {[key]: [...prev, ...something]};
+    } else {
+        somethingNew = {[key]: [...prev, something]};
+    }
     store.setState(somethingNew)
 };
 

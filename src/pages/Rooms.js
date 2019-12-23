@@ -54,7 +54,7 @@ export function Rooms(props) {
                 doRedirect(data.id)
             })
             .then(() => {
-                globalActions.setPopup({success: 'Success! Let\'s create a new game!'});
+                globalActions.setPopup({success: 'Success! Let\'s add new players!'});
             })
             .catch((e) => onError(e))
     };

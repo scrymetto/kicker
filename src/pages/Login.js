@@ -1,4 +1,4 @@
-import React, {Fragment, Suspense, useState} from "react";
+import React, {Fragment, useState} from "react";
 
 import "../components/text/text_link.css";
 import "../components/container/margin.css";

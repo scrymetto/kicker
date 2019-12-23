@@ -5,18 +5,18 @@ import '../../../components/text/text_additional.css'
 import '../../../components/text/text_bold.css'
 import {Button} from "../../../components/button/button";
 
-export const Point1 = ({onClick}) => {
+export const Point = ({text, hint, emoji, onClick}) => {
     return <Fragment>
         <div className='container grid_7-1'>
             <div>
                 <p className='text text_bold'>
-                    Add new player
+                    {text}
                 </p>
                 <p className='text text_additional'>
-                    Play with all your friends!
+                    {hint}
                 </p>
             </div>
-            <Button className='button' text='&#128111;' onClick={onClick}/>
+            <Button className='button' text={emoji} onClick={onClick}/>
         </div>
     </Fragment>
 };
