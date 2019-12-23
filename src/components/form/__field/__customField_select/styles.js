@@ -16,7 +16,7 @@ export const styles = {
         border: 'none',
         borderRadius: '5px',
         minHeight: '43px',
-        maxHeight: '73px',
+        maxHeight: '58px',
         minWidth: '278px',
         overflow: 'auto',
         boxSizing: 'border-box',

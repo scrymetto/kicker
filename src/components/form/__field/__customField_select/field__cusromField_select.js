@@ -3,6 +3,8 @@ import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import {styles, theme} from "./styles";
 
+import '../../../text/text.css';
+
 export const CustomField_Select = ({className, options, name, initialValues, setFieldValue, placeholder, isSearchable, ...props}) => {
 
     const isMulti = Array.isArray(initialValues);
@@ -50,5 +52,6 @@ export const CustomField_Select = ({className, options, name, initialValues, set
         theme={theme}
         placeholder={placeholder}
         isSearchable={isSearchable}
+        noOptionsMessage={()=> <p className='text'>You don't have players in this room yet.</p>}
     />
 };
