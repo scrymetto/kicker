@@ -25,7 +25,7 @@ const ActionsMenu = ({room, closeMenu}) => {
 
     const onError = (e) => globalActions.setPopup({error: e});
 
-    const [newUsers, setNewUsers] = useState([]);
+    const [newPlayers, setNewPlayers] = useState([]);
 
     const [form, openForm] = useState(false);
     const [visible, setVisible] = useState(true);
@@ -33,14 +33,14 @@ const ActionsMenu = ({room, closeMenu}) => {
     const addNewPlayer = name => {
         postPlayer(user, room.id, name.name, onError)
             .then((data)=>{
-                const newUser = data.players[data.players.length-1];
-                setNewUsers((prev)=> [...prev, newUser])
+                const newPlayer = data.players[data.players.length-1];
+                setNewPlayers((prev)=> [...prev, newPlayer])
             })
     };
 
     const goBack = ()=> {
         let actionsState = {};
-        actionsState.newUsers = newUsers ? newUsers : null;
+        actionsState.newUsers = newPlayers ? newPlayers : null;
         closeMenu(actionsState)
     };
 
