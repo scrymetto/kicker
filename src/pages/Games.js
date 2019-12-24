@@ -24,6 +24,7 @@ export const Games = (props) => {
                 globalActions.addStateFromServer(players, 'players')
             })
     }, []);
+    console.log(globalState.games)
 
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
@@ -39,6 +40,7 @@ export const Games = (props) => {
     const [menuIsOpen, openMenu] = useState(false);
 
     const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
+    console.log(room)
 
     const openSteppers = () => {
         scrollToTop();
@@ -64,8 +66,8 @@ export const Games = (props) => {
     };
 
     const doActions = (something) => {
-        if (something.newUsers){
-            globalActions.addNewInState(something.newUsers, 'players')
+        if (something.players){
+            globalActions.addStateFromServer(something.players, 'players')
         }
         openMenu(false);
     };
