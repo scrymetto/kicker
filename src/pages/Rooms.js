@@ -1,4 +1,4 @@
-import React, {Fragment, Suspense, useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Redirect} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
 

@@ -5,6 +5,7 @@ import "./App.css";
 import {LoginPage} from "./pages/Login";
 import {Rooms} from "./pages/Rooms";
 import {Games} from "./pages/Games";
+import {Page404} from "./pages/404";
 
 import {AuthContext} from "./helpers/auth&route/authContext"
 import {Popup} from "./components/popup/popup";
@@ -28,7 +29,6 @@ function App(props) {
     const success = globalState.popup.success;
     const className = error ? 'popup popup_error' : success ? 'popup popup_success' : '';
 
-
     // console.log(user)
 
     // useEffect(()=>{
@@ -48,13 +48,13 @@ function App(props) {
             <Header className="header_main" text="Let's play kicker!"/>
             <Router>
                 <div className="App">
-                    <Switch>
-                    <AuthRoute path="/login" component={LoginPage}/>
-                    <PrivateRoute exact path="/" component={()=><Redirect to="/rooms"/>}/>
-                    <PrivateRoute exact path="/rooms" component={Rooms}/>
-                    <PrivateRoute exact path={`/rooms/:roomId`} component={Games}/>
-                    <PrivateRoute component={()=><div>Fehler</div>} />
-                    </Switch>
+                        <Switch>
+                            <AuthRoute path="/login" component={LoginPage}/>
+                            <PrivateRoute exact path="/" component={() => <Redirect to="/rooms"/>}/>
+                            <PrivateRoute exact path="/rooms" component={Rooms}/>
+                            <PrivateRoute exact path={`/rooms/:roomId`} component={Games}/>
+                            <PrivateRoute component={Page404}/>
+                        </Switch>
                 </div>
             </Router>
             {(error || success)
