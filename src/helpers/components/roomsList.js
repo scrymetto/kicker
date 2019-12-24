@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {Paper} from "../../components/paper/paper";
 import {Button} from "../../components/button/button";
 
-const RoomsList = ({rooms, deleteRoom}) => {
+export const RoomsList = ({rooms, deleteRoom}) => {
     return <Fragment>
         {rooms.map(room => {
             const {id, players, name} = room;
@@ -25,5 +25,3 @@ const RoomsList = ({rooms, deleteRoom}) => {
         })}
     </Fragment>
 };
-
-export default RoomsList;

@@ -11,7 +11,7 @@ import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
 
-export const Games = (props) => {
+export function Games (props) {
     //TODO: globalState can be undefined and it crashes the app
     const [globalState, globalActions] = useGlobal();
     const {user} = useAuth();

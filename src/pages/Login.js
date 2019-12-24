@@ -9,7 +9,7 @@ import {NewUserForm} from "../helpers/components/newUserForm";
 
 //TODO: you can see login and password in Base64 in header Authorisation!
 
-export const LoginPage = () => {
+export function LoginPage() {
 
 
     const [displayLoginForm, setDisplayLoginForm] = useState(true);

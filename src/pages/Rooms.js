@@ -12,6 +12,7 @@ import {scrollToTop} from "../helpers/scrollToTop";
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
 import {Form_simple} from "../components/form/form_simple/_simple";
+import {RoomsList} from "../helpers/components/roomsList";
 import {StubPaper} from "../components/paper/paper_stub";
 import {validationSchema_newRoom} from "../components/form/__validationSchema/form__validationSchema_newRoom";
 
@@ -41,8 +42,6 @@ export function Rooms(props) {
     };
 
     const [isFormVisible, setFormVisible] = useState(false);
-
-    const RoomsList = React.lazy(() => import("../helpers/components/roomsList"));
 
     const createNewRoomForm = () => {
         scrollToTop();
@@ -91,11 +90,10 @@ export function Rooms(props) {
                           <CSSTransition timeout={300} classNames='button_animation' in={!isFormVisible} appear={true}>
                               <Button className='button button_new' onClick={createNewRoomForm}/>
                           </CSSTransition>}
-                      <Suspense fallback={<StubPaper/>}>
-                          <RoomsList rooms={rooms}
-                                  deleteRoom={deleteRoomFromState}/>
-                      </Suspense>
-                      {isUploaded.done && !rooms[0] &&
+                      {isUploaded.loading && <StubPaper/>}
+                      {isUploaded.done && <RoomsList rooms={rooms}
+                                  deleteRoom={deleteRoomFromState}/>}
+                      {(isUploaded.done && !rooms[0]) &&
                       <div className='margin_15'><p className='text'>
                           You don't have any room. Let's create the very first one!</p></div>}
                       {isUploaded.error &&
