@@ -1,5 +1,5 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import {Link, Redirect} from "react-router-dom";
+import React, {Fragment, Suspense, useEffect, useState} from 'react';
+import {Redirect} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
 
 import {useGlobal} from "../store"
@@ -10,7 +10,6 @@ import {deleteRoom} from "../helpers/requests/deleteRoom";
 import {scrollToTop} from "../helpers/scrollToTop";
 
 import {Card} from "../components/card/card";
-import {Paper} from "../components/paper/paper";
 import {Button} from "../components/button/button";
 import {Form_simple} from "../components/form/form_simple/_simple";
 import {StubPaper} from "../components/paper/paper_stub";
@@ -25,12 +24,13 @@ export function Rooms(props) {
     const [redirect, doRedirect] = useState(false);
 
     useEffect(() => {
-            getRooms(user, getSuccess, onError);
-            props.history.push(props.history.location);
-        },[]);
+        getRooms(user, getSuccess, onError);
+        props.history.push(props.history.location);
+    }, []);
 
     const [globalState, globalActions] = useGlobal();
     const rooms = globalState.rooms;
+
     const onError = (e) => {
         globalActions.setPopup({error: e});
         setUploaded({loading: false, error: true, done: false})
@@ -41,6 +41,8 @@ export function Rooms(props) {
     };
 
     const [isFormVisible, setFormVisible] = useState(false);
+
+    const RoomsList = React.lazy(() => import("../helpers/components/roomsList"));
 
     const createNewRoomForm = () => {
         scrollToTop();
@@ -80,7 +82,7 @@ export function Rooms(props) {
                       {isFormVisible
                           ? <Form_simple onSubmit={onSubmitForm}
                                          close={closeForm}
-                                         initial={{name:''}}
+                                         initial={{name: ''}}
                                          input={'name'}
                                          validationSchema={validationSchema_newRoom}
                           />
@@ -89,33 +91,13 @@ export function Rooms(props) {
                           <CSSTransition timeout={300} classNames='button_animation' in={!isFormVisible} appear={true}>
                               <Button className='button button_new' onClick={createNewRoomForm}/>
                           </CSSTransition>}
-                      {isUploaded.done && rooms.map(room => {
-                          const {id, users, name} = room;
-                          const creator = room.creator;
-                          return <div key={id} style={{position: 'relative'}}>
-                              <Link to={`rooms/${id}`}>
-                                  <Paper
-                                      className='paper'
-                                      id={id}
-                                      players={users}
-                                      name={name}
-                                      admin={creator.nickname || creator.id}
-                                      remove={(id) => deleteRoomFromState(id)}/>
-                              </Link>
-                              <Button className='button button_close'
-                                      onClick={() => deleteRoomFromState(id)}
-                                      style={{position: 'absolute', top: '10px', right: '10px'}}
-                              />
-                          </div>
-                      })}
+                      <Suspense fallback={<StubPaper/>}>
+                          <RoomsList rooms={rooms}
+                                  deleteRoom={deleteRoomFromState}/>
+                      </Suspense>
                       {isUploaded.done && !rooms[0] &&
                       <div className='margin_15'><p className='text'>
                           You don't have any room. Let's create the very first one!</p></div>}
-                      {isUploaded.loading && <Fragment>
-                          {[1, 2, 3].map((number) => {
-                              return <StubPaper key={number}/>
-                          })}
-                      </Fragment>}
                       {isUploaded.error &&
                       <div className='margin_15'><p className='text text_error' style={{fontSize: '1em'}}>Sorry, the
                           server doesn't work. Please, try again later.</p></div>}

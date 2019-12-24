@@ -24,7 +24,6 @@ export const Games = (props) => {
                 globalActions.addStateFromServer(players, 'players')
             })
     }, []);
-    console.log(globalState.games)
 
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');

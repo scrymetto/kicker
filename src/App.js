@@ -39,7 +39,7 @@ function App(props) {
     // });
 
     // const setToken = (loginAndPassword) => {
-    //     // localStorage.setItem("token", JSON.stringify(data));
+    //     localStorage.setItem("token", JSON.stringify(data));
     //     setUser(loginAndPassword);
     // };
 
