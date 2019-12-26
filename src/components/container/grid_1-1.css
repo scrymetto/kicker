@@ -1,0 +1,5 @@
+.grid_1-1 {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
