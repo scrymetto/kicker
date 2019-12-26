@@ -8,11 +8,13 @@ export const Players = (props) => {
     if (players.length !== 0) {
         return (
             <div className='players'>
-                <p className='text text_additional'>Players: </p>
+                <p className='text text_additional' style={{marginRight:'3px'}}>Players:</p>
                 {
-                    players.map(player => {
+                    players.map((player, index) => {
                         return (<p key={player.id}
-                                   className='text text_additional'>{player.nickname || player.id}</p>)
+                                   className='text text_additional'
+                                   style={{marginRight:'3px'}}
+                        >{(player.nickname || player.id) + (index===players.length-1 ? '' : ',')}</p>)
                     })
                 }
             </div>
