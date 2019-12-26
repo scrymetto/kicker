@@ -10,25 +10,33 @@ import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
+import {Spinner} from "../components/spinner/spinner";
 
-export function Games (props) {
+export function Games(props) {
     //TODO: globalState can be undefined and it crashes the app
     const [globalState, globalActions] = useGlobal();
     const {user} = useAuth();
 
+    const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
+
+    let players;
+
+    const [isLoading, endLoading] = useState(true);
+
     useEffect(() => {
         getGames(user, room.id, getGamesSuccess, onError)
             .then(() => {
-                const players = room.players;
+                players = room.players;
                 // const players = require('../../__mocks__/players');
                 globalActions.addStateFromServer(players, 'players')
             })
+            .then(() => endLoading(false))
     }, []);
 
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
 
-    const players = globalState.players;
+    players = globalState.players;
 
     const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
     const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
@@ -37,9 +45,6 @@ export function Games (props) {
     const [newGameSteppers, openNewGameSteppers] = useState(false);
     const [history, showHistory] = useState(false);
     const [menuIsOpen, openMenu] = useState(false);
-
-    const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
-    console.log(room)
 
     const openSteppers = () => {
         scrollToTop();
@@ -65,7 +70,7 @@ export function Games (props) {
     };
 
     const doActions = (something) => {
-        if (something.players){
+        if (something.players) {
             globalActions.addStateFromServer(something.players, 'players')
         }
         openMenu(false);
@@ -82,7 +87,9 @@ export function Games (props) {
                                   submit={createNewGame}
                               />
                           </Suspense>}
-                          <RatingTable players={players}/>
+                          {!isLoading
+                              ? <Spinner/>
+                              : <RatingTable players={players}/>}
                           {(!newGameSteppers && !menuIsOpen) &&
                           <Button
                               className='button button_back'

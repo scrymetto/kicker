@@ -1,0 +1,26 @@
+.spinner {
+    display: inline-block;
+    font-size: 1.5em;
+    animation: goal 1s infinite alternate;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.spinner::before {
+    content: '\26bd';
+}
+
+@keyframes goal {
+    0% {
+        transform: translateX(1300%);
+        /*transform: translateX(0);*/
+    }
+    50% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(1300%);
+        /*transform: translateX(0);*/
+    }
+}

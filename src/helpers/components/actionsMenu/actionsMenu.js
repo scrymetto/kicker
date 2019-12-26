@@ -39,7 +39,7 @@ const ActionsMenu = ({room, closeMenu}) => {
 
     const goBack = ()=> {
         let actionsState = {};
-        actionsState.players = players ? players : null;
+        actionsState.players = players[0] ? players : null;
         closeMenu(actionsState)
     };
 
