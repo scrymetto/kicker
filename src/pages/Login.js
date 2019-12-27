@@ -4,13 +4,12 @@ import "../components/text/text_link.css";
 import "../components/container/margin.css";
 
 import {Card} from "../components/card/card";
-import {Login} from "../helpers/components/loginForm";
-import {NewUserForm} from "../helpers/components/newUserForm";
+import {Login} from "../helpers/components/loginForm/loginForm";
+import {NewUserForm} from "../helpers/components/newUserForm/newUserForm";
 
 //TODO: you can see login and password in Base64 in header Authorisation!
 
 export function LoginPage() {
-
 
     const [displayLoginForm, setDisplayLoginForm] = useState(true);
 
@@ -33,8 +32,8 @@ export function LoginPage() {
             headerText='Hi, stranger!'
             render={() =>
                 <Fragment>
-                        <Login className={loginFormClassName}/>
-                        <NewUserForm className={newUserFormClassName} endRegistration={endRegistration}/>
+                    <Login className={loginFormClassName}/>
+                    <NewUserForm className={newUserFormClassName} endRegistration={endRegistration}/>
                     <div className='container margin_15'>
                         <p className='text text_link'
                            onClick={() => setDisplayLoginForm(!displayLoginForm)}>{text}</p>
@@ -43,5 +42,5 @@ export function LoginPage() {
             }
         />
     )
-};
+}
 

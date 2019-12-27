@@ -1,9 +1,12 @@
 import React, {Fragment} from "react";
-import {submitNewUserForm} from "../requests/submitNewUserForm";
-import {Form} from "../../components/form/form";
-import {validationSchema_newUser} from "../../components/form/__validationSchema/form__validationSchema_newUser";
-import {prepareDataForRequest} from "../requests/prepareDataForRequest";
-import {useGlobal} from "../../store";
+import {Form} from "../../../components/form/form";
+
+import {validationSchema_newUser} from "../../../components/form/__validationSchema/form__validationSchema_newUser";
+import {prepareDataForRequest} from "../../requests/prepareDataForRequest";
+import {submitNewUserForm} from "../../requests/submitNewUserForm";
+import {useGlobal} from "../../../store";
+
+import './newUserForm.css'
 
 export const NewUserForm = ({className, endRegistration}) => {
     const template = ['login', 'email', 'password'];
@@ -29,4 +32,4 @@ export const NewUserForm = ({className, endRegistration}) => {
               validationSchema={validationSchema_newUser}
               onSubmit={onSubmit}/>
     </Fragment>)
-};
+}

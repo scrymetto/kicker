@@ -1,11 +1,13 @@
 import React, {Fragment} from "react";
-import {Form} from "../../components/form/form";
+import {Form} from "../../../components/form/form";
 
-import {useGlobal} from "../../store";
-import {useAuth} from "../auth&route/authContext";
-import {validationSchema_login} from "../../components/form/__validationSchema/form__validationSchema_login";
-import {prepareDataForRequest} from "../requests/prepareDataForRequest";
-import {loginRequest} from "../requests/loginRequest";
+import {useGlobal} from "../../../store";
+import {useAuth} from "../../auth&route/authContext";
+import {validationSchema_login} from "../../../components/form/__validationSchema/form__validationSchema_login";
+import {prepareDataForRequest} from "../../requests/prepareDataForRequest";
+import {loginRequest} from "../../requests/loginRequest";
+
+import './loginForm.css'
 
 export const Login = ({className}) => {
 

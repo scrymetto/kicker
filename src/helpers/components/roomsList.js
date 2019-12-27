@@ -8,7 +8,7 @@ export const RoomsList = ({rooms, deleteRoom}) => {
     return <Fragment>
         {rooms.map(room => {
             const {id, players, name} = room;
-            const admin = room.creator.name || room.creator.id;
+            const admin = room.creator.nickname || room.creator.id;
             return <div key={id} style={{position: 'relative'}}>
                 <Link to={`rooms/${id}`}>
                     <Paper

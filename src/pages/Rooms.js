@@ -77,7 +77,7 @@ export function Rooms(props) {
         <Card headerText='Your rooms'
               render={() => (
                   <Fragment>
-                      {redirect && <Redirect to={`/${redirect}`}/>}
+                      {redirect && <Redirect to={`/rooms/${redirect}`}/>}
                       {isFormVisible
                           ? <Form_simple onSubmit={onSubmitForm}
                                          close={closeForm}
