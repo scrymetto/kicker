@@ -14,13 +14,15 @@ export const RatingTable = ({players}) => {
 
     const rows = players[0]
         ? players.map(player => {
-            const win = Number.parseInt(player.win);
-            const loose = Number.parseInt(player.loose);
+            const win = Number.parseInt(player.win)||0;
+            const loose = Number.parseInt(player.loose)||0;
+            const winrate = Math.round(win / (win + loose) * 100)||0;
+            const points = player.points||0;
             return {
                 player: makeElement(player.nickname),
-                'win/ loose': makeElement(win + '/' + loose) || makeElement(0 + '/' + 0),
-                winrate: makeElement(Math.round(win / (win + loose) * 100) + '%'),
-                points: makeElement(player.points) || makeElement(0)
+                'win/ loose': makeElement(win + '/' + loose),
+                winrate: makeElement( winrate+ '%'),
+                points: makeElement(points)
             }
         })
         : null;
