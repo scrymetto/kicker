@@ -82,12 +82,12 @@ export function Games(props) {
                   return (
                       <Fragment>
                           {newGameSteppers &&
-                          <Suspense fallback={<div>Loading..</div>}>
+                          <Suspense fallback={<Spinner/>}>
                               <Steppers
                                   submit={createNewGame}
                               />
                           </Suspense>}
-                          {!isLoading
+                          {isLoading
                               ? <Spinner/>
                               : <RatingTable players={players}/>}
                           {(!newGameSteppers && !menuIsOpen) &&
@@ -102,12 +102,12 @@ export function Games(props) {
                                   >Show game history</p>
                               </div>
                               : <Fragment>
-                                  <Suspense fallback={<div>Loading...</div>}>
+                                  <Suspense fallback={<Spinner/>}>
                                       <GameHistoryTable games={globalState.games} changeState={showHistory}/>
                                   </Suspense>
                               </Fragment>}
                           {menuIsOpen &&
-                          <Suspense fallback={<div>Loading...</div>}>
+                          <Suspense fallback={<Spinner/>}>
                               <ActionsMenu room={room} closeMenu={doActions}/>
                           </Suspense>
                           }
@@ -118,4 +118,4 @@ export function Games(props) {
               }}
         />
     )
-};
+}

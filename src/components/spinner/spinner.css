@@ -1,26 +1,18 @@
 .spinner {
     display: inline-block;
-    font-size: 1.5em;
+    font-size: 2em;
     animation: goal 1s infinite alternate;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-.spinner::before {
-    content: '\26bd';
+    width: 1.2em; /*magic value*/
 }
 
 @keyframes goal {
-    0% {
-        transform: translateX(1300%);
-        /*transform: translateX(0);*/
+    from {
+        margin-left: calc(100% - 1.2em);
     }
-    50% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(1300%);
-        /*transform: translateX(0);*/
+    to {
+        margin-left: 0;
     }
 }
