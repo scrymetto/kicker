@@ -4,7 +4,8 @@ export const getGames = async (user, roomId, onSuccess, onError) => {
 
     try {
         // const games = await axios.get(`/api/room/${roomId}`, {auth: user.auth});
-        const games = require('../../../__mocks__/games');
+        // const games = require('../../../__mocks__/games');
+        const games = [];
         onSuccess(games);
         // onSuccess(games.data);
     } catch (e) {

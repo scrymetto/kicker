@@ -24,7 +24,7 @@ export const Table = (props) => {
             </tr>
             </thead>
             <tbody>
-            {rows
+            {rows[0]
                 ? rows.map((dataCells, rowIndex) => {
                     const row = makeArrayFromObjAndTemplate(dataCells, columns);
                     return <tr className='table table__rows' key={rowIndex}>
