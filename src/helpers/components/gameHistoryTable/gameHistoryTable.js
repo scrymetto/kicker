@@ -19,7 +19,8 @@ const GameHistoryTable = ({games, changeState}) => {
     const columnsStyles = new Array(columns.length);
     columnsStyles[1]={width: '70px'};
     const styles = {columnsStyles: columnsStyles};
-    const rows = prepareGamesForTable(games);
+    const rows = games ? prepareGamesForTable(games) : [];
+    const text = rows[0] ? '' : 'Your games\' history is empty.';
 
     return <Fragment>
         <div className='container margin_15'>
@@ -33,6 +34,7 @@ const GameHistoryTable = ({games, changeState}) => {
             <Table columns={columns}
                    rows={rows}
                    styles={styles}
+                   text={text}
             />
         </CSSTransition>
     </Fragment>
