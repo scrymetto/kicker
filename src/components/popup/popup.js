@@ -22,7 +22,7 @@ export const Popup = ({text, className}) => {
     const setState = () => globalActions.setPopup({});
 
     return (
-        <CSSTransition timeout={300} classNames='popup' in={inProp} appear onExited={setState}>
+        <CSSTransition timeout={300} classNames='popup' in={inProp} appear onExited={setState} unmountOnExit>
             <div className={className}>
                 <p className='text'>{text}</p>
                 <Button className='button button_close' onClick={closePopup}/>

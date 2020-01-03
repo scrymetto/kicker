@@ -99,7 +99,7 @@ export function Games(props) {
                           {!history
                               ? <div className='container margin_15'>
                                   <p className='text text_link' onClick={() => showHistory(true)}
-                                  >Show game history</p>
+                                  >Show game history!</p>
                               </div>
                               : <Fragment>
                                   <Suspense fallback={<Spinner/>}>
