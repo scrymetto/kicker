@@ -7,7 +7,13 @@ import {useGlobal} from "../../../store";
 export const Players = ({initial, setNewStatus}) => {
 
     const [globalState, globalActions] = useGlobal();
-    const players = globalState.players.map(player => player.nickname);
+    const players = [];
+    for (let key in globalState.players) {
+        players.push({
+            value: key,
+            label: globalState.players[key]
+        })
+    }
 
     const inputs = [{
         select: 'team one',
@@ -20,6 +26,12 @@ export const Players = ({initial, setNewStatus}) => {
         isSearchable: false
     }];
 
+    const onSubmit = (ids) => {
+        const teamOne = ids.teamOne.map(id =>{return {value:id, label:globalState.players[id]}});
+        const teamTwo = ids.teamTwo.map(id =>{return {value:id, label:globalState.players[id]}});
+        setNewStatus('next', {teamOne, teamTwo}, 'players')
+    };
+
     return <Fragment>
         <div className='margin_left_40'>
             <p className='text' data-testid='players'>Select the players &#127939;</p>
@@ -29,7 +41,7 @@ export const Players = ({initial, setNewStatus}) => {
             initial={initial}
             inputs={inputs}
             validationSchema={validationSchema_newGame__players}
-            onSubmit={(userValues) => setNewStatus('next', userValues, 'players')}
+            onSubmit={onSubmit}
             withRoundButton
         />
     </Fragment>

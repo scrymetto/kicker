@@ -1,34 +1,39 @@
 import React, {Fragment} from 'react';
 import {prepareStringWithPlayers} from "./prepareStringWithPlayers";
 import '../components/text/text_oblique.css'
+import {useGlobal} from "../store";
 
 export const prepareGamesForTable = (games) => {
 
+    const [globalState, globalActions] = useGlobal();
+    const players = globalState.players;
+
+    console.log(games)
     return games.map((game) => {
-        const {firstTeam, secondTeam} = game;
-        const {name: firstTeamName = 'Unnamed team', points: firstTeamScore} = firstTeam;
-        const {name: secondTeamName = 'Unnamed team', points: secondTeamScore} = secondTeam;
-        const firstTeamPlayers = firstTeam.players ? prepareStringWithPlayers(firstTeam.players) : null;
-        const secondTeamPlayers = secondTeam.players ? prepareStringWithPlayers(secondTeam.players) : null;
+        const {firstTeam, secondTeam, firstScore, secondScore} = game;
+        // const {name: firstTeamName = 'Unnamed team'} = firstTeam;
+        // const {name: secondTeamName = 'Unnamed team'} = secondTeam;
+        const firstTeamPlayers = prepareStringWithPlayers(firstTeam, players);
+        const secondTeamPlayers = prepareStringWithPlayers(secondTeam, players);
         const firstTeamCell =
             <Fragment>
-                <p className='text text_oblique' data-testid='team'>
+                {/*<p className='text text_oblique' data-testid='team'>
                     {firstTeamName}
-                </p>
+                </p>*/}
                 {firstTeamPlayers && <p className='text text_additional' data-testid='players'>
                     {firstTeamPlayers}
                 </p>}
             </Fragment>;
         const secondTeamCell =
             <Fragment>
-                <p className='text text_oblique' data-testid='opponent'>
+                {/*<p className='text text_oblique' data-testid='opponent'>
                     {secondTeamName}
-                </p>
+                </p>*/}
                 {secondTeamPlayers && <p className='text text_additional' data-testid='players'>
                     {secondTeamPlayers}
                 </p>}
             </Fragment>;
-        const score = <p className='text' data-testid='score'>{firstTeamScore} : {secondTeamScore}</p>;
+        const score = <p className='text' data-testid='score'>{firstScore} : {secondScore}</p>;
         return {
             team: firstTeamCell,
             score: score,

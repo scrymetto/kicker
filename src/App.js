@@ -42,7 +42,7 @@ function App(props) {
     //     localStorage.setItem("token", JSON.stringify(data));
     //     setUser(loginAndPassword);
     // };
-
+console.log(globalState)
     return (
         <AuthContext.Provider value={{user, setUser}}>
             <Header className="header_main" text="Let's play kicker!"/>

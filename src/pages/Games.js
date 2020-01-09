@@ -19,16 +19,18 @@ export function Games(props) {
 
     const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
 
-    let players;
-
     const [isLoading, endLoading] = useState(true);
 
     useEffect(() => {
-        getGames(user, room.id, getGamesSuccess, onError)
+        getGames(user, room.id, 0, getGamesSuccess, onError)
             .then(() => {
-                players = room.players;
+                let players = {};
+                room.players.forEach(player => {
+                    players[player.id] = player.nickname
+                });
+                globalActions.addStateFromServer(players, 'players');
                 // const players = require('../../__mocks__/players');
-                globalActions.addStateFromServer(players, 'players')
+
             })
             .then(() => endLoading(false))
     }, []);
@@ -36,7 +38,7 @@ export function Games(props) {
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
 
-    players = globalState.players;
+    const players = globalState.players;
 
     const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
     const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
@@ -51,7 +53,6 @@ export function Games(props) {
         showHistory(false);
         openNewGameSteppers(true)
     };
-
     const openActions = () => {
         scrollToTop();
         showHistory(false);
@@ -60,8 +61,8 @@ export function Games(props) {
 
     const createNewGame = (userValues) => {
         if (userValues.players.teamOne.length > 0) {
-            const data = prepareUserValuesForNewGame(userValues);
-            postGame(user, room.id, data, onError)
+            const data = prepareUserValuesForNewGame(userValues, players, room.id);
+            postGame(user, data, onError)
                 .then((data) => {
                     globalActions.addNewInState(data, 'games');
                 });
@@ -99,7 +100,7 @@ export function Games(props) {
                           {!history
                               ? <div className='container margin_15'>
                                   <p className='text text_link' onClick={() => showHistory(true)}
-                                  >Show game history!</p>
+                                  >Show game history</p>
                               </div>
                               : <Fragment>
                                   <Suspense fallback={<Spinner/>}>
