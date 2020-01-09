@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {Field} from "formik";
 import PropTypes from "prop-types";
 
-import {CustomField_Select} from "./__customField_select/field__cusromField_select";
+import {CustomField_Select} from "./__customField_select/field__customField_select";
 
 import {makeCamelCaseFromString} from "../../../helpers/makeCamelCaseFromString";
 import {makeFirstLetterUppercase} from "../../../helpers/makeFirstLetterUppercase";

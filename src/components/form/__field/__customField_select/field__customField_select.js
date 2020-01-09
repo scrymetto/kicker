@@ -9,17 +9,23 @@ export const CustomField_Select = ({className, options, name, initialValues, set
 
     const isMulti = Array.isArray(initialValues);
 
-    let [renderedValues, setRenderedValues] = useState(isMulti
+    const [renderedValues, setRenderedValues] = useState(isMulti
         ? [].concat(initialValues.map(value => {
             return value
-                ? {value: value, label: value}
+                ? value.label
+                    ? value
+                    : {value: value, label: value}
                 : []
         }))
-        : {value: initialValues, label: initialValues}
+        :initialValues.label
+            ? initialValues
+            : {value: initialValues, label: initialValues}
     );
 
     const optionsWithLabel = options.map(i => {
-        return {value: i, label: i}
+        return i.label
+            ? i
+            : {value: i, label: i}
     });
 
     const onSelectChange = (values) => {
@@ -52,6 +58,6 @@ export const CustomField_Select = ({className, options, name, initialValues, set
         theme={theme}
         placeholder={placeholder}
         isSearchable={isSearchable}
-        noOptionsMessage={()=> <p className='text'>You don't have players in this room yet.</p>}
+        noOptionsMessage={() => <p className='text'>You don't have players in this room yet.</p>}
     />
 };
