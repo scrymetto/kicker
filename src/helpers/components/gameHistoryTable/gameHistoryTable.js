@@ -3,23 +3,51 @@ import {CSSTransition} from "react-transition-group";
 
 import {Table} from "../../../components/table/table";
 import {prepareGamesForTable} from "../../prepareGamesForTable";
+import {getGames} from "../../requests/getGames";
+import {useAuth} from "../../auth&route/authContext";
+import {useGlobal} from "../../../store";
 
 import './gameHistoryTable.css'
 
-const GameHistoryTable = ({games, changeState}) => {
+let page = 1;
+
+const GameHistoryTable = ({changeState, room}) => {
+
+    const {user} = useAuth();
+    const [globalState, globalActions] = useGlobal();
+
+    const [gamesState, setGames] = useState(globalState.games);
+    const [end, doEnd] = useState(false);
+    const textMore = 'Show more games';
+    const textEnd = 'All games have been downloaded.';
+
+    const getGamesSuccess = (games) => {
+        if (games.length < 5) doEnd(true);
+        setGames(prev => {
+            return prev.length > 0
+                ? [...prev, ...games]
+                : [...games]
+        })
+    };
+    const onError = (e) => globalActions.setPopup({error: e});
+
+    const getMoreGames = () => {
+        getGames(user, room.id, page, getGamesSuccess, onError)
+            .then(() => page++)
+    };
 
     const [inProp, setInProp] = useState(true);
 
     const closeHistory = () => {
-      setInProp(false);
-      setTimeout(changeState, 300, false)
+        setInProp(false);
+        setTimeout(changeState, 300, false)
     };
 
     const columns = ['team', 'score', 'opponent'];
     const columnsStyles = new Array(columns.length);
-    columnsStyles[1]={width: '70px'};
+    columnsStyles[1] = {width: '70px'};
     const styles = {columnsStyles: columnsStyles};
-    const rows = games ? prepareGamesForTable(games) : [];
+    const rows = gamesState ? prepareGamesForTable(gamesState) : [];
     const text = rows[0] ? '' : 'Your games\' history is empty.';
 
     return <Fragment>
@@ -30,12 +58,19 @@ const GameHistoryTable = ({games, changeState}) => {
         <CSSTransition in={inProp}
                        timeout={300}
                        classNames='gameHistory'
-                       appear>
-            <Table columns={columns}
-                   rows={rows}
-                   styles={styles}
-                   text={text}
-            />
+                       appear
+                       onExited={() => page = 0}>
+            <Fragment>
+                <Table columns={columns}
+                       rows={rows}
+                       styles={styles}
+                       text={text}
+                />
+                <div className='container margin_15'>
+                    <p className={end ? 'text text_link_disabled' : 'text text_link'} onClick={getMoreGames}
+                    >{end ? textEnd : textMore}</p>
+                </div>
+            </Fragment>
         </CSSTransition>
     </Fragment>
 };

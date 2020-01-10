@@ -22,7 +22,8 @@ export function Games(props) {
     const [isLoading, endLoading] = useState(true);
 
     useEffect(() => {
-        getGames(user, room.id, 0, getGamesSuccess, onError)
+        //TODO: not 'getGames', but 'getStatistic'
+        getGames(user, room.id, 0, getGamesSuccess1, onError)
             .then(() => {
                 let players = {};
                 room.players.forEach(player => {
@@ -37,6 +38,7 @@ export function Games(props) {
 
     const onError = (e) => globalActions.setPopup({error: e});
     const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
+    const getGamesSuccess1 = (games) => console.log('meh');
 
     const players = globalState.players;
 
@@ -59,6 +61,11 @@ export function Games(props) {
         openMenu(true)
     };
 
+    const openHistory = () => {
+        getGames(user, room.id, 0, getGamesSuccess, onError)
+            .then(()=>showHistory(true));
+    };
+
     const createNewGame = (userValues) => {
         if (userValues.players.teamOne.length > 0) {
             const data = prepareUserValuesForNewGame(userValues, players, room.id);
@@ -70,9 +77,9 @@ export function Games(props) {
         openNewGameSteppers(false)
     };
 
-    const doActions = (something) => {
-        if (something.players) {
-            globalActions.addStateFromServer(something.players, 'players')
+       const doActionsFromMenu = (obj) => {
+        if (obj.players) {
+            globalActions.addStateFromServer(obj.players, 'players')
         }
         openMenu(false);
     };
@@ -99,17 +106,17 @@ export function Games(props) {
                           <Button className='button button_new' onClick={openSteppers}/>}
                           {!history
                               ? <div className='container margin_15'>
-                                  <p className='text text_link' onClick={() => showHistory(true)}
-                                  >Show game history</p>
+                                  <p className='text text_link' onClick={openHistory}
+                                  >Show a history of games</p>
                               </div>
                               : <Fragment>
                                   <Suspense fallback={<Spinner/>}>
-                                      <GameHistoryTable games={globalState.games} changeState={showHistory}/>
+                                      <GameHistoryTable room={room} changeState={showHistory}/>
                                   </Suspense>
                               </Fragment>}
                           {menuIsOpen &&
                           <Suspense fallback={<Spinner/>}>
-                              <ActionsMenu room={room} closeMenu={doActions}/>
+                              <ActionsMenu room={room} closeMenu={doActionsFromMenu}/>
                           </Suspense>
                           }
                           {(!newGameSteppers && !menuIsOpen) &&

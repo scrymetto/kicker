@@ -3,7 +3,7 @@ import axios from "axios";
 export const getGames = async (user, roomId, page, onSuccess, onError) => {
 
     try {
-        const games = await axios.get(`/api/game?page=${page}&roomId=${roomId}&size=10`, {auth: user.auth});
+        const games = await axios.get(`/api/game?page=${page}&roomId=${roomId}&size=5`, {auth: user.auth});
         // const games = require('../../../__mocks__/games');
         // const games = [];
         // onSuccess(games);

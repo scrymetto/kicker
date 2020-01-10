@@ -6,3 +6,9 @@
     border-bottom: #bababa dashed 1px;
     color: #bababa;
 }
+
+.text_link_disabled {
+    color: #bababa;
+    display: inline-block;
+    margin: 0;
+}
