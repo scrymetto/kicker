@@ -34,12 +34,12 @@ const Steppers = ({submit}) => {
         }
     );
 
-    const [namesForm, setNamesFormStatus] = useState(true);
-    const [playersForm, setPlayersFormStatus] = useState(false);
+    // const [namesForm, setNamesFormStatus] = useState(true);
+    const [playersForm, setPlayersFormStatus] = useState(true);
     const [scoresForm, setScoresFormStatus] = useState(false);
 
     const cards = prepareHooksForSteppers([ // create a doubly linked list with hooks
-        [namesForm, setNamesFormStatus],
+        // [namesForm, setNamesFormStatus],
         [playersForm, setPlayersFormStatus],
         [scoresForm, setScoresFormStatus]]);
 
@@ -75,8 +75,8 @@ const Steppers = ({submit}) => {
                       style={{width: '100%', margin: '0'}}
                       render={() => {
                           return <Fragment>
-                              {namesForm && <Names initial={userValues.names}
-                                                   setNewStatus={setNewStatus}/>}
+                              {/*{namesForm && <Names initial={userValues.names}*/}
+                              {/*                     setNewStatus={setNewStatus}/>}*/}
 
                               {playersForm && <Players initial={userValues.players}
                                                        setNewStatus={setNewStatus}/>
