@@ -50,6 +50,7 @@ const GameHistoryTable = ({changeState, room}) => {
     const rows = gamesState ? prepareGamesForTable(gamesState) : [];
     const text = rows[0] ? '' : 'Your games\' history is empty.';
 
+
     return <Fragment>
         <div className='container margin_15'>
             <p className='text text_link' onClick={closeHistory}
@@ -66,10 +67,10 @@ const GameHistoryTable = ({changeState, room}) => {
                        styles={styles}
                        text={text}
                 />
-                <div className='container margin_15'>
+                {rows.length > 5 && <div className='container margin_15'>
                     <p className={end ? 'text text_link_disabled' : 'text text_link'} onClick={getMoreGames}
                     >{end ? textEnd : textMore}</p>
-                </div>
+                </div>}
             </Fragment>
         </CSSTransition>
     </Fragment>

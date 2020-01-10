@@ -79,7 +79,7 @@ export function Games(props) {
 
        const doActionsFromMenu = (obj) => {
         if (obj.players) {
-            globalActions.addStateFromServer(obj.players, 'players')
+            obj.players.forEach((player)=>globalActions.addNewKey('players', player.id, player.nickname))
         }
         openMenu(false);
     };

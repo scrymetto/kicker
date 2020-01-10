@@ -21,3 +21,9 @@ export const deleteFromState = (store, id, key) => {
     const newState = store.state[key].filter(something => something.id !== id);
     store.setState({[key]: newState})
 };
+
+export const addNewKey = (store, stateKey, key, value) => {
+    const prevState = store.state[stateKey];
+    const newState = Object.assign(prevState, {[key]: value});
+    store.setState({[stateKey]: newState})
+};
