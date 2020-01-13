@@ -60,14 +60,15 @@ const GameHistoryTable = ({changeState, room}) => {
                        timeout={300}
                        classNames='gameHistory'
                        appear
-                       onExited={() => page = 0}>
+                       onExiting={() => page = 1}
+                       unmountOnExit>
             <Fragment>
                 <Table columns={columns}
                        rows={rows}
                        styles={styles}
                        text={text}
                 />
-                {rows.length > 5 && <div className='container margin_15'>
+                {rows.length && <div className='container margin_15'>
                     <p className={end ? 'text text_link_disabled' : 'text text_link'} onClick={getMoreGames}
                     >{end ? textEnd : textMore}</p>
                 </div>}

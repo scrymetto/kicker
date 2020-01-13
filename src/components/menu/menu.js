@@ -10,7 +10,7 @@ function Menu(props) {
     let {user} = useAuth();
 
     return (
-            <CSSTransition in={status} timeout={300} classNames='menu' appear={true} unmountOnExit={true}>
+            <CSSTransition in={status} timeout={300} classNames='menu' appear unmountOnExit>
                 {user.auth
                     ?<ul className='menu' data-testid='menu'>
                         <li><p className='text text_menu'>Settings</p></li>
