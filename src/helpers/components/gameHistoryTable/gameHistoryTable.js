@@ -15,6 +15,10 @@ const GameHistoryTable = ({changeState, room}) => {
 
     const {user} = useAuth();
     const [globalState, globalActions] = useGlobal();
+    const players = globalState.players;
+
+    console.log(players)
+    console.log(globalState.games)
 
     const [gamesState, setGames] = useState(globalState.games);
     const [end, doEnd] = useState(false);
@@ -47,7 +51,7 @@ const GameHistoryTable = ({changeState, room}) => {
     const columnsStyles = new Array(columns.length);
     columnsStyles[1] = {width: '70px'};
     const styles = {columnsStyles: columnsStyles};
-    const rows = gamesState ? prepareGamesForTable(gamesState) : [];
+    const rows = gamesState ? prepareGamesForTable(gamesState, players) : [];
     const text = rows[0] ? '' : 'Your games\' history is empty.';
 
 

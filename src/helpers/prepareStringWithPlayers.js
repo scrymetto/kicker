@@ -12,6 +12,5 @@ export const prepareStringWithPlayers = (arrayWithIdsObj, objWithPlayers) => {
         string += nickname;
 
     });
-    console.log(string)
     return string
 };

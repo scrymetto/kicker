@@ -1,61 +1,57 @@
 [
   {
     "id": "Hundred Years' War: Edwardian phase",
+    "firstScore": 0,
     "firstTeam": {
       "id": "1",
       "name": "Kingdom of England",
       "players": [
         {
-          "id": "3",
-          "name": "Edward III",
-          "function": "attacker"
+          "playerId": "3",
+          "role": "attacker"
         }
-      ],
-      "points": 0
+      ]
     },
+    "secondScore": 1,
     "secondTeam": {
       "id": "0",
       "name": "France",
       "players": [
         {
-          "id": "2",
-          "name": "Philip of France",
-          "function": "defender"
+          "playerId": "2",
+          "role": "defender"
         }
-      ],
-      "points": 1
+      ]
     }
   },
   {
     "id": "Hundred Years' War: Caroline phase",
+    "firstScore": 2,
     "firstTeam": {
       "id": "0",
       "name": "France",
       "players": [
         {
-          "id": "1",
-          "name": "Charles V",
-          "function": "attacker"
+          "playerId": "1",
+          "role": "attacker"
         }
-      ],
-      "points": 2
+      ]
     },
+    "secondScore": 0,
     "secondTeam": {
       "id": "1",
       "name": "Kingdom of England",
       "players": [
         {
-          "id": "3",
+          "playerId": "3",
           "name": "Edward III",
-          "function": "defender"
+          "role": "defender"
         },
         {
-          "id": "4",
-          "name": "Black Prince",
-          "function": "defender"
+          "playerId": "4",
+          "role": "defender"
         }
-      ],
-      "points": 0
+      ]
     }
   }
 ]
