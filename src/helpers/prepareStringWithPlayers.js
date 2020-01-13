@@ -1,16 +1,17 @@
-export const prepareStringWithPlayers = (array, players) => {
+export const prepareStringWithPlayers = (arrayWithIdsObj, objWithPlayers) => {
     let string = '';
-    array.forEach((player, index) => {
-        const nickname = players[player.playerId];
-        if (index !== 0 && string[0]) {
+    arrayWithIdsObj.forEach((player, index) => {
+        const nickname = objWithPlayers[player.playerId];
+        if (index !== 0 && string[0] && nickname.length !== 0) {
             string += ', '
         }
         // const playerRole = player.role;
         // if (playerRole) {
         //     string += nickname /*+ ' (' + player.function + ')'*/;
         // } else
-            string += nickname;
+        string += nickname;
 
     });
+    console.log(string)
     return string
 };
