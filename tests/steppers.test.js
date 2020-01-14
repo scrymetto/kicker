@@ -9,10 +9,10 @@ describe('<Steppers/> ', () => {
     const submit = sinon.spy();
 
     const initialState = {
-        names: {
-            teamOne: '',
-            teamTwo: ''
-        },
+        // names: {
+        //     teamOne: '',
+        //     teamTwo: ''
+        // },
         players: {
             teamOne: [],
             teamTwo: []
@@ -28,18 +28,18 @@ describe('<Steppers/> ', () => {
     let buttonPrev;
     test('should toggle between forms', async () => {
         const {getByTestId, container} = render(<Steppers submit={submit}/>);
-        const cardWithNames = getByTestId('names');
-        expect(cardWithNames).is.exist;
-        buttonNext = container.querySelector('.button_next');
-        await waitForElement(() => fireEvent.click(buttonNext));
+        // const cardWithNames = getByTestId('names');
+        // expect(cardWithNames).is.exist;
+        // buttonNext = container.querySelector('.button_next');
+        // await waitForElement(() => fireEvent.click(buttonNext));
         const cardWithPlayers = getByTestId('players');
         expect(cardWithPlayers).is.exist;
     });
 
     test('should return errors, if there is validation problem in \'Players\'-form', async () => {
         const {getByText, getByTestId, container} = render(<Steppers submit={submit}/>);
-        buttonNext = container.querySelector('.button_next');
-        await waitForElement(() => fireEvent.click(buttonNext));
+        // buttonNext = container.querySelector('.button_next');
+        // await waitForElement(() => fireEvent.click(buttonNext));
         buttonNext = container.querySelector('.button_next');
         await waitForElement(() => fireEvent.click(buttonNext));
 
@@ -81,9 +81,9 @@ describe('<Steppers/> ', () => {
 
     test('should call submit-function', async ()=> {
         jest.useFakeTimers();
-        const {getByText, getByTestId, container, debug} = render(<Steppers cancel={cancel} submit={submit}/>);
-        buttonNext = container.querySelector('.button_next');
-        await waitForElement(() => fireEvent.click(buttonNext));
+        const {getByText, container, debug} = render(<Steppers cancel={cancel} submit={submit}/>);
+        // buttonNext = container.querySelector('.button_next');
+        // await waitForElement(() => fireEvent.click(buttonNext));
 
         let listOptions = container.querySelectorAll('input')[0];
         fireEvent.focus(listOptions);

@@ -3,6 +3,9 @@ import React, {Fragment, Suspense, useEffect, useState} from 'react';
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
 import {RatingTable} from "../helpers/components/ratingTable";
+import {Spinner} from "../components/spinner/spinner";
+import {Players} from "../../src/helpers/components/newGameForms/players";
+import {Scores} from "../../src/helpers/components/newGameForms/scrores";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
@@ -10,7 +13,6 @@ import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
-import {Spinner} from "../components/spinner/spinner";
 
 export function Games(props) {
     //TODO: globalState can be undefined and it crashes the app
@@ -92,7 +94,9 @@ export function Games(props) {
                           {newGameSteppers &&
                           <Suspense fallback={<Spinner/>}>
                               <Steppers
+                                  numberOfCards={2}
                                   submit={createNewGame}
+                                  components={[Players, Scores]}
                               />
                           </Suspense>}
                           {isLoading
@@ -111,7 +115,7 @@ export function Games(props) {
                               </div>
                               : <Fragment>
                                   <Suspense fallback={<Spinner/>}>
-                                      <GameHistoryTable room={room} changeState={showHistory}/>
+                                      <GameHistoryTable room={room} changeState={showHistory} />
                                   </Suspense>
                               </Fragment>}
                           {menuIsOpen &&
