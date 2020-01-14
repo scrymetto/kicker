@@ -10,6 +10,8 @@ export const prepareGamesForTable = (games, players) => {
         // const {name: secondTeamName = 'Unnamed team'} = secondTeam;
         const firstTeamPlayers = firstTeam.players ? prepareStringWithPlayers(firstTeam.players, players) : '';
         const secondTeamPlayers = secondTeam.players ? prepareStringWithPlayers(secondTeam.players, players) : '';
+        // const firstTeamPlayers = prepareStringWithPlayers(firstTeam, players);
+        // const secondTeamPlayers = prepareStringWithPlayers(secondTeam, players);
         const firstTeamCell =
             <Fragment>
                 {/*<p className='text text_oblique' data-testid='team'>
@@ -28,7 +30,7 @@ export const prepareGamesForTable = (games, players) => {
                     {secondTeamPlayers}
                 </p>}
             </Fragment>;
-        const score = (firstScore || secondScore) &&
+        const score = (firstScore>=0|| secondScore>=0) &&
             <p className='text' data-testid='score'>{firstScore} : {secondScore}</p>;
         return {
             team: firstTeamCell,
