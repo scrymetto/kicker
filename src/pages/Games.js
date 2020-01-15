@@ -65,7 +65,7 @@ export function Games(props) {
 
     const openHistory = () => {
         getGames(user, room.id, 0, getGamesSuccess, onError)
-            .then(()=>showHistory(true));
+            .then(() => showHistory(true));
     };
 
     const createNewGame = (userValues) => {
@@ -79,9 +79,9 @@ export function Games(props) {
         openNewGameSteppers(false)
     };
 
-       const doActionsFromMenu = (obj) => {
+    const doActionsFromMenu = (obj) => {
         if (obj.players) {
-            obj.players.forEach((player)=>globalActions.addNewKey('players', player.id, player.nickname))
+            obj.players.forEach((player) => globalActions.addNewKey('players', player.id, player.nickname))
         }
         openMenu(false);
     };
@@ -96,7 +96,13 @@ export function Games(props) {
                               <Steppers
                                   numberOfCards={2}
                                   submit={createNewGame}
-                                  components={[Players, Scores]}
+                                  components={[{
+                                      component: Players,
+                                      fields: ['teamOne', 'teamTwo']
+                                  }, {
+                                      component: Scores,
+                                      fields: ['teamOne', 'teamTwo']
+                                  }]}
                               />
                           </Suspense>}
                           {isLoading
@@ -115,7 +121,7 @@ export function Games(props) {
                               </div>
                               : <Fragment>
                                   <Suspense fallback={<Spinner/>}>
-                                      <GameHistoryTable room={room} changeState={showHistory} />
+                                      <GameHistoryTable room={room} changeState={showHistory}/>
                                   </Suspense>
                               </Fragment>}
                           {menuIsOpen &&

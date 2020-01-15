@@ -14,23 +14,29 @@ import '../../../components/container/absolute.css'
 import {Overlay} from "../../../components/overlay/overlay";
 import PropTypes from "prop-types";
 
-const makeHooks = number => {
+const makeHooks = (number, components) => {
     let hooks = [];
     let initial = {};
     for (let i = 0; i < number; i++) {
         if (i === 0) {
             hooks[i] = useState(true);
             initial['card1'] = {};
+            components[i].fields.forEach(key=>{
+                initial['card1'][key]=''
+            })
         } else {
             hooks[i] = useState(false);
-            initial['card' + (i + 1)] = {};
+            const cardName = 'card' + (i + 1);
+            initial[cardName] = {};
+            components[i].fields.forEach(key=>{
+                initial[cardName][key]=''
+            })
         }
     }
     return[hooks, initial]
 };
 
 const Steppers = ({numberOfCards, components, submit}) => {
-    console.log(components)
 
     const [visible, setVisible] = useState(true);
     // const [userValues, setUserValues] = useState(
@@ -49,10 +55,10 @@ const Steppers = ({numberOfCards, components, submit}) => {
     //         }
     //     }
     // );
-    let [hooks, initial] = makeHooks(numberOfCards);
+    let [hooks, initial] = makeHooks(numberOfCards, components);
 
     console.log(hooks, initial);
-    const [userValues, setUserValues] = useState(initial)
+    const [userValues, setUserValues] = useState(initial);
 
     // const [namesForm, setNamesFormStatus] = useState(true);
     // const [playersForm, setPlayersFormStatus] = useState(true);
@@ -63,7 +69,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
     //     [playersForm, setPlayersFormStatus],
     //     [scoresForm, setScoresFormStatus]]);
 
-    const cards = prepareHooksForSteppers(hooks)
+    const cards = prepareHooksForSteppers(hooks);
 
     let currentCard = cards.getCurrent();
 
@@ -108,8 +114,11 @@ const Steppers = ({numberOfCards, components, submit}) => {
                                                      setNewStatus={setNewStatus}/>
                               }*/}
                               {hooks.map((hook, index) => {
-                                  const Card = components[index];
-                                  return hook[0] && <Card key={index}/>
+                                  const Card = components[index].component;
+                                  const initial = 'card'+(++index);
+                                  return hook[0] && <Card key={index}
+                                                          setNewStatus={setNewStatus}
+                                                          initial={userValues[initial]}/>
                               })
                               }
                           </Fragment>
