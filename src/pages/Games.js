@@ -98,10 +98,10 @@ export function Games(props) {
                                   submit={createNewGame}
                                   components={[{
                                       component: Players,
-                                      fields: ['teamOne', 'teamTwo']
+                                      initial: {teamOne:[], teamTwo:[]}
                                   }, {
                                       component: Scores,
-                                      fields: ['teamOne', 'teamTwo']
+                                      initial: {teamOne:0, teamTwo:0}
                                   }]}
                               />
                           </Suspense>}

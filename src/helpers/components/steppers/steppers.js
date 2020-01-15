@@ -20,17 +20,11 @@ const makeHooks = (number, components) => {
     for (let i = 0; i < number; i++) {
         if (i === 0) {
             hooks[i] = useState(true);
-            initial['card1'] = {};
-            components[i].fields.forEach(key=>{
-                initial['card1'][key]=''
-            })
+            initial['card1'] = components[i].initial;
         } else {
             hooks[i] = useState(false);
             const cardName = 'card' + (i + 1);
-            initial[cardName] = {};
-            components[i].fields.forEach(key=>{
-                initial[cardName][key]=''
-            })
+            initial[cardName] = components[i].initial;
         }
     }
     return[hooks, initial]
@@ -57,7 +51,6 @@ const Steppers = ({numberOfCards, components, submit}) => {
     // );
     let [hooks, initial] = makeHooks(numberOfCards, components);
 
-    console.log(hooks, initial);
     const [userValues, setUserValues] = useState(initial);
 
     // const [namesForm, setNamesFormStatus] = useState(true);
