@@ -17,9 +17,6 @@ const GameHistoryTable = ({changeState, room}) => {
     const [globalState, globalActions] = useGlobal();
     const players = globalState.players;
 
-    console.log(players)
-    console.log(globalState.games)
-
     const [gamesState, setGames] = useState(globalState.games);
     const [end, doEnd] = useState(false);
     const textMore = 'Show more games';

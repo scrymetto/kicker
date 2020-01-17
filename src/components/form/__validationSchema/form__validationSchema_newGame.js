@@ -21,8 +21,8 @@ export const validationSchema_newGame__players = Yup.object().shape({
 });
 
 export const validationSchema_newGame__scores = Yup.object().shape({
-    teamOne: Yup.number(),
-    teamTwo: Yup.number(),
+    teamOne: Yup.object(),
+    teamTwo: Yup.object(),
 });
 
 

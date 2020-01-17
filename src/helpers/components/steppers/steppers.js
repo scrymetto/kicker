@@ -30,34 +30,10 @@ const makeHooks = (number, components) => {
 const Steppers = ({numberOfCards, components, submit}) => {
 
     const [visible, setVisible] = useState(true);
-    // const [userValues, setUserValues] = useState(
-    //     {
-    //         // names: {
-    //         //     teamOne: '',
-    //         //     teamTwo: ''
-    //         // },
-    //         players: {
-    //             teamOne: [],
-    //             teamTwo: []
-    //         },
-    //         scores: {
-    //             teamOne: 0,
-    //             teamTwo: 0
-    //         }
-    //     }
-    // );
+
     let [hooks, initial] = makeHooks(numberOfCards, components);
 
     const [userValues, setUserValues] = useState(initial);
-
-    // const [namesForm, setNamesFormStatus] = useState(true);
-    // const [playersForm, setPlayersFormStatus] = useState(true);
-    // const [scoresForm, setScoresFormStatus] = useState(false);
-
-    // const cards = prepareHooksForSteppers([ // create a doubly linked list with hooks
-    //     // [namesForm, setNamesFormStatus],
-    //     [playersForm, setPlayersFormStatus],
-    //     [scoresForm, setScoresFormStatus]]);
 
     const cards = prepareHooksForSteppers(hooks);
 
@@ -69,15 +45,18 @@ const Steppers = ({numberOfCards, components, submit}) => {
             obj[card] = values;
             setUserValues(Object.assign(userValues, obj)) //set new state
         }
-        console.log("userValues")
-        console.log(userValues)
         currentCard.data[1](false); // make the current card invisible
-        currentCard = prevOrNext === 'next' // find next card
-            ? currentCard.next ? currentCard.next : {}
-            : currentCard.prev ? currentCard.prev : {};
-        if (currentCard.data) {
-            currentCard.data[1](true) // if the next card exist, make it visible
+        let exit = false;
+        if (prevOrNext === 'next') {
+            currentCard = currentCard.next || {}
         } else {
+            currentCard = currentCard.prev || {};
+            exit = true;
+        }
+        if (currentCard.data) {
+            currentCard.data[1](true) // if the next card exists, make it visible
+        } else {
+            exit && setUserValues(initial);
             setVisible(false);
         }
     };
@@ -95,16 +74,6 @@ const Steppers = ({numberOfCards, components, submit}) => {
                       style={{width: '100%', margin: '0'}}
                       render={() => {
                           return <Fragment>
-                              {/*{namesForm && <Names initial={userValues.names}
-                                                  setNewStatus={setNewStatus}/>}
-
-                              {playersForm && <Players initial={userValues.players}
-                                                       setNewStatus={setNewStatus}/>
-                              }
-
-                              {scoresForm && <Scores initial={userValues.scores}
-                                                     setNewStatus={setNewStatus}/>
-                              }*/}
                               {hooks.map((hook, index) => {
                                   const Component = components[index].component;
                                   const nameInState = 'card' + (++index);
