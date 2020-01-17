@@ -5,9 +5,6 @@ import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
 
 import {Card} from "../../../components/card/card";
 import {Button} from "../../../components/button/button";
-// import {Names} from "../newGameForms/names";
-import {Players} from "../newGameForms/players";
-import {Scores} from "../newGameForms/scrores";
 
 import './steppers.css'
 import '../../../components/container/absolute.css'
@@ -27,7 +24,7 @@ const makeHooks = (number, components) => {
             initial[cardName] = components[i].initial;
         }
     }
-    return[hooks, initial]
+    return [hooks, initial]
 };
 
 const Steppers = ({numberOfCards, components, submit}) => {
@@ -72,6 +69,8 @@ const Steppers = ({numberOfCards, components, submit}) => {
             obj[card] = values;
             setUserValues(Object.assign(userValues, obj)) //set new state
         }
+        console.log("userValues")
+        console.log(userValues)
         currentCard.data[1](false); // make the current card invisible
         currentCard = prevOrNext === 'next' // find next card
             ? currentCard.next ? currentCard.next : {}
@@ -107,11 +106,12 @@ const Steppers = ({numberOfCards, components, submit}) => {
                                                      setNewStatus={setNewStatus}/>
                               }*/}
                               {hooks.map((hook, index) => {
-                                  const Card = components[index].component;
-                                  const initial = 'card'+(++index);
-                                  return hook[0] && <Card key={index}
-                                                          setNewStatus={setNewStatus}
-                                                          initial={userValues[initial]}/>
+                                  const Component = components[index].component;
+                                  const nameInState = 'card' + (++index);
+                                  return hook[0] && <Component key={index}
+                                                               setNewStatus={setNewStatus}
+                                                               initial={userValues[nameInState]}
+                                                               nameInState={nameInState}/>
                               })
                               }
                           </Fragment>

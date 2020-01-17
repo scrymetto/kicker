@@ -6,9 +6,9 @@ export const validationSchema_newGame__name = Yup.object().shape({
 });
 
 export const validationSchema_newGame__players = Yup.object().shape({
-    teamOne: Yup.array().of(Yup.string().min(1))
-        .required('Please, select at least one player.'),
-    teamTwo: Yup.array().of(Yup.string().min(1)).test(
+    teamOne: Yup.array()/*.of(Yup.object()).min(1)
+        .required('Please, select at least one player.')*/,
+    teamTwo: Yup.array()/*.of(Yup.object()).min(1).test(
         'match',
         'You can\'t play with yourself, choose another player!',
         function (value) {
@@ -17,7 +17,7 @@ export const validationSchema_newGame__players = Yup.object().shape({
             }
             return true
         })
-            .required('Please, select at least one player.')
+            .required('Please, select at least one player.')*/
 });
 
 export const validationSchema_newGame__scores = Yup.object().shape({

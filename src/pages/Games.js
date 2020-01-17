@@ -69,7 +69,8 @@ export function Games(props) {
     };
 
     const createNewGame = (userValues) => {
-        if (userValues.players.teamOne.length > 0) {
+        console.log(userValues)
+        if (userValues.card1.teamOne.length>0) {
             const data = prepareUserValuesForNewGame(userValues, players, room.id);
             postGame(user, data, onError)
                 .then((data) => {
@@ -96,13 +97,16 @@ export function Games(props) {
                               <Steppers
                                   numberOfCards={2}
                                   submit={createNewGame}
-                                  components={[{
-                                      component: Players,
-                                      initial: {teamOne:[], teamTwo:[]}
-                                  }, {
-                                      component: Scores,
-                                      initial: {teamOne:0, teamTwo:0}
-                                  }]}
+                                  components={[
+                                      {
+                                          component: Players,
+                                          initial: {teamOne: [], teamTwo: []}
+                                      },
+                                      {
+                                          component: Scores,
+                                          initial: {teamOne: 0, teamTwo: 0}
+                                      }
+                                  ]}
                               />
                           </Suspense>}
                           {isLoading

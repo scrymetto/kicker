@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {Form} from "../../../components/form/form";
 import {validationSchema_newGame__scores} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 
-export const Scores = ({initial, setNewStatus}) => {
+export const Scores = ({initial, setNewStatus, nameInState}) => {
 
     const scoresOptions = new Array(10).fill(1, 0, 10).map((number, index) => number + index);
     const inputs = [{
@@ -24,7 +24,7 @@ export const Scores = ({initial, setNewStatus}) => {
           initial={initial}
           inputs={inputs}
           validationSchema={validationSchema_newGame__scores}
-          onSubmit={(values) => setNewStatus('next', values, 'scores')}
+          onSubmit={(values) => setNewStatus('next', values, nameInState)}
           withRoundButton
       />
   </Fragment>

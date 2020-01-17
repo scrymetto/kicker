@@ -4,15 +4,29 @@ import {Form} from "../../../components/form/form";
 import {validationSchema_newGame__players} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 import {useGlobal} from "../../../store";
 
-export const Players = ({initial, setNewStatus}) => {
+function makeOptionValid(id, arr) {
+    return {
+        value: id,
+        label: arr[id]
+    }
+}
+
+
+
+export const Players = ({initial, setNewStatus, nameInState}) => {
 
     const [globalState, globalActions] = useGlobal();
     const players = [];
+
+    let validInitial={};
+    if(initial.teamOne.length>0&&!initial.teamOne[0].label){
+        validInitial.teamOne=initial.teamOne.map(id=>makeOptionValid(id, globalState.players))
+    }
+    if(initial.teamTwo.length>0&&!initial.teamTwo[0].label){
+        validInitial['teamTwo']=initial.teamTwo.map(id=>makeOptionValid(id, globalState.players))
+    }
     for (let key in globalState.players) {
-        players.push({
-            value: key,
-            label: globalState.players[key]
-        })
+        players.push(makeOptionValid(key, globalState.players))
     }
 
     const inputs = [{
@@ -27,9 +41,7 @@ export const Players = ({initial, setNewStatus}) => {
     }];
 
     const onSubmit = (ids) => {
-        const teamOne = ids.teamOne.map(id =>{return {value:id, label:globalState.players[id]}});
-        const teamTwo = ids.teamTwo.map(id =>{return {value:id, label:globalState.players[id]}});
-        setNewStatus('next', {teamOne, teamTwo}, 'players')
+        setNewStatus('next', ids, nameInState)
     };
 
     return <Fragment>
@@ -38,7 +50,7 @@ export const Players = ({initial, setNewStatus}) => {
         </div>
         <Form
             className='form'
-            initial={initial}
+            initial={validInitial.teamOne?validInitial:initial}
             inputs={inputs}
             validationSchema={validationSchema_newGame__players}
             onSubmit={onSubmit}
