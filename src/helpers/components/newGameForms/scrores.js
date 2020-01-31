@@ -4,7 +4,7 @@ import {validationSchema_newGame__scores} from "../../../components/form/__valid
 
 export const Scores = ({initial, setNewStatus, nameInState}) => {
 
-    const scoresOptions = new Array(10).fill(0, 0, 11)
+    const scoresOptions = new Array(11).fill(0, 0, 11)
         .map((number, index) => number + index);
     const inputs = [{
         select: 'team one',

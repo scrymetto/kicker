@@ -9,7 +9,7 @@ import {Button} from "../button/button";
 import './steppers.css'
 import '../container/absolute.css'
 import {Overlay} from "../overlay/overlay";
-import PropTypes, {number} from "prop-types";
+import PropTypes from "prop-types";
 
 const makeHooks = (number, components) => {
     let hooks = [];
@@ -80,7 +80,9 @@ const Steppers = ({numberOfCards, components, submit}) => {
                                   return hook[0] && <Component key={index}
                                                                setNewStatus={setNewStatus}
                                                                initial={userValues[nameInState]}
-                                                               nameInState={nameInState}/>
+                                                               nameInState={nameInState}
+                                                               data-testid={'steppersComponent'+index}
+                                  />
                               })
                               }
                           </Fragment>
@@ -99,6 +101,11 @@ Steppers.propTypes = {
         if (!props[propName]) return new Error(`prop \'${propName}\' is required.`);
         if (!Array.isArray(props[propName])) return new Error(`prop \'${propName}\' must be an Array.`);
         if (props[propName].length !== props['numberOfCards']) return new Error(`prop \'${propName}\' must have ${props['numberOfCards']} components (because of \'numberOfCards\'-prop)`)
+        for (let i = 0; i < props[propName].length; i++) {
+            const element = props[propName][i];
+            if (typeof element !== "object") return new Error(`prop \'${propName}\' must be array of objects.`);
+            if (!element.component) return new Error(`Each element in prop \'${propName}\' must have the component field.`)
+        }
     }
 };
 

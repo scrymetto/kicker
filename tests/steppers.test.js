@@ -5,27 +5,25 @@ import sinon from "sinon";
 
 describe('<Steppers/> ', () => {
     afterEach(cleanup);
-    const cancel = sinon.spy();
     const submit = sinon.spy();
-
-    const initialState = {
-        // names: {
-        //     teamOne: '',
-        //     teamTwo: ''
-        // },
-        players: {
-            teamOne: [],
-            teamTwo: []
-        },
-        scores: {
-            teamOne: 0,
-            teamTwo: 0
-        }
-    };
 
     let option;
     let buttonNext;
     let buttonPrev;
+
+    const component1 = () => <p>component1</p>;
+    const component2 = () => <p>component2</p>;
+    const component3 = () => <p>component3</p>;
+
+    test('should render without problem', () => {
+        const {getByTestId, container} = render(<Steppers submit={submit}
+                                                          numberOfCards={3}
+                                                          components={[component1, component2, component3]}
+        />);
+        const card1 = getByTestId('component1');
+        console.log(prettyDOM(container))
+
+    });
     test('should toggle between forms', async () => {
         const {getByTestId, container} = render(<Steppers submit={submit}/>);
         // const cardWithNames = getByTestId('names');
@@ -69,17 +67,17 @@ describe('<Steppers/> ', () => {
         expect(cardWithScores).is.exist;
     });
 
-    test('should call cancel-function', ()=> {
+    test('should call cancel-function', () => {
         jest.useFakeTimers();
         const {container, debug} = render(<Steppers submit={submit}/>);
         buttonPrev = container.querySelector('.button_back');
         fireEvent.click(buttonPrev);
-        act(()=>jest.advanceTimersByTime(300)); // because of animation
+        act(() => jest.advanceTimersByTime(300)); // because of animation
         expect(submit.calledOnce).to.equal(true);
         expect(submit.calledWith(initialState)).to.equal(true);
     });
 
-    test('should call submit-function', async ()=> {
+    test('should call submit-function', async () => {
         jest.useFakeTimers();
         const {getByText, container, debug} = render(<Steppers cancel={cancel} submit={submit}/>);
         // buttonNext = container.querySelector('.button_next');
@@ -105,7 +103,7 @@ describe('<Steppers/> ', () => {
         buttonNext = container.querySelector('.button_next');
         await waitForElement(() => fireEvent.click(buttonNext));
 
-        act(()=>jest.advanceTimersByTime(300)); // because of animation
+        act(() => jest.advanceTimersByTime(300)); // because of animation
         expect(submit.calledOnce).to.equal(true);
     });
 });
