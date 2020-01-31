@@ -12,18 +12,17 @@ function makeOptionValid(id, arr) {
 }
 
 
-
 export const Players = ({initial, setNewStatus, nameInState}) => {
 
     const [globalState, globalActions] = useGlobal();
     const players = [];
 
-    let validInitial={};
-    if(initial.teamOne.length>0&&!initial.teamOne[0].label){
-        validInitial.teamOne=initial.teamOne.map(id=>makeOptionValid(id, globalState.players))
+    let validInitial = {};
+    if (initial.teamOne.length > 0 && !initial.teamOne[0].label) {
+        validInitial.teamOne = initial.teamOne.map(id => makeOptionValid(id, globalState.players))
     }
-    if(initial.teamTwo.length>0&&!initial.teamTwo[0].label){
-        validInitial['teamTwo']=initial.teamTwo.map(id=>makeOptionValid(id, globalState.players))
+    if (initial.teamTwo.length > 0 && !initial.teamTwo[0].label) {
+        validInitial.teamTwo = initial.teamTwo.map(id => makeOptionValid(id, globalState.players))
     }
     for (let key in globalState.players) {
         players.push(makeOptionValid(key, globalState.players))
@@ -50,7 +49,7 @@ export const Players = ({initial, setNewStatus, nameInState}) => {
         </div>
         <Form
             className='form'
-            initial={validInitial.teamOne?validInitial:initial}
+            initial={validInitial.teamOne ? validInitial : initial}
             inputs={inputs}
             validationSchema={validationSchema_newGame__players}
             onSubmit={onSubmit}

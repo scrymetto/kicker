@@ -1,15 +1,15 @@
 import React, {Fragment, useState} from "react";
 import {CSSTransition} from "react-transition-group";
 
-import {prepareHooksForSteppers} from "../../prepareHooksForSteppers";
+import {prepareHooksForSteppers} from "../../helpers/prepareHooksForSteppers";
 
-import {Card} from "../../../components/card/card";
-import {Button} from "../../../components/button/button";
+import {Card} from "../card/card";
+import {Button} from "../button/button";
 
 import './steppers.css'
-import '../../../components/container/absolute.css'
-import {Overlay} from "../../../components/overlay/overlay";
-import PropTypes from "prop-types";
+import '../container/absolute.css'
+import {Overlay} from "../overlay/overlay";
+import PropTypes, {number} from "prop-types";
 
 const makeHooks = (number, components) => {
     let hooks = [];
@@ -31,7 +31,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
 
     const [visible, setVisible] = useState(true);
 
-    let [hooks, initial] = makeHooks(numberOfCards, components);
+    const [hooks, initial] = makeHooks(numberOfCards, components);
 
     const [userValues, setUserValues] = useState(initial);
 
@@ -94,7 +94,12 @@ const Steppers = ({numberOfCards, components, submit}) => {
 
 Steppers.propTypes = {
     submit: PropTypes.func.isRequired,
-    numberOfCards: PropTypes.number,
+    numberOfCards: PropTypes.number.isRequired,
+    components: function (props, propName) {
+        if (!props[propName]) return new Error(`prop \'${propName}\' is required.`);
+        if (!Array.isArray(props[propName])) return new Error(`prop \'${propName}\' must be an Array.`);
+        if (props[propName].length !== props['numberOfCards']) return new Error(`prop \'${propName}\' must have ${props['numberOfCards']} components (because of \'numberOfCards\'-prop)`)
+    }
 };
 
 export default Steppers;

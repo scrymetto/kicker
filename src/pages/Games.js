@@ -13,6 +13,7 @@ import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
+import {Names} from "../helpers/components/newGameForms/names";
 
 export function Games(props) {
     //TODO: globalState can be undefined and it crashes the app
@@ -45,7 +46,7 @@ export function Games(props) {
     const players = globalState.players;
 
     const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
-    const Steppers = React.lazy(() => import("../helpers/components/steppers/steppers"));
+    const Steppers = React.lazy(() => import("../components/steppers/steppers"));
     const ActionsMenu = React.lazy(() => import("../helpers/components/actionsMenu/actionsMenu"));
 
     const [newGameSteppers, openNewGameSteppers] = useState(false);
@@ -69,7 +70,6 @@ export function Games(props) {
     };
 
     const createNewGame = (userValues) => {
-        console.log(userValues)
         if (userValues.card1.teamOne.length>0) {
             const data = prepareUserValuesForNewGame(userValues, players, room.id);
             postGame(user, data, onError)
