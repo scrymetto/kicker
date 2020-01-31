@@ -9,7 +9,8 @@ export const CustomField_Select = ({className, options, name, initialValues, set
 
     const isMulti = Array.isArray(initialValues);
 
-    const [renderedValues, setRenderedValues] = useState(isMulti
+    const [renderedValues, setRenderedValues] = useState(
+        isMulti
         ? [].concat(initialValues.map(value => {
             return value
                 ? value.label
@@ -29,7 +30,6 @@ export const CustomField_Select = ({className, options, name, initialValues, set
     });
 
     const onSelectChange = (values) => {
-
         let validValues;
         if (isMulti) {
             validValues = values ? values : [];
@@ -48,7 +48,7 @@ export const CustomField_Select = ({className, options, name, initialValues, set
         classNamePrefix='form__field'
         options={optionsWithLabel}
         name={name}
-        defaultValue={renderedValues}
+        value={renderedValues}
         onChange={(values) => onSelectChange(values)}
         isMulti={isMulti}
         components={animatedComponents}

@@ -6,8 +6,8 @@ export const scrollToTop = () => {
         }
         window.scrollTo(0, window.pageYOffset-50)
     };
-    const scrollToTop = () => {
+    const toTop = () => {
         intervalId = setInterval(scrollStep, 15);
     };
-    return scrollToTop()
+    return toTop()
 };
