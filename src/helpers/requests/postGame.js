@@ -3,7 +3,6 @@ import axios from "axios";
 export const postGame = async (user, data, onError) => {
 
     try {
-        console.log(data)
         const request = await axios.post(
             `/api/game`,
             data,

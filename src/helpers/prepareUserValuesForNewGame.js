@@ -1,6 +1,6 @@
 export const prepareUserValuesForNewGame = (data, playersFromState, roomId)=> {
 
-    const {names, card1, card2} = data;
+    const {card1, card2} = data;
     const makePlayersValid = playersOptions => {
         return playersOptions.map(option => {
             return {
@@ -11,10 +11,10 @@ export const prepareUserValuesForNewGame = (data, playersFromState, roomId)=> {
     };
 
     return   {
-        "firstScore": card2.teamOne,
+        "firstScore": card2.teamOne.value,
         "firstTeam": makePlayersValid(card1.teamOne),
         "roomId": roomId,
-        "secondScore": card2.teamTwo,
+        "secondScore": card2.teamTwo.value,
         "secondTeam": makePlayersValid(card1.teamTwo),
     }
 };
