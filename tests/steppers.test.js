@@ -2,8 +2,10 @@ import React from "react";
 import Steppers from "../src/components/steppers/steppers";
 import {fireEvent, render, cleanup, waitForElement, act, prettyDOM} from "@testing-library/react";
 import sinon from "sinon";
+import {element} from "prop-types";
 
-describe('<Steppers/> ', () => {
+describe('<Steppers/> with non-form components', () => {
+
     afterEach(cleanup);
     const submit = sinon.spy();
 
@@ -11,20 +13,85 @@ describe('<Steppers/> ', () => {
     let buttonNext;
     let buttonPrev;
 
-    const component1 = () => <p>component1</p>;
-    const component2 = () => <p>component2</p>;
-    const component3 = () => <p>component3</p>;
+    const component1 = {
+        component: () => <p data-testid='steppersComponent1'>Be born</p>,
+        form: false
+    };
+    const component2 = {
+        component: () => <p data-testid='steppersComponent2'>Make mistakes</p>,
+        form: false
+    };
+    const component3 = {
+        component: () => <p data-testid='steppersComponent3'>Die</p>,
+        form: false
+    };
 
-    test('should render without problem', () => {
+    test('should render first non-form component', () => {
         const {getByTestId, container} = render(<Steppers submit={submit}
                                                           numberOfCards={3}
                                                           components={[component1, component2, component3]}
         />);
-        const card1 = getByTestId('component1');
-        console.log(prettyDOM(container))
-
+        const card1 = getByTestId('steppersComponent1');
+        expect(card1).is.exist;
     });
-    test('should toggle between forms', async () => {
+    test('non-form component should have \'button_next\' and \'button_back\'', () => {
+        const {getByTestId, container} = render(<Steppers submit={submit}
+                                                          numberOfCards={3}
+                                                          components={[component1, component2, component3]}
+        />);
+        const button_next = getByTestId('button_next');
+        const button_back = getByTestId('button_back');
+        expect(button_next).is.exist;
+        expect(button_back).is.exist;
+    });
+    test('\'button_back\' should close the <Steppers/>', () => {
+        const {getByTestId, container} = render(<Steppers submit={submit}
+                                                          numberOfCards={3}
+                                                          components={[component1, component2, component3]}
+        />);
+        const button_back = getByTestId('button_back');
+        fireEvent.click(button_back);
+        const paragraphs = container.getElementsByTagName('p');
+        expect(paragraphs.length).to.equal(1); //because of <p/> in <Header/>
+        const button_next = container.getElementsByClassName('button_next');
+        expect(button_next.length).to.equal(0);
+    });
+    test('should toggle between non-form components', () => {
+        const {getByTestId, container} = render(<Steppers submit={submit}
+                                                          numberOfCards={3}
+                                                          components={[component1, component2, component3]}
+        />);
+        buttonNext = container.querySelector('.button_next');
+        fireEvent.click(buttonNext);
+        const card2 = getByTestId('steppersComponent2');
+        const card2text = card2.textContent;
+        expect(card2).is.exist;
+        buttonPrev = container.querySelector('.button_back');
+        fireEvent.click(buttonPrev);
+        const card1 = getByTestId('steppersComponent1');
+        expect(card1).is.exist;
+        const paragraphs = container.getElementsByTagName('p');
+        for (let i=0; i<paragraphs.length; i++){
+            expect(paragraphs[i].textContent).to.not.equal(card2text)
+        }
+    });
+    test('should call submit-function after the very last card', ()=> {
+        const {getByTestId, container} = render(<Steppers submit={submit}
+                                                          numberOfCards={3}
+                                                          components={[component1, component2, component3]}
+        />);
+        buttonNext = container.querySelector('.button_next');
+        fireEvent.click(buttonNext);
+        buttonNext = container.querySelector('.button_next');
+        fireEvent.click(buttonNext);
+        const card3 = getByTestId('steppersComponent3');
+        expect(card3).is.exist;
+        buttonNext = container.querySelector('.button_next');
+        fireEvent.click(buttonNext);
+        console.log(prettyDOM(container))
+    });
+
+    test('should toggle between non-form components!!', async () => {
         const {getByTestId, container} = render(<Steppers submit={submit}/>);
         // const cardWithNames = getByTestId('names');
         // expect(cardWithNames).is.exist;
