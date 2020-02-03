@@ -76,19 +76,27 @@ const Steppers = ({numberOfCards, components, submit}) => {
                           return <Fragment>
                               {hooks.map((hook, index) => {
                                   const Component = components[index].component;
-                                  const nameInState = 'card' + (++index);
-                                  return hook[0] && <Component key={index}
-                                                               setNewStatus={setNewStatus}
-                                                               initial={userValues[nameInState]}
-                                                               nameInState={nameInState}
-                                                               data-testid={'steppersComponent'+index}
-                                  />
+                                  const nameInState = 'card' + (index + 1);
+                                  return hook[0] && <Fragment key={index}>
+                                      <Component
+                                          setNewStatus={setNewStatus}
+                                          initial={userValues[nameInState]}
+                                          nameInState={nameInState}
+                                      />
+                                      {!components[index].form
+                                      && <Button className='button button_next'
+                                                 onClick={() => setNewStatus('next', {}, nameInState)}
+                                                 data-testid='button_next'
+                                      />}
+                                  </Fragment>
                               })
                               }
                           </Fragment>
                       }}
                 />
-                <Button className='button button_back' onClick={() => setNewStatus('prev')}/>
+                <Button className='button button_back'
+                        onClick={() => setNewStatus('prev')}
+                        data-testid='button_back'/>
             </div>
         </CSSTransition>
     </Fragment>
@@ -104,7 +112,10 @@ Steppers.propTypes = {
         for (let i = 0; i < props[propName].length; i++) {
             const element = props[propName][i];
             if (typeof element !== "object") return new Error(`prop \'${propName}\' must be array of objects.`);
-            if (!element.component) return new Error(`Each element in prop \'${propName}\' must have the component field.`)
+            if (!element.component) return new Error(`Each element in prop \'${propName}\' must have the component field.`);
+            if (element.form === undefined) return new Error(`Each element in prop \'${propName}\' must have the form field.`);
+            if (typeof element.form !== "boolean") return new Error(`The field \'form\' in prop \'${propName}\' must be a boolean.`);
+            if (element.form && !element.initial) return new Error(`If field \'form\' is true, field \'initial\' in prop \'${propName}\' is required`);
         }
     }
 };

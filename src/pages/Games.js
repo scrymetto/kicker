@@ -100,10 +100,12 @@ export function Games(props) {
                                   components={[
                                       {
                                           component: Players,
+                                          form: true,
                                           initial: {teamOne: [], teamTwo: []}
                                       },
                                       {
                                           component: Scores,
+                                          form: true,
                                           initial: {teamOne: 0, teamTwo: 0}
                                       }
                                   ]}
