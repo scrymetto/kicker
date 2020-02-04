@@ -2,14 +2,14 @@ import React from "react";
 import Steppers from "../src/components/steppers/steppers";
 import {fireEvent, render, cleanup, waitForElement, act, prettyDOM} from "@testing-library/react";
 import sinon from "sinon";
-import {element} from "prop-types";
+import {Form} from "../src/components/form/form";
+import {form_validationSchema_newPlayer} from "../src/components/form/__validationSchema/form_validationSchema_newPlayer";
 
 describe('<Steppers/> with non-form components', () => {
 
     afterEach(cleanup);
     const submit = sinon.spy();
 
-    let option;
     let buttonNext;
     let buttonPrev;
 
@@ -39,22 +39,22 @@ describe('<Steppers/> with non-form components', () => {
                                                           numberOfCards={3}
                                                           components={[component1, component2, component3]}
         />);
-        const button_next = getByTestId('button_next');
-        const button_back = getByTestId('button_back');
-        expect(button_next).is.exist;
-        expect(button_back).is.exist;
+        buttonNext = getByTestId('button_next');
+        buttonPrev = getByTestId('button_back');
+        expect(buttonNext).is.exist;
+        expect(buttonPrev).is.exist;
     });
     test('\'button_back\' should close the <Steppers/>', () => {
         const {getByTestId, container} = render(<Steppers submit={submit}
                                                           numberOfCards={3}
                                                           components={[component1, component2, component3]}
         />);
-        const button_back = getByTestId('button_back');
-        fireEvent.click(button_back);
+        buttonPrev = getByTestId('button_back');
+        fireEvent.click(buttonPrev);
         const paragraphs = container.getElementsByTagName('p');
         expect(paragraphs.length).to.equal(1); //because of <p/> in <Header/>
-        const button_next = container.getElementsByClassName('button_next');
-        expect(button_next.length).to.equal(0);
+        buttonNext = container.getElementsByClassName('button_next');
+        expect(buttonNext.length).to.equal(0);
     });
     test('should toggle between non-form components', () => {
         const {getByTestId, container} = render(<Steppers submit={submit}
@@ -71,11 +71,11 @@ describe('<Steppers/> with non-form components', () => {
         const card1 = getByTestId('steppersComponent1');
         expect(card1).is.exist;
         const paragraphs = container.getElementsByTagName('p');
-        for (let i=0; i<paragraphs.length; i++){
+        for (let i = 0; i < paragraphs.length; i++) {
             expect(paragraphs[i].textContent).to.not.equal(card2text)
         }
     });
-    test('should call submit-function after the very last card', ()=> {
+    test('should call submit-function after the very last card', () => {
         const {getByTestId, container} = render(<Steppers submit={submit}
                                                           numberOfCards={3}
                                                           components={[component1, component2, component3]}
@@ -88,17 +88,84 @@ describe('<Steppers/> with non-form components', () => {
         expect(card3).is.exist;
         buttonNext = container.querySelector('.button_next');
         fireEvent.click(buttonNext);
-        console.log(prettyDOM(container))
+        act(() => jest.advanceTimersByTime(300)); // because of animation
+        expect(submit.calledOnce).to.equal(true);
+    });
+});
+
+const TestForm1 = ({initial, setNewStatus, nameInState}) => {
+    return <div data-testid='testForm1'>
+    <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
+                 initial={initial}
+                 inputs={[{text: 'name'}]}
+          validationSchema={form_validationSchema_newPlayer}/>
+    </div>
+};
+
+const TestForm2 = ({initial, setNewStatus, nameInState}) => {
+    return <div data-testid='testForm2'>
+    <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
+                 initial={initial}
+                 inputs={[{text: 'date of birth'}]}
+                 validationSchema={form_validationSchema_newPlayer}/>
+    </div>
+};
+
+const TestForm3 = ({initial, setNewStatus, nameInState}) => {
+    return <div data-testid='testForm3'>
+        <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
+                 initial={initial}
+                 inputs={[{text: 'date of death'}]}
+                 validationSchema={form_validationSchema_newPlayer}
+                 withRoundButton/>
+    </div>
+};
+
+describe('<Steppers/> with form', () => {
+
+    afterEach(cleanup);
+    const submit = sinon.spy();
+
+    let buttonNext;
+    let buttonPrev;
+
+    let option;
+
+    const form1 = {
+        component: TestForm1,
+        form: true,
+        initial: {name: ''}
+    };
+
+    const form2 = {
+        component: TestForm2,
+        form: true,
+        initial: {dateOfBirth: ''}
+    };
+
+    const form3 = {
+        component: TestForm3,
+        form: true,
+        initial: {dateOfDeath: ''}
+    };
+
+    test('should render first component', () => {
+        const {getByTestId, container} = render(<Steppers numberOfCards={3}
+                                                          components={[form1, form2, form3]}
+                                                          submit={submit}/>);
+        const testForm1 = getByTestId('testForm1');
+        expect(testForm1).is.exist;
     });
 
-    test('should toggle between non-form components!!', async () => {
-        const {getByTestId, container} = render(<Steppers submit={submit}/>);
-        // const cardWithNames = getByTestId('names');
-        // expect(cardWithNames).is.exist;
-        // buttonNext = container.querySelector('.button_next');
-        // await waitForElement(() => fireEvent.click(buttonNext));
-        const cardWithPlayers = getByTestId('players');
-        expect(cardWithPlayers).is.exist;
+    test('should have \'button_back\' and NOT have \'button_next\'', () => {
+        const {getByTestId, container} = render(<Steppers numberOfCards={3}
+                                                          components={[form1, form2, form3]}
+                                                          submit={submit}/>);
+        buttonNext = container.querySelector('.button_next');
+        expect(buttonNext).is.not.exist;
+        buttonPrev = getByTestId('button_back');
+        console.log(prettyDOM(buttonPrev));
+        expect(buttonPrev).is.exist;
     });
 
     test('should return errors, if there is validation problem in \'Players\'-form', async () => {
