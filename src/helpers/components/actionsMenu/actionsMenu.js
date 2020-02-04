@@ -4,7 +4,7 @@ import {CSSTransition} from "react-transition-group";
 import {useGlobal} from "../../../store";
 import {useAuth} from "../../auth&route/authContext";
 import {postPlayer} from "../../requests/postPlayer";
-import {validationSchema_newPlayer} from "../../../components/form/__validationSchema/validationSchema_newPlayer";
+import {form_validationSchema_newPlayer} from "../../../components/form/__validationSchema/form_validationSchema_newPlayer";
 
 
 import {Card} from "../../../components/card/card";
@@ -61,7 +61,7 @@ const ActionsMenu = ({room, closeMenu}) => {
                                   input='name'
                                   onSubmit={addNewPlayer}
                                   close={() => openForm(false)}
-                                  validationSchema={validationSchema_newPlayer}
+                                  validationSchema={form_validationSchema_newPlayer}
                               />}
                               {!form && <Point
                                   onClick={() => openForm(true)}

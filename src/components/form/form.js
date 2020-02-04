@@ -47,7 +47,7 @@ Form.propTypes = {
     className:PropTypes.string,
     initial: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
     validationSchema: PropTypes.object.isRequired, // all inputs with Yup.object()
-    inputs: PropTypes.arrayOf(PropTypes.object).isRequired, // [{key: type of input for Formik, value: name of input}, ...]
+    inputs: PropTypes.arrayOf(PropTypes.object).isRequired, // [ {[key: type of input for Formik]: (value: name of input)}, ...]
     onSubmit: PropTypes.func.isRequired,
     withRoundButton:PropTypes.bool
 };
