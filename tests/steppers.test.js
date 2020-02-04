@@ -120,7 +120,6 @@ const TestForm3 = ({initial, setNewStatus, nameInState}) => {
                  withRoundButton/>
     </div>
 };
-
 describe('<Steppers/> with form', () => {
 
     afterEach(cleanup);
