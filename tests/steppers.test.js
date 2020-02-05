@@ -129,8 +129,6 @@ describe('<Steppers/> with form', () => {
     let buttonNext;
     let buttonPrev;
 
-    let option;
-
     const form1 = {
         component: TestForm1,
         form: true,
@@ -164,78 +162,58 @@ describe('<Steppers/> with form', () => {
         buttonNext = container.querySelector('.button_next');
         expect(buttonNext).is.not.exist;
         buttonPrev = getByTestId('button_back');
-        console.log(prettyDOM(buttonPrev));
         expect(buttonPrev).is.exist;
     });
 
-    test('should return errors, if there is validation problem in \'Players\'-form', async () => {
-        const {getByText, getByTestId, container} = render(<Steppers submit={submit}/>);
-        // buttonNext = container.querySelector('.button_next');
-        // await waitForElement(() => fireEvent.click(buttonNext));
-        buttonNext = container.querySelector('.button_next');
+    test('should return errors, if there is validation problem', async () => {
+        const {getByText, getByTestId, container} = render(<Steppers numberOfCards={3}
+                                                                     components={[form1, form2, form3]}
+                                                                     submit={submit}/>);
+        buttonNext = getByText('Submit');
         await waitForElement(() => fireEvent.click(buttonNext));
-
         let error = container.getElementsByClassName('text_error');
-        expect(error.length).to.equal(2);
-
-        let listOptions = container.querySelectorAll('input')[0];
-        fireEvent.focus(listOptions);
-        let listControl = container.querySelector('.form__field__control');
-        fireEvent.mouseDown(listControl);
-        option = getByText('blue');
-        fireEvent.click(option);
-
-        listOptions = container.querySelectorAll('input')[2];
-        fireEvent.focus(listOptions);
-        listControl = container.querySelectorAll('.form__field__control')[1];
-        fireEvent.mouseDown(listControl);
-        option = getByText('red');
-        fireEvent.click(option);
-
-        buttonNext = container.querySelector('.button_next');
+        expect(error.length).to.equal(1);
+        const input = getByTestId('custom_input');
+        fireEvent.change(input, {target: {value: 'Dostoevsky'}});
         await waitForElement(() => fireEvent.click(buttonNext));
         error = container.getElementsByClassName('text_error');
-        expect(error.length).to.equal(0);
-
-        const cardWithScores = getByTestId('scores');
-        expect(cardWithScores).is.exist;
+        expect(error.length).to.equal(1);
+        const testForm2 = getByTestId('testForm2');
+        expect(testForm2).is.exist;
     });
 
     test('should call cancel-function', () => {
         jest.useFakeTimers();
-        const {container, debug} = render(<Steppers submit={submit}/>);
+        const {container, debug} = render(<Steppers numberOfCards={3}
+                                                    components={[form1, form2, form3]}
+                                                    submit={submit}/>);
         buttonPrev = container.querySelector('.button_back');
         fireEvent.click(buttonPrev);
         act(() => jest.advanceTimersByTime(300)); // because of animation
         expect(submit.calledOnce).to.equal(true);
-        expect(submit.calledWith(initialState)).to.equal(true);
     });
 
     test('should call submit-function', async () => {
         jest.useFakeTimers();
-        const {getByText, container, debug} = render(<Steppers cancel={cancel} submit={submit}/>);
-        // buttonNext = container.querySelector('.button_next');
-        // await waitForElement(() => fireEvent.click(buttonNext));
+        const {getByText, container, getByTestId} = render(<Steppers numberOfCards={3}
+                                                               components={[form1, form2, form3]}
+                                                               submit={submit}/>);
 
-        let listOptions = container.querySelectorAll('input')[0];
-        fireEvent.focus(listOptions);
-        let listControl = container.querySelector('.form__field__control');
-        fireEvent.mouseDown(listControl);
-        option = getByText('blue');
-        fireEvent.click(option);
-
-        listOptions = container.querySelectorAll('input')[2];
-        fireEvent.focus(listOptions);
-        listControl = container.querySelectorAll('.form__field__control')[1];
-        fireEvent.mouseDown(listControl);
-        option = getByText('red');
-        fireEvent.click(option);
-
-        buttonNext = container.querySelector('.button_next');
+        buttonNext = getByText('Submit');
+        let input = getByTestId('custom_input');
+        fireEvent.change(input, {target: {value: 'Dostoevsky'}});
         await waitForElement(() => fireEvent.click(buttonNext));
 
-        buttonNext = container.querySelector('.button_next');
-        await waitForElement(() => fireEvent.click(buttonNext));
+        const buttonNext2 = getByText('Submit');
+        const input2 = getByTestId('custom_input');
+        fireEvent.change(input2, {target: {value: '11.11.1821'}});
+        await waitForElement(() => fireEvent.click(buttonNext2));
+        console.log(prettyDOM(container))
+
+        const buttonNext3 = getByText('Submit');
+        const input3 = getByTestId('custom_input');
+        fireEvent.change(input3, {target: {value: '9.12.1881'}});
+        await waitForElement(() => fireEvent.click(buttonNext3));
 
         act(() => jest.advanceTimersByTime(300)); // because of animation
         expect(submit.calledOnce).to.equal(true);
