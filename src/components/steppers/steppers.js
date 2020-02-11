@@ -77,7 +77,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
                               {hooks.map((hook, index) => {
                                   const Component = components[index].component;
                                   const nameInState = 'card' + (index + 1);
-                                  return hook[0] && <Fragment key={index}>
+                                  return hook[0] &&<Fragment key={index}>
                                       <Component
                                           setNewStatus={setNewStatus}
                                           initial={userValues[nameInState]}

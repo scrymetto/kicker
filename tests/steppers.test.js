@@ -4,6 +4,7 @@ import {fireEvent, render, cleanup, waitForElement, act, prettyDOM} from "@testi
 import sinon from "sinon";
 import {Form} from "../src/components/form/form";
 import {form_validationSchema_newPlayer} from "../src/components/form/__validationSchema/form_validationSchema_newPlayer";
+import {wait} from "@testing-library/dom";
 
 describe('<Steppers/> with non-form components', () => {
 
@@ -66,10 +67,12 @@ describe('<Steppers/> with non-form components', () => {
         const card2 = getByTestId('steppersComponent2');
         const card2text = card2.textContent;
         expect(card2).is.exist;
+        buttonNext = container.querySelector('.button_next');
         buttonPrev = container.querySelector('.button_back');
         fireEvent.click(buttonPrev);
-        const card1 = getByTestId('steppersComponent1');
-        expect(card1).is.exist;
+        // fireEvent.click(buttonNext);
+        // const card3 = getByTestId('steppersComponent3');
+        // expect(card3).is.exist;
         const paragraphs = container.getElementsByTagName('p');
         for (let i = 0; i < paragraphs.length; i++) {
             expect(paragraphs[i].textContent).to.not.equal(card2text)
@@ -95,29 +98,29 @@ describe('<Steppers/> with non-form components', () => {
 
 const TestForm1 = ({initial, setNewStatus, nameInState}) => {
     return <div data-testid='testForm1'>
-    <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
-                 initial={initial}
-                 inputs={[{text: 'name'}]}
-          validationSchema={form_validationSchema_newPlayer}/>
+        <Form onSubmit={(values) => {setNewStatus('next', values, nameInState)}}
+              initial={initial}
+              inputs={[{text: 'name'}]}
+              validationSchema={form_validationSchema_newPlayer}/>
     </div>
 };
 
 const TestForm2 = ({initial, setNewStatus, nameInState}) => {
     return <div data-testid='testForm2'>
-    <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
-                 initial={initial}
-                 inputs={[{text: 'date of birth'}]}
-                 validationSchema={form_validationSchema_newPlayer}/>
+        <Form onSubmit={(values) => {setNewStatus('next', values, nameInState)}}
+              initial={initial}
+              inputs={[{text: 'date of birth'}]}
+              validationSchema={form_validationSchema_newPlayer}/>
     </div>
 };
 
 const TestForm3 = ({initial, setNewStatus, nameInState}) => {
     return <div data-testid='testForm3'>
         <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
-                 initial={initial}
-                 inputs={[{text: 'date of death'}]}
-                 validationSchema={form_validationSchema_newPlayer}
-                 withRoundButton/>
+              initial={initial}
+              inputs={[{text: 'date of death'}]}
+              validationSchema={form_validationSchema_newPlayer}
+              withRoundButton/>
     </div>
 };
 
@@ -170,14 +173,14 @@ describe('<Steppers/> with form', () => {
                                                                      components={[form1, form2, form3]}
                                                                      submit={submit}/>);
         buttonNext = getByText('Submit');
-        await waitForElement(() => fireEvent.click(buttonNext));
+        await wait(() => fireEvent.click(buttonNext));
         let error = container.getElementsByClassName('text_error');
         expect(error.length).to.equal(1);
         const input = getByTestId('custom_input');
         fireEvent.change(input, {target: {value: 'Dostoevsky'}});
-        await waitForElement(() => fireEvent.click(buttonNext));
+        await wait(() => fireEvent.click(buttonNext));
         error = container.getElementsByClassName('text_error');
-        expect(error.length).to.equal(1);
+        expect(error.length).to.equal(0);
         const testForm2 = getByTestId('testForm2');
         expect(testForm2).is.exist;
     });
@@ -195,25 +198,30 @@ describe('<Steppers/> with form', () => {
 
     test('should call submit-function', async () => {
         jest.useFakeTimers();
-        const {getByText, container, getByTestId} = render(<Steppers numberOfCards={3}
-                                                               components={[form1, form2, form3]}
-                                                               submit={submit}/>);
+        const {getByText, container, debug, getByTestId, getByRole} = render(<Steppers numberOfCards={3}
+                                                                     components={[form1, form2, form3]}
+                                                                     submit={submit}/>);
+        const testForm1 = getByTestId('testForm1');
+        expect(testForm1).is.exist;
 
-        buttonNext = getByText('Submit');
-        let input = getByTestId('custom_input');
+        const input = getByTestId('custom_input');
         fireEvent.change(input, {target: {value: 'Dostoevsky'}});
-        await waitForElement(() => fireEvent.click(buttonNext));
+        fireEvent.click(getByTestId('submit'));
+        const testForm2 = await waitForElement(()=>getByTestId('testForm2'));
+        expect(testForm2).is.exist;
 
-        const buttonNext2 = getByText('Submit');
         const input2 = getByTestId('custom_input');
         fireEvent.change(input2, {target: {value: '11.11.1821'}});
-        await waitForElement(() => fireEvent.click(buttonNext2));
-        console.log(prettyDOM(container))
+        debug()
+        fireEvent.click(getByTestId('submit'));
+        const testForm3 = await waitForElement(()=>getByTestId('testForm3'));
+        expect(testForm3).is.exist;
 
-        const buttonNext3 = getByText('Submit');
         const input3 = getByTestId('custom_input');
         fireEvent.change(input3, {target: {value: '9.12.1881'}});
-        await waitForElement(() => fireEvent.click(buttonNext3));
+        buttonNext = getByRole('form');
+        await waitForElement(() => fireEvent.submit(buttonNext));
+        console.log(prettyDOM(container))
 
         act(() => jest.advanceTimersByTime(300)); // because of animation
         expect(submit.calledOnce).to.equal(true);

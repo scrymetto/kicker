@@ -6,6 +6,8 @@ import {RatingTable} from "../helpers/components/ratingTable";
 import {Spinner} from "../components/spinner/spinner";
 import {Players} from "../../src/helpers/components/newGameForms/players";
 import {Scores} from "../../src/helpers/components/newGameForms/scrores";
+import {Names} from "../helpers/components/newGameForms/names";
+
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
@@ -13,7 +15,36 @@ import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
-import {Names} from "../helpers/components/newGameForms/names";
+import {Form} from "../components/form/form";
+import {form_validationSchema_newPlayer} from "../components/form/__validationSchema/form_validationSchema_newPlayer";
+
+const TestForm1 = ({initial, setNewStatus, nameInState}) => {
+    return <div data-testid='testForm1'>
+        <Form onSubmit={(values) => {setNewStatus('next', values, nameInState)}}
+              initial={initial}
+              inputs={[{string: 'name'}]}
+              validationSchema={form_validationSchema_newPlayer}/>
+    </div>
+};
+
+const TestForm2 = ({initial, setNewStatus, nameInState}) => {
+    return <div data-testid='testForm2'>
+        <Form onSubmit={(values) => {setNewStatus('next', values, nameInState)}}
+              initial={initial}
+              inputs={[{string: 'date of birth'}]}
+              validationSchema={form_validationSchema_newPlayer}/>
+    </div>
+};
+
+const TestForm3 = ({initial, setNewStatus, nameInState}) => {
+    return <div data-testid='testForm3'>
+        <Form onSubmit={(values) => {setNewStatus('next', values, nameInState)}}
+              initial={initial}
+              inputs={[{string: 'date of death'}]}
+              validationSchema={form_validationSchema_newPlayer}
+              withRoundButton/>
+    </div>
+};
 
 export function Games(props) {
     //TODO: globalState can be undefined and it crashes the app
@@ -95,18 +126,38 @@ export function Games(props) {
                           {newGameSteppers &&
                           <Suspense fallback={<Spinner/>}>
                               <Steppers
-                                  numberOfCards={2}
+                                  numberOfCards={3}
                                   submit={createNewGame}
                                   components={[
+                                      // {
+                                      //     component: Players,
+                                      //     form: true,
+                                      //     initial: {teamOne: [], teamTwo: []}
+                                      // },
+                                      // {
+                                      //     component: Names,
+                                      //     form: true,
+                                      //     initial: {teamOne: '', teamTwo: ''}
+                                      // },
+                                      // {
+                                      //     component: Scores,
+                                      //     form: true,
+                                      //     initial: {teamOne: 0, teamTwo: 0}
+                                      // }
                                       {
-                                          component: Players,
+                                          component: TestForm1,
                                           form: true,
-                                          initial: {teamOne: [], teamTwo: []}
+                                          initial: {name: ''}
                                       },
                                       {
-                                          component: Scores,
+                                          component: TestForm2,
                                           form: true,
-                                          initial: {teamOne: 0, teamTwo: 0}
+                                          initial: {dateOfBirth: ''}
+                                      },
+                                      {
+                                          component: TestForm3,
+                                          form: true,
+                                          initial: {dateOfDeath: ''}
                                       }
                                   ]}
                               />
