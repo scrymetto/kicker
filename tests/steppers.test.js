@@ -1,10 +1,10 @@
 import React from "react";
-import Steppers from "../src/components/steppers/steppers";
-import {fireEvent, render, cleanup, waitForElement, act, prettyDOM} from "@testing-library/react";
+import {fireEvent, render, cleanup, waitForElement, act, prettyDOM, wait} from "@testing-library/react";
 import sinon from "sinon";
+import * as Yup from "yup";
+
+import Steppers from "../src/components/steppers/steppers";
 import {Form} from "../src/components/form/form";
-import {form_validationSchema_newPlayer} from "../src/components/form/__validationSchema/form_validationSchema_newPlayer";
-import {wait} from "@testing-library/dom";
 
 describe('<Steppers/> with non-form components', () => {
 
@@ -96,21 +96,35 @@ describe('<Steppers/> with non-form components', () => {
     });
 });
 
+
+const form_validationSchema_steppersTest1 = Yup.object().shape({
+    name: Yup.string()
+        .required('Name is required.'),
+});
+const form_validationSchema_steppersTest2 = Yup.object().shape({
+    dateOfBirth:Yup.string()
+        .required('Date of birth is required.'),
+});
+const form_validationSchema_steppersTest3 = Yup.object().shape({
+    dateOfDeath:Yup.string()
+        .required('Date of death is required.'),
+});
 const TestForm1 = ({initial, setNewStatus, nameInState}) => {
     return <div data-testid='testForm1'>
-        <Form onSubmit={(values) => {setNewStatus('next', values, nameInState)}}
+        <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
               initial={initial}
               inputs={[{text: 'name'}]}
-              validationSchema={form_validationSchema_newPlayer}/>
+              validationSchema={form_validationSchema_steppersTest1}/>
     </div>
 };
 
 const TestForm2 = ({initial, setNewStatus, nameInState}) => {
     return <div data-testid='testForm2'>
-        <Form onSubmit={(values) => {setNewStatus('next', values, nameInState)}}
+        <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
               initial={initial}
               inputs={[{text: 'date of birth'}]}
-              validationSchema={form_validationSchema_newPlayer}/>
+              validationSchema={form_validationSchema_steppersTest2}
+              withRoundButton/>
     </div>
 };
 
@@ -119,10 +133,12 @@ const TestForm3 = ({initial, setNewStatus, nameInState}) => {
         <Form onSubmit={(values) => setNewStatus('next', values, nameInState)}
               initial={initial}
               inputs={[{text: 'date of death'}]}
-              validationSchema={form_validationSchema_newPlayer}
+              validationSchema={form_validationSchema_steppersTest3}
               withRoundButton/>
     </div>
 };
+
+
 
 describe('<Steppers/> with form', () => {
 
@@ -212,7 +228,6 @@ describe('<Steppers/> with form', () => {
 
         const input2 = getByTestId('custom_input');
         fireEvent.change(input2, {target: {value: '11.11.1821'}});
-        debug()
         fireEvent.click(getByTestId('submit'));
         const testForm3 = await waitForElement(()=>getByTestId('testForm3'));
         expect(testForm3).is.exist;
@@ -221,7 +236,6 @@ describe('<Steppers/> with form', () => {
         fireEvent.change(input3, {target: {value: '9.12.1881'}});
         buttonNext = getByRole('form');
         await waitForElement(() => fireEvent.submit(buttonNext));
-        console.log(prettyDOM(container))
 
         act(() => jest.advanceTimersByTime(300)); // because of animation
         expect(submit.calledOnce).to.equal(true);
