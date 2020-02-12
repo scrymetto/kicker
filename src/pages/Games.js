@@ -76,6 +76,9 @@ export function Games(props) {
             postGame(user, data, onError)
                 .then((data) => {
                     globalActions.addNewInState(data, 'games');
+                })
+                .then(()=>{
+                    globalActions.setPopup({success: '🎉 Your game has been saved!'});// &#127881; - Webstorm can't recognize this symbol
                 });
         }
         openNewGameSteppers(false)
@@ -96,7 +99,7 @@ export function Games(props) {
                           {newGameSteppers &&
                           <Suspense fallback={<Spinner/>}>
                               <Steppers
-                                  numberOfCards={3}
+                                  numberOfCards={2}
                                   submit={createNewGame}
                                   components={[
                                       {
