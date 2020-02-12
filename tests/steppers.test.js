@@ -143,7 +143,6 @@ const TestForm3 = ({initial, setNewStatus, nameInState}) => {
 describe('<Steppers/> with form', () => {
 
     afterEach(cleanup);
-    const submit = sinon.spy();
 
     let buttonNext;
     let buttonPrev;
@@ -167,6 +166,7 @@ describe('<Steppers/> with form', () => {
     };
 
     test('should render first component', () => {
+        const submit = sinon.spy();
         const {getByTestId, container} = render(<Steppers numberOfCards={3}
                                                           components={[form1, form2, form3]}
                                                           submit={submit}/>);
@@ -175,6 +175,7 @@ describe('<Steppers/> with form', () => {
     });
 
     test('should have \'button_back\' and NOT have \'button_next\'', () => {
+        const submit = sinon.spy();
         const {getByTestId, container} = render(<Steppers numberOfCards={3}
                                                           components={[form1, form2, form3]}
                                                           submit={submit}/>);
@@ -185,6 +186,7 @@ describe('<Steppers/> with form', () => {
     });
 
     test('should return errors, if there is validation problem', async () => {
+        const submit = sinon.spy();
         const {getByText, getByTestId, container} = render(<Steppers numberOfCards={3}
                                                                      components={[form1, form2, form3]}
                                                                      submit={submit}/>);
@@ -202,6 +204,7 @@ describe('<Steppers/> with form', () => {
     });
 
     test('should call cancel-function', () => {
+        const submit = sinon.spy();
         jest.useFakeTimers();
         const {container, debug} = render(<Steppers numberOfCards={3}
                                                     components={[form1, form2, form3]}
@@ -213,6 +216,7 @@ describe('<Steppers/> with form', () => {
     });
 
     test('should call submit-function', async () => {
+        const submit = sinon.spy();
         jest.useFakeTimers();
         const {getByText, container, debug, getByTestId, getByRole} = render(<Steppers numberOfCards={3}
                                                                      components={[form1, form2, form3]}
