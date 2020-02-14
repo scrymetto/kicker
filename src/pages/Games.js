@@ -11,6 +11,7 @@ import {Names} from "../helpers/components/newGameForms/names";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
+import {getTheLastGameId} from "../helpers/requests/getTheLastGameId";
 import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
@@ -27,7 +28,7 @@ export function Games(props) {
 
     useEffect(() => {
         //TODO: not 'getGames', but 'getStatistic'
-        getGames(user, room.id, 0, getGamesSuccess1, onError)
+        getGames(user, room.id, '', getGamesSuccess1, onError)
             .then(() => {
                 let players = {};
                 room.players.forEach(player => {
@@ -41,10 +42,10 @@ export function Games(props) {
     }, []);
 
     const onError = (e) => globalActions.setPopup({error: e});
-    const getGamesSuccess = (games) => globalActions.addStateFromServer(games, 'games');
-    const getGamesSuccess1 = (games) => console.log('meh');
+    const getGamesSuccess1 = () => console.log('meh');
 
     const players = globalState.players;
+    const [games, setGames] = useState({games: [], lastGameId: ''});
 
     const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
     const Steppers = React.lazy(() => import("../components/steppers/steppers"));
@@ -66,18 +67,45 @@ export function Games(props) {
     };
 
     const openHistory = () => {
-        getGames(user, room.id, 0, getGamesSuccess, onError)
-            .then(() => showHistory(true));
+        getGames(user, room.id, '', onError)
+            .then((games) => {
+                if (!games[0]) {
+                    showHistory(true);
+                    return true
+                }
+                setGames(prev => {
+                    return {
+                        ...prev,
+                        games: games,
+                        previousId: games[games.length - 1].id
+                    }
+                })
+            })
+            .then((answer) => {
+                if (answer) return;
+                getTheLastGameId(user, room.id, onError)
+                    .then(id => {
+                        setGames(prev => {
+                            return {
+                                ...prev,
+                                lastGameId: id
+                            }
+                        })
+                    })
+                    .then(() => {
+                        showHistory(true)
+                    });
+            })
     };
 
     const createNewGame = (userValues) => {
-        if (userValues.card1.teamOne.length>0) {
+        if (userValues.card1.teamOne.length > 0) {
             const data = prepareUserValuesForNewGame(userValues, players, room.id);
             postGame(user, data, onError)
                 .then((data) => {
                     globalActions.addNewInState(data, 'games');
                 })
-                .then(()=>{
+                .then(() => {
                     globalActions.setPopup({success: '🎉 Your game has been saved!'});// &#127881; - Webstorm can't recognize this symbol
                 });
         }
@@ -132,11 +160,11 @@ export function Games(props) {
                           {!history
                               ? <div className='container margin_15'>
                                   <p className='text text_link' onClick={openHistory}
-                                  >Show a history of games</p>
+                                  >Show game history</p>
                               </div>
                               : <Fragment>
                                   <Suspense fallback={<Spinner/>}>
-                                      <GameHistoryTable room={room} changeState={showHistory}/>
+                                      <GameHistoryTable room={room} changeState={showHistory} games={games}/>
                                   </Suspense>
                               </Fragment>}
                           {menuIsOpen &&

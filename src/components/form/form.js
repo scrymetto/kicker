@@ -23,7 +23,6 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
                 validationSchema={validationSchema}
         >
             {(props) => {
-                console.log(props.isSubmitting)
                 return (<FormikForm className={other.className}>
                     {inputs.map((input, index) => <CustomField
                         key={index}
