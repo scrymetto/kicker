@@ -1,7 +1,6 @@
 [
   {
     "id": "Hundred Years' War: Edwardian phase",
-    "firstScore": 0,
     "firstTeam": {
       "id": "1",
       "name": "Kingdom of England",
@@ -10,9 +9,9 @@
           "playerId": "3",
           "role": "attacker"
         }
-      ]
+      ],
+      "score": 0
     },
-    "secondScore": 1,
     "secondTeam": {
       "id": "0",
       "name": "France",
@@ -21,12 +20,12 @@
           "playerId": "2",
           "role": "defender"
         }
-      ]
+      ],
+      "score": 1
     }
   },
   {
     "id": "Hundred Years' War: Caroline phase",
-    "firstScore": 2,
     "firstTeam": {
       "id": "0",
       "name": "France",
@@ -35,9 +34,9 @@
           "playerId": "1",
           "role": "attacker"
         }
-      ]
+      ],
+      "score": 2
     },
-    "secondScore": 0,
     "secondTeam": {
       "id": "1",
       "name": "Kingdom of England",
@@ -51,7 +50,8 @@
           "playerId": "4",
           "role": "defender"
         }
-      ]
+      ],
+      "score": 0
     }
   }
 ]

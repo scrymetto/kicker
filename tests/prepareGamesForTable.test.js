@@ -54,8 +54,8 @@ describe('prepareGamesForTable() ', () => {
         const score = component.find('[data-testid="score"]').map(node => node.text());
         for (let i=0; i<hundredYearsWar.length; i++){
             const currentGame = score[i];
-            const firstTeamScore = hundredYearsWar[i].firstScore;
-            const secondTeamScore = hundredYearsWar[i].secondScore;
+            const firstTeamScore = hundredYearsWar[i].firstTeam.score;
+            const secondTeamScore = hundredYearsWar[i].secondTeam.score;
             expect(firstTeamScore).to.equal(+currentGame[0]);
             expect(secondTeamScore).to.equal(+currentGame[currentGame.length-1])
         }
