@@ -7,12 +7,11 @@ import GameHistoryTable from "../helpers/components/gameHistoryTable/gameHistory
 import {Spinner} from "../components/spinner/spinner";
 import {Players} from "../../src/helpers/components/newGameForms/players";
 import {Scores} from "../../src/helpers/components/newGameForms/scrores";
-import {Names} from "../helpers/components/newGameForms/names";
+// import {Names} from "../helpers/components/newGameForms/names";
 
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
-import {getTheLastGameId} from "../helpers/requests/getTheLastGameId";
 import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
@@ -42,14 +41,13 @@ export function Games(props) {
     }, []);
 
     const onError = (e) => globalActions.setPopup({error: e});
-    const onPostGameSuccess = (data)=> {
+    const onPostGameSuccess = (data) => {
         globalActions.addNewInState(data, 'games');
         globalActions.setPopup({success: '🎉 Your game has been saved!'});
     };
     const getGamesSuccess1 = () => console.log('meh');
 
     const players = globalState.players;
-    const [games, setGames] = useState({games: [], lastGameId: ''});
 
     const Steppers = React.lazy(() => import("../components/steppers/steppers"));
     const ActionsMenu = React.lazy(() => import("../helpers/components/actionsMenu/actionsMenu"));
@@ -70,35 +68,7 @@ export function Games(props) {
     };
 
     const openHistory = () => {
-        getGames(user, room.id, '', onError)
-            .then((games) => {
-                if (!games[0]) {
-                    showHistory(true);
-                    return true
-                }
-                setGames(prev => {
-                    return {
-                        ...prev,
-                        games: games,
-                        previousId: games[games.length - 1].id
-                    }
-                })
-            })
-            .then((answer) => {
-                if (answer) return;
-                getTheLastGameId(user, room.id, onError)
-                    .then(id => {
-                        setGames(prev => {
-                            return {
-                                ...prev,
-                                lastGameId: id
-                            }
-                        })
-                    })
-                    .then(() => {
-                        showHistory(true)
-                    });
-            })
+        showHistory(true)
     };
 
     const createNewGame = (userValues) => {
@@ -160,9 +130,7 @@ export function Games(props) {
                                   >Show game history</p>
                               </div>
                               : <Fragment>
-                                  <Suspense fallback={<Spinner/>}>
-                                      <GameHistoryTable room={room} changeState={showHistory} games={games}/>
-                                  </Suspense>
+                                  <GameHistoryTable room={room} changeState={showHistory}/>
                               </Fragment>}
                           {menuIsOpen &&
                           <Suspense fallback={<Spinner/>}>
