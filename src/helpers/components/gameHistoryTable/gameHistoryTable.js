@@ -1,5 +1,6 @@
 import React, {useState, Fragment, useEffect} from "react";
 import {CSSTransition} from "react-transition-group";
+import axios from "axios";
 
 import {Table} from "../../../components/table/table";
 import {Spinner} from "../../../components/spinner/spinner";
@@ -14,47 +15,35 @@ import './gameHistoryTable.css'
 
 const GameHistoryTable = ({changeState, room}) => {
 
-    const [gamesState, setGames] = useState({games: [], lastGameId: ''});
+    const [gamesState, setGames] = useState({games: [], previousId:'', lastGameId: ''});
 
     const {user} = useAuth();
     const [globalState, globalActions] = useGlobal();
     const players = globalState.players;
 
-    const [end, doEnd] = useState(gamesState.games.length < 5);
     const textMore = 'Show more games';
     const textEnd = 'All games have been downloaded.';
     const [spinner, showSpinner] = useState(true);
+    const [end, doEnd] = useState(false);
 
     useEffect(() => {
-        getGames(user, room.id, '', onError)
-            .then((games) => {
+        axios.all([getGames(user, room.id, '', onError), getTheLastGameId(user, room.id, onError)])
+            .then(axios.spread(function (games, lastId) {
+                if (games[games.length - 1].id === lastId) {
+                    doEnd(true)
+                }
                 if (!games[0]) {
                     showSpinner(false);
-                    return true
                 }
-                setGames(prev => {
-                    return {
-                        ...prev,
-                        games: games,
-                        previousId: games[games.length - 1].id
-                    }
+                setGames({
+                    games: games,
+                    previousId: games[games.length - 1].id,
+                    lastGameId: lastId
                 })
-            })
-            .then((answer) => {
-                if (answer) return;
-                getTheLastGameId(user, room.id, onError)
-                    .then(id => {
-                        setGames(prev => {
-                            return {
-                                ...prev,
-                                lastGameId: id
-                            }
-                        })
-                    })
-                    .then(() => {
-                        showSpinner(false)
-                    });
-            })
+            }))
+            .then(() => {
+                showSpinner(false)
+            });
     }, []);
 
 
