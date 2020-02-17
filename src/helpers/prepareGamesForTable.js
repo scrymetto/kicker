@@ -5,7 +5,9 @@ import '../components/text/text_oblique.css'
 export const prepareGamesForTable = (games, players) => {
 
     return games.map((game) => {
-        const {firstTeam, secondTeam, firstScore, secondScore} = game;
+        const {firstTeam, secondTeam} = game;
+        const firstScore = firstTeam.score;
+        const secondScore = secondTeam.score;
         // const {name: firstTeamName = 'Unnamed team'} = firstTeam;
         // const {name: secondTeamName = 'Unnamed team'} = secondTeam;
         const firstTeamPlayers = firstTeam.players ? prepareStringWithPlayers(firstTeam.players, players) : '';

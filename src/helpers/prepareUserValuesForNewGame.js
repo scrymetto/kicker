@@ -11,10 +11,14 @@ export const prepareUserValuesForNewGame = (data, playersFromState, roomId)=> {
     };
 
     return   {
-        "firstScore": card2.teamOne.value,
-        "firstTeam": makePlayersValid(card1.teamOne),
         "roomId": roomId,
-        "secondScore": card2.teamTwo.value,
-        "secondTeam": makePlayersValid(card1.teamTwo),
+        "firstTeam": {
+            players: makePlayersValid(card1.teamOne),
+            score: card2.teamOne.value,
+        },
+        "secondTeam": {
+            players: makePlayersValid(card1.teamTwo),
+            score: card2.teamTwo.value,
+        }
     }
 };

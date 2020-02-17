@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export const postGame = async (user, data, onError) => {
+export const postGame = async (user, data, onSuccess, onError) => {
 
     try {
         const request = await axios.post(
             `/api/game`,
             data,
             {auth: user.auth});
-        return request.data
+        onSuccess(request.data)
         // return {
         //     "id": Math.random()*1000000,
         //     "firstTeam": {

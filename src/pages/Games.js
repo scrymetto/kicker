@@ -3,6 +3,7 @@ import React, {Fragment, Suspense, useEffect, useState} from 'react';
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
 import {RatingTable} from "../helpers/components/ratingTable";
+import GameHistoryTable from "../helpers/components/gameHistoryTable/gameHistoryTable";
 import {Spinner} from "../components/spinner/spinner";
 import {Players} from "../../src/helpers/components/newGameForms/players";
 import {Scores} from "../../src/helpers/components/newGameForms/scrores";
@@ -18,7 +19,6 @@ import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGam
 import {scrollToTop} from "../helpers/scrollToTop";
 
 export function Games(props) {
-    //TODO: globalState can be undefined and it crashes the app
     const [globalState, globalActions] = useGlobal();
     const {user} = useAuth();
 
@@ -42,12 +42,15 @@ export function Games(props) {
     }, []);
 
     const onError = (e) => globalActions.setPopup({error: e});
+    const onPostGameSuccess = (data)=> {
+        globalActions.addNewInState(data, 'games');
+        globalActions.setPopup({success: '🎉 Your game has been saved!'});
+    };
     const getGamesSuccess1 = () => console.log('meh');
 
     const players = globalState.players;
     const [games, setGames] = useState({games: [], lastGameId: ''});
 
-    const GameHistoryTable = React.lazy(() => import("../helpers/components/gameHistoryTable/gameHistoryTable"));
     const Steppers = React.lazy(() => import("../components/steppers/steppers"));
     const ActionsMenu = React.lazy(() => import("../helpers/components/actionsMenu/actionsMenu"));
 
@@ -101,13 +104,7 @@ export function Games(props) {
     const createNewGame = (userValues) => {
         if (userValues.card1.teamOne.length > 0) {
             const data = prepareUserValuesForNewGame(userValues, players, room.id);
-            postGame(user, data, onError)
-                .then((data) => {
-                    globalActions.addNewInState(data, 'games');
-                })
-                .then(() => {
-                    globalActions.setPopup({success: '🎉 Your game has been saved!'});// &#127881; - Webstorm can't recognize this symbol
-                });
+            postGame(user, data, onPostGameSuccess, onError)
         }
         openNewGameSteppers(false)
     };

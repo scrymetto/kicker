@@ -10,7 +10,6 @@ import {useGlobal} from "../../../store";
 import './gameHistoryTable.css'
 
 const GameHistoryTable = ({changeState, room, games}) => {
-    console.log(games)
 
     const [gamesState, setGames] = useState(games);
 
