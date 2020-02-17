@@ -15,7 +15,7 @@ import './gameHistoryTable.css'
 
 const GameHistoryTable = ({changeState, room}) => {
 
-    const [gamesState, setGames] = useState({games: [], previousId:'', lastGameId: ''});
+    const [gamesState, setGames] = useState({games: [], previousId: '', lastGameId: ''});
 
     const {user} = useAuth();
     const [globalState, globalActions] = useGlobal();
@@ -23,17 +23,23 @@ const GameHistoryTable = ({changeState, room}) => {
 
     const textMore = 'Show more games';
     const textEnd = 'All games have been downloaded.';
-    const [spinner, showSpinner] = useState(true);
+    const [spinner, showSpinner] = useState({main: true, helper: false});
     const [end, doEnd] = useState(false);
 
     useEffect(() => {
         axios.all([getGames(user, room.id, '', onError), getTheLastGameId(user, room.id, onError)])
             .then(axios.spread(function (games, lastId) {
+                if (!games[0]){
+                    doEnd(true);
+                    return
+                }
                 if (games[games.length - 1].id === lastId) {
                     doEnd(true)
                 }
                 if (!games[0]) {
-                    showSpinner(false);
+                    showSpinner((prev) => {
+                        return {...prev, main: false}
+                    });
                 }
                 setGames({
                     games: games,
@@ -42,7 +48,9 @@ const GameHistoryTable = ({changeState, room}) => {
                 })
             }))
             .then(() => {
-                showSpinner(false)
+                showSpinner((prev) => {
+                    return {...prev, main: false}
+                })
             });
     }, []);
 
@@ -64,9 +72,17 @@ const GameHistoryTable = ({changeState, room}) => {
     const onError = (e) => globalActions.setPopup({error: e});
 
     const getMoreGames = () => {
+        showSpinner((prev) => {
+            return {...prev, helper: true}
+        });
         getGames(user, room.id, gamesState.previousId, onError)
             .then((games) => {
                 getGamesSuccess(games)
+            })
+            .then(() => {
+                showSpinner((prev) => {
+                    return {...prev, helper: false}
+                })
             })
     };
 
@@ -85,7 +101,7 @@ const GameHistoryTable = ({changeState, room}) => {
     const text = rows[0] ? '' : 'Your games\' history is empty.';
 
 
-    return spinner
+    return spinner.main
         ? <Spinner/>
         : <Fragment>
             <div className='container margin_15'>
@@ -109,7 +125,7 @@ const GameHistoryTable = ({changeState, room}) => {
                             >{textEnd}</p>
                             : <p className={'text text_link'} onClick={getMoreGames}
                             >{textMore}</p>}
-
+                        {spinner.helper && <Spinner/>}
                     </div>}
                 </Fragment>
             </CSSTransition>

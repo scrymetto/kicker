@@ -1,5 +1,6 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import {Form} from "../../../components/form/form";
+import {Spinner} from "../../../components/spinner/spinner";
 
 import {useGlobal} from "../../../store";
 import {useAuth} from "../../auth&route/authContext";
@@ -14,14 +15,17 @@ export const Login = ({className}) => {
     const [globalState, globalActions] = useGlobal();
     const {setUser} = useAuth();
 
+    const [spinner, setSpinner] = useState(false);
+
     const template = ['email', 'password'];
 
     const onError = (e) => {
+        setSpinner(false);
         globalActions.setPopup({error: e});
     };
 
     const onSubmit = (values) => {
-        // console.log('onSubmit works')
+        setSpinner(true);
         const data = prepareDataForRequest(template, values);
         loginRequest(data, onError)
             .then(user => {
@@ -36,6 +40,7 @@ export const Login = ({className}) => {
                   validationSchema={validationSchema_login}
                   onSubmit={(values) => onSubmit(values)}
             />
+            {spinner && <Spinner/>}
         </Fragment>
     )
 };
