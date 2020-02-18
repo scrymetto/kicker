@@ -25,7 +25,13 @@ export function Rooms(props) {
     const [redirect, doRedirect] = useState(false);
 
     useEffect(() => {
-        getRooms(user, getSuccess, onError);
+        getRooms(user)
+            .then(data => {
+                getSuccess(data)
+            })
+            .catch(e => {
+                onError(e.message)
+            });
         props.history.push(props.history.location);
     }, []);
 

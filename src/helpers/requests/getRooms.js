@@ -1,12 +1,8 @@
 import axios from "axios";
 
-export const getRooms = async (user, onSuccess, onError) => {
+export const getRooms = async (user) => {
 
-    try {
-        const rooms = await axios.get('/api/room', {auth: user.auth});
-        onSuccess(rooms.data);
-    } catch (e) {
-        //let serverAnswer = JSON.parse(e.request.response)
-        onError(e.message);
-    }
+    const rooms = await axios.get('/api/room', {auth: user.auth});
+    return rooms.data;
+    //let serverAnswer = JSON.parse(e.request.response)
 };
