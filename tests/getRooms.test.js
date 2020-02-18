@@ -24,8 +24,16 @@ describe('getRooms()', () => {
     });
     it('should return rooms if status OK', async () => {
         axiosMock.get.resolves({data: resolvedData, status: 200});
-        let rooms = await getRooms(user, onSuccess, onError);
-        expect(rooms).to.be.equal(resolvedData.data);
+        let rooms;
+        await getRooms(user)
+            .then(data => {
+                rooms = data;
+                onSuccess(data);
+            })
+            .catch((e)=>{
+                onError(e)
+            });
+        expect(rooms).to.be.equal(resolvedData);
         expect((axiosMock.get).calledOnce).to.equal(true);
         expect(onSuccess.calledOnce).to.equal(true);
         expect(onSuccess.calledWith(resolvedData)).to.equal(true);
@@ -33,7 +41,13 @@ describe('getRooms()', () => {
     });
     it('should trow exception if server status is OK, BUT there is an error', async () => {
         axiosMock.get.throws(errorMessage);
-        await getRooms(user, onSuccess, onError);
+        await getRooms(user)
+            .then(data => {
+                onSuccess(data);
+            })
+            .catch((e)=>{
+                onError(e.message)
+            });
         expect((axiosMock.get).calledOnce).to.equal(true);
         expect(onSuccess.calledOnce).to.equal(false);
         expect(onError.calledOnce).to.equal(true);

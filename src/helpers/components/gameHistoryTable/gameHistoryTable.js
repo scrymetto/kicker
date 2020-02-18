@@ -27,9 +27,9 @@ const GameHistoryTable = ({changeState, room}) => {
     const [end, doEnd] = useState(false);
 
     useEffect(() => {
-        axios.all([getGames(user, room.id, '', onError), getTheLastGameId(user, room.id, onError)])
+        axios.all([getGames(user, room.id, ''), getTheLastGameId(user, room.id, onError)])
             .then(axios.spread(function (games, lastId) {
-                if (!games[0]){
+                if (!games[0]) {
                     doEnd(true);
                     return
                 }
@@ -51,6 +51,9 @@ const GameHistoryTable = ({changeState, room}) => {
                 showSpinner((prev) => {
                     return {...prev, main: false}
                 })
+            })
+            .catch(e => {
+                onError(e.message)
             });
     }, []);
 
@@ -75,7 +78,7 @@ const GameHistoryTable = ({changeState, room}) => {
         showSpinner((prev) => {
             return {...prev, helper: true}
         });
-        getGames(user, room.id, gamesState.previousId, onError)
+        getGames(user, room.id, gamesState.previousId)
             .then((games) => {
                 getGamesSuccess(games)
             })
@@ -83,6 +86,9 @@ const GameHistoryTable = ({changeState, room}) => {
                 showSpinner((prev) => {
                     return {...prev, helper: false}
                 })
+            })
+            .catch(e => {
+                onError(e.message)
             })
     };
 

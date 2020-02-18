@@ -27,7 +27,7 @@ export function Games(props) {
 
     useEffect(() => {
         //TODO: not 'getGames', but 'getStatistic'
-        getGames(user, room.id, '', getGamesSuccess1, onError)
+        getGames(user, room.id, '')
             .then(() => {
                 let players = {};
                 room.players.forEach(player => {
@@ -38,6 +38,9 @@ export function Games(props) {
 
             })
             .then(() => endLoading(false))
+            .catch(e => {
+                onError(e.message)
+            })
     }, []);
 
     const onError = (e) => globalActions.setPopup({error: e});
