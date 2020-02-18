@@ -1,20 +1,9 @@
 import axios from "axios";
 
-export const submitNewUserForm = async (data, onSuccess, onError) => {
-    let {email, password, login: nickname} = data;
+export const submitNewUserForm = async (data) => {
 
-    try {
-        const response = await axios.post('/api/signup', {email, password, nickname});
-        if (response.status >= 200 && response.status < 300) {
-            // console.log('success')
-            onSuccess(response.data)
-        } else {
-            // console.log('status bad')
-            onError(response.status)
-        }
-    } catch (e) {
-        // let serverAnswer = JSON.parse(e.request.response)
-        // console.log(serverAnswer.message)
-        onError(e.message);
-    }
+    const {email, password, login: nickname} = data;
+    const response = await axios.post('/api/signup', {email, password, nickname});
+    return response.data
+    // let serverAnswer = JSON.parse(e.request.response)
 };
