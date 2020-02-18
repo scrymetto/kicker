@@ -55,7 +55,7 @@ export function Rooms(props) {
     };
 
     const onSubmitForm = (values) => {
-        postRooms(user, values, onError)
+        postRooms(user, values)
             .then((data) => {
                 globalActions.addNewInState(data, 'rooms');
                 doRedirect(data.id)

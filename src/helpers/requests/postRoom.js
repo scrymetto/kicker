@@ -1,15 +1,11 @@
 import axios from "axios";
 
-export const postRooms = async (user, name, onError) => {
+export const postRooms = async (user, name) => {
 
-    try {
-        const request = await axios.post(
-            '/api/room',
-            {name: name.name},
-            {auth: user.auth});
-            return request.data
-    } catch (e) {
-        //let serverAnswer = JSON.parse(e.request.response)
-        onError(e.message);
-    }
+    const request = await axios.post(
+        '/api/room',
+        {name: name.name},
+        {auth: user.auth});
+    return request.data
+    //let serverAnswer = JSON.parse(e.request.response)
 };
