@@ -65,12 +65,14 @@ export function Rooms(props) {
     };
 
     const deleteRoomFromState = id => {
-        deleteRoom(user, id, onError)
+        deleteRoom(user, id)
             .then(() => {
                 globalActions.deleteFromState(id, 'rooms')
             })
-            .then(() => globalActions.setPopup({success: '♻ The room has been deleted!'}));
-
+            .then(() => globalActions.setPopup({success: '♻ The room has been deleted!'}))
+            .catch(e => {
+                onError(e.message)
+            });
     };
 
     return (
@@ -92,7 +94,7 @@ export function Rooms(props) {
                           </CSSTransition>}
                       {isUploaded.loading && <StubPaper/>}
                       {isUploaded.done && <RoomsList rooms={rooms}
-                                  deleteRoom={deleteRoomFromState}/>}
+                                                     deleteRoom={deleteRoomFromState}/>}
                       {(isUploaded.done && !rooms[0]) &&
                       <div className='margin_15'><p className='text'>
                           You don't have any room. Let's create the very first one!</p></div>}
