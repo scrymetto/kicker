@@ -5,7 +5,7 @@ import {Spinner} from "../../../components/spinner/spinner";
 import {useGlobal} from "../../../store";
 import {useAuth} from "../../auth&route/authContext";
 import {validationSchema_login} from "../../../components/form/__validationSchema/form__validationSchema_login";
-import {prepareDataForRequest} from "../../requests/prepareDataForRequest";
+import {prepareDataForLoginRequest} from "../../prepareDataForLoginRequest";
 import {loginRequest} from "../../requests/loginRequest";
 
 import './loginForm.css'
@@ -26,7 +26,7 @@ export const Login = ({className}) => {
 
     const onSubmit = (values) => {
         setSpinner(true);
-        const data = prepareDataForRequest(template, values);
+        const data = prepareDataForLoginRequest(template, values);
         loginRequest(data)
             .then(user => {
                 setUser({auth: user})

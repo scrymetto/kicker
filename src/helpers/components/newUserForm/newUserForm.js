@@ -2,7 +2,7 @@ import React, {Fragment, useState} from "react";
 import {Form} from "../../../components/form/form";
 
 import {validationSchema_newUser} from "../../../components/form/__validationSchema/form__validationSchema_newUser";
-import {prepareDataForRequest} from "../../requests/prepareDataForRequest";
+import {prepareDataForLoginRequest} from "../../prepareDataForLoginRequest";
 import {submitNewUserForm} from "../../requests/submitNewUserForm";
 import {useGlobal} from "../../../store";
 
@@ -28,7 +28,7 @@ export const NewUserForm = ({className, endRegistration}) => {
 
     const onSubmit = (values) => {
         setSpinner(true);
-        const data = prepareDataForRequest(template, values);
+        const data = prepareDataForLoginRequest(template, values);
         submitNewUserForm(data, onSuccess, onError);
     };
 

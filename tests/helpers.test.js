@@ -2,7 +2,7 @@ import React from 'react';
 
 import {makeCamelCaseFromString} from "../src/helpers/makeCamelCaseFromString"
 import {makeFirstLetterUppercase} from "../src/helpers/makeFirstLetterUppercase"
-import {prepareDataForRequest} from "../src/helpers/requests/prepareDataForRequest"
+import {prepareDataForLoginRequest} from "../src/helpers/prepareDataForLoginRequest"
 import {makeArrayFromObjAndTemplate} from "../src/helpers/makeArrayFromObjAndTemplate"
 
 describe('makeCamelCaseFromString() ', () => {
@@ -27,7 +27,7 @@ describe('makeFirstLetterUppercase() ', () => {
     })
 });
 
-describe('prepareDataForRequest() ', () => {
+describe('prepareDataForLoginRequest() ', () => {
     it('should return object with all properties', () => {
         let template = ['name', 'profession'];
         let values = {
@@ -35,7 +35,7 @@ describe('prepareDataForRequest() ', () => {
             actor: 'John Travolta',
             profession: 'Hitman'
         };
-        let data = prepareDataForRequest(template, values);
+        let data = prepareDataForLoginRequest(template, values);
         for (let i = 0; i < template.length; i++) {
             expect(data).to.have.property(template[i]);
         }

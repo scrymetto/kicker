@@ -1,4 +1,4 @@
-export function prepareDataForRequest (template, values) {
+export function prepareDataForLoginRequest (template, values) {
     let data = {};
     template.forEach(value => {
         data[value] = values[value]
