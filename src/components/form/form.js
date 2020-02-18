@@ -8,11 +8,11 @@ import './form.css';
 import './__field/__customField_select/field__customField.css';
 import '../text/text_error.css'
 
-export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) => {
+export const Form = ({initial, inputs, validationSchema, onSubmit, withRoundButton, ...other}) => {
     const formikSubmit = (values, {setSubmitting, resetForm}) => {
         setSubmitting(true);
-        onSubmit(values);
         resetForm();
+        onSubmit(values);
     };
 
     return (
@@ -31,7 +31,7 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
                         setFieldValue={props.setFieldValue}
                         initialValues={initial}/>
                     )}
-                    {other.withRoundButton
+                    {withRoundButton
                         ? <Button type='submit' className='button button_next' disabled={props.isSubmitting} data-testid='submit'/>
                         : <Button text='Submit' type='submit' className='button' disabled={props.isSubmitting} data-testid='submit'/>
                     }
