@@ -1,11 +1,11 @@
 import React, {Fragment, useState} from "react";
 
-import "../components/text/text_link.css";
 import "../components/container/margin.css";
 
 import {Card} from "../components/card/card";
 import {Login} from "../helpers/components/loginForm/loginForm";
 import {NewUserForm} from "../helpers/components/newUserForm/newUserForm";
+import {Button} from "../components/button/button";
 
 //TODO: you can see login and password in Base64 in header Authorisation!
 
@@ -35,8 +35,9 @@ export function LoginPage() {
                     <Login className={loginFormClassName}/>
                     <NewUserForm className={newUserFormClassName} endRegistration={endRegistration}/>
                     <div className='container margin_15'>
-                        <p className='text text_link'
-                           onClick={() => setDisplayLoginForm(!displayLoginForm)}>{text}</p>
+                        <Button className='button button_underlinedText'
+                                onClick={() => setDisplayLoginForm(!displayLoginForm)}
+                                text={text}/>
                     </div>
                 </Fragment>
             }

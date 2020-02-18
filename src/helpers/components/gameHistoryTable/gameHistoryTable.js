@@ -4,6 +4,7 @@ import axios from "axios";
 
 import {Table} from "../../../components/table/table";
 import {Spinner} from "../../../components/spinner/spinner";
+import {Button} from "../../../components/button/button";
 
 import {prepareGamesForTable} from "../../prepareGamesForTable";
 import {getGames} from "../../requests/getGames";
@@ -12,6 +13,7 @@ import {useAuth} from "../../auth&route/authContext";
 import {useGlobal} from "../../../store";
 
 import './gameHistoryTable.css'
+import '../../../components/text/text_additional.css'
 
 const GameHistoryTable = ({changeState, room}) => {
 
@@ -111,8 +113,9 @@ const GameHistoryTable = ({changeState, room}) => {
         ? <Spinner/>
         : <Fragment>
             <div className='container margin_15'>
-                <p className='text text_link' onClick={closeHistory}
-                >Hide game history</p>
+                <Button className='button button_underlinedText'
+                        onClick={closeHistory}
+                        text={'Hide game history'}/>
             </div>
             <CSSTransition in={inProp}
                            timeout={300}
@@ -127,10 +130,11 @@ const GameHistoryTable = ({changeState, room}) => {
                     />
                     {rows.length > 0 && <div className='container margin_15'>
                         {end
-                            ? <p className={'text text_link_disabled'}
+                            ? <p className='text text_additional'
                             >{textEnd}</p>
-                            : <p className={'text text_link'} onClick={getMoreGames}
-                            >{textMore}</p>}
+                            : <Button className='button button_underlinedText'
+                                      onClick={getMoreGames}
+                                      text={textMore}/>}
                         {spinner.helper && <Spinner/>}
                     </div>}
                 </Fragment>

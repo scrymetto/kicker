@@ -7,13 +7,14 @@ import "./button_close.css"
 import "./button_new.css"
 import "./button_next.css"
 import "./button_actions.css"
+import "./button_underlinedText.css"
 
 export function Button({text, className, ...props}) {
 
     const content = text ? text : '';
 
     return (
-        <button className={className} onClick={props.onClick} {...props}>{text}</button>
+        <button className={className} onClick={props.onClick} {...props}>{content}</button>
     )
 }
 

@@ -10,8 +10,8 @@ import '../text/text_error.css'
 
 export const Form = ({initial, inputs, validationSchema, onSubmit, withRoundButton, ...other}) => {
     const formikSubmit = (values, {setSubmitting, resetForm}) => {
-        setSubmitting(true);
         resetForm();
+        setSubmitting(true);
         onSubmit(values);
     };
 

@@ -1,0 +1,29 @@
+.button_underlinedText {
+    display: inline-block;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: medium;
+    margin: 5px;
+    padding: 2px;
+    cursor: pointer;
+    font-style: italic;
+    border: none;
+    border-bottom: #bababa dashed 1px;
+    color: #bababa;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.button_underlinedText:hover {
+    background: none;
+    border: none;
+    border-bottom: #bababa dashed 1px;
+    cursor: pointer;
+    transform: none;
+}
+
+.button_underlinedText_disabled {
+    color: #bababa;
+    display: inline-block;
+    margin: 0;
+}

@@ -134,8 +134,10 @@ export function Games(props) {
                           <Button className='button button_new' onClick={openSteppers}/>}
                           {!history
                               ? <div className='container margin_15'>
-                                  <p className='text text_link' onClick={openHistory}
-                                  >Show game history</p>
+                                  <Button className='button button_underlinedText'
+                                          onClick={openHistory}
+                                          text={'Show game history'}
+                                  />
                               </div>
                               : <Fragment>
                                   <GameHistoryTable room={room} changeState={showHistory}/>
