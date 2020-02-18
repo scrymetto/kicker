@@ -31,13 +31,16 @@ const ActionsMenu = ({room, closeMenu}) => {
     const [visible, setVisible] = useState(true);
 
     const addNewPlayer = name => {
-        postPlayer(user, room.id, name.name, onError)
-            .then((data)=>{
+        postPlayer(user, room.id, name.name)
+            .then((data) => {
                 setPlayers(data.players)
+            })
+            .catch(e => {
+                onError(e.message)
             })
     };
 
-    const goBack = ()=> {
+    const goBack = () => {
         let actionsState = {};
         actionsState.players = players[0] ? players : null;
         closeMenu(actionsState)
@@ -70,7 +73,7 @@ const ActionsMenu = ({room, closeMenu}) => {
                                   emoji='&#128111;'
                               />}
                               {!form && <Point
-                                  onClick={()=>console.log('open')}
+                                  onClick={() => console.log('open')}
                                   text='Remove a player'
                                   hint='Only you can choose your comrades!'
                                   emoji='&#128128;'
