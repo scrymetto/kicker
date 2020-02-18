@@ -27,9 +27,12 @@ export const Login = ({className}) => {
     const onSubmit = (values) => {
         setSpinner(true);
         const data = prepareDataForRequest(template, values);
-        loginRequest(data, onError)
+        loginRequest(data)
             .then(user => {
                 setUser({auth: user})
+            })
+            .catch(e => {
+                onError(e.message)
             })
     };
 
