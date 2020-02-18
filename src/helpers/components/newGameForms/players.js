@@ -48,6 +48,7 @@ export const Players = ({initial, setNewStatus, nameInState}) => {
             <p className='text'>Select the players &#127939;</p>
         </div>
         <Form
+            noOptionText={'First, you have to add players in \'Actions\'.'}
             className='form'
             initial={validInitial.teamOne ? validInitial : initial}
             inputs={inputs}

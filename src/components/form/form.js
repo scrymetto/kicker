@@ -8,13 +8,11 @@ import './form.css';
 import './__field/__customField_select/field__customField.css';
 import '../text/text_error.css'
 
-//TODO: do we need setSubmitting()?
-
 export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) => {
     const formikSubmit = (values, {setSubmitting, resetForm}) => {
-        resetForm();
         setSubmitting(true);
         onSubmit(values);
+        resetForm();
     };
 
     return (
@@ -25,6 +23,7 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, ...other}) =>
             {(props) => {
                 return (<FormikForm className={other.className}>
                     {inputs.map((input, index) => <CustomField
+                        {...other}
                         key={index}
                         input={input}
                         errors={props.errors}

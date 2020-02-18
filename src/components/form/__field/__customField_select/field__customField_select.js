@@ -56,6 +56,6 @@ export const CustomField_Select = ({className, options, name, initialValues, set
         theme={theme}
         placeholder={placeholder}
         isSearchable={isSearchable}
-        noOptionsMessage={() => <p className='text'>You don't have players in this room yet.</p>}
+        noOptionsMessage={() => <p className='text'>{props.noOptionText||'No values available.'}</p>}
     />
 };

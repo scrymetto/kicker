@@ -7,7 +7,8 @@ import {CustomField_Select} from "./__customField_select/field__customField_sele
 import {makeCamelCaseFromString} from "../../../helpers/makeCamelCaseFromString";
 import {makeFirstLetterUppercase} from "../../../helpers/makeFirstLetterUppercase";
 
-export function CustomField({input, initialValues, errors, touched, setFieldValue}) {
+export function CustomField({input, initialValues, errors, touched, setFieldValue, ...props}) {
+
     const type = Object.keys(input)[0];
     const name = makeCamelCaseFromString(input[type]);
     const placeholder = makeFirstLetterUppercase(input[type]);
@@ -28,6 +29,7 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
             {inputProps.as
                 ? <Fragment>
                     <CustomField_Select
+                        {...props}
                         className={inputClassName + ' select'}
                         options={input.options}
                         name={name}
@@ -40,6 +42,7 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
                 </Fragment>
                 : <Fragment>
                     <Field
+                        {...props}
                         type={inputProps.type}
                         className={inputClassName}
                         name={name}
