@@ -11,7 +11,7 @@ import {Spinner} from "../../../components/spinner/spinner";
 
 export const NewUserForm = ({className, endRegistration}) => {
     const template = ['login', 'email', 'password'];
-    const [globalState, globalActions] = useGlobal();
+    const globalActions = useGlobal()[1];
 
     const [spinner, setSpinner] = useState(false);
 
@@ -29,7 +29,13 @@ export const NewUserForm = ({className, endRegistration}) => {
     const onSubmit = (values) => {
         setSpinner(true);
         const data = prepareDataForLoginRequest(template, values);
-        submitNewUserForm(data, onSuccess, onError);
+        submitNewUserForm(data)
+            .then(answer => {
+                onSuccess(answer)
+            })
+            .catch(e => {
+                onError(e.message)
+            });
     };
 
     return (<Fragment>

@@ -54,7 +54,7 @@ export function Rooms(props) {
         setFormVisible(true);
     };
 
-    const onSubmitForm = (values) => {
+    const createNewRoom = (values) => {
         postRooms(user, values)
             .then((data) => {
                 globalActions.addNewInState(data, 'rooms');
@@ -63,7 +63,7 @@ export function Rooms(props) {
             .then(() => {
                 globalActions.setPopup({success: 'Success! Let\'s add new players!'});
             })
-            .catch((e) => onError(e))
+            .catch((e) => onError(e.message))
     };
 
     const closeForm = () => {
@@ -87,7 +87,7 @@ export function Rooms(props) {
                   <Fragment>
                       {redirect && <Redirect to={`/rooms/${redirect}`}/>}
                       {isFormVisible
-                          ? <Form_simple onSubmit={onSubmitForm}
+                          ? <Form_simple onSubmit={createNewRoom}
                                          close={closeForm}
                                          initial={{name: ''}}
                                          input={'name'}

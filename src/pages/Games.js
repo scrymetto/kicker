@@ -48,7 +48,6 @@ export function Games(props) {
         globalActions.addNewInState(data, 'games');
         globalActions.setPopup({success: '🎉 Your game has been saved!'});
     };
-    const getGamesSuccess1 = () => console.log('meh');
 
     const players = globalState.players;
 
@@ -82,7 +81,7 @@ export function Games(props) {
                     onPostGameSuccess(data)
                 })
                 .catch(e => {
-                    onError(e)
+                    onError(e.message)
                 })
         }
         openNewGameSteppers(false)
