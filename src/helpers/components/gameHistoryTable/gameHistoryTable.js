@@ -27,7 +27,7 @@ const GameHistoryTable = ({changeState, room}) => {
     const [end, doEnd] = useState(false);
 
     useEffect(() => {
-        axios.all([getGames(user, room.id, ''), getTheLastGameId(user, room.id, onError)])
+        axios.all([getGames(user, room.id, ''), getTheLastGameId(user, room.id)])
             .then(axios.spread(function (games, lastId) {
                 if (!games[0]) {
                     doEnd(true);
