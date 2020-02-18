@@ -77,7 +77,13 @@ export function Games(props) {
     const createNewGame = (userValues) => {
         if (userValues.card1.teamOne.length > 0) {
             const data = prepareUserValuesForNewGame(userValues, players, room.id);
-            postGame(user, data, onPostGameSuccess, onError)
+            postGame(user, data)
+                .then(data => {
+                    onPostGameSuccess(data)
+                })
+                .catch(e => {
+                    onError(e)
+                })
         }
         openNewGameSteppers(false)
     };
