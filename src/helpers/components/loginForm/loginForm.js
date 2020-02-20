@@ -21,7 +21,7 @@ export const Login = ({className}) => {
 
     const onError = (e) => {
         setSpinner(false);
-        globalActions.setPopup({error: e});
+        globalActions.setPopup({error: e.request.response.errorCode});
     };
 
     const onSubmit = (values) => {
@@ -32,7 +32,7 @@ export const Login = ({className}) => {
                 setUser({auth: user})
             })
             .catch(e => {
-                onError(e.message)
+                onError(e)
             })
     };
 

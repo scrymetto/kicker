@@ -5,6 +5,7 @@ import {validationSchema_newUser} from "../../../components/form/__validationSch
 import {prepareDataForLoginRequest} from "../../prepareDataForLoginRequest";
 import {submitNewUserForm} from "../../requests/submitNewUserForm";
 import {useGlobal} from "../../../store";
+import {setErrorPopup} from '../../setErrorPopup'
 
 import './newUserForm.css'
 import {Spinner} from "../../../components/spinner/spinner";
@@ -17,7 +18,7 @@ export const NewUserForm = ({className, endRegistration}) => {
 
     const onError = (e) => {
         setSpinner(false);
-        globalActions.setPopup({error: e})
+        setErrorPopup(e, globalActions.setPopup)
     };
 
     const onSuccess = () => {
@@ -34,7 +35,7 @@ export const NewUserForm = ({className, endRegistration}) => {
                 onSuccess(answer)
             })
             .catch(e => {
-                onError(e.message)
+                onError(e)
             });
     };
 

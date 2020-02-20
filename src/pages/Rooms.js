@@ -30,7 +30,7 @@ export function Rooms(props) {
                 getSuccess(data)
             })
             .catch(e => {
-                onError(e.message)
+                onError(e)
             });
         props.history.push(props.history.location);
     }, []);
@@ -39,7 +39,7 @@ export function Rooms(props) {
     const rooms = globalState.rooms;
 
     const onError = (e) => {
-        globalActions.setPopup({error: e});
+        globalActions.setPopup({error: e.request.response});
         setUploaded({loading: false, error: true, done: false})
     };
     const getSuccess = (rooms) => {
@@ -63,7 +63,7 @@ export function Rooms(props) {
             .then(() => {
                 globalActions.setPopup({success: 'Success! Let\'s add new players!'});
             })
-            .catch((e) => onError(e.message))
+            .catch((e) => onError(e))
     };
 
     const closeForm = () => {
@@ -77,7 +77,7 @@ export function Rooms(props) {
             })
             .then(() => globalActions.setPopup({success: '♻ The room has been deleted!'}))
             .catch(e => {
-                onError(e.message)
+                onError(e)
             });
     };
 

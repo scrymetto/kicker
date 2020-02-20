@@ -39,11 +39,11 @@ export function Games(props) {
             })
             .then(() => endLoading(false))
             .catch(e => {
-                onError(e.message)
+                onError(e)
             })
     }, []);
 
-    const onError = (e) => globalActions.setPopup({error: e});
+    const onError = (e) => globalActions.setPopup({error: e.request.response});
     const onPostGameSuccess = (data) => {
         globalActions.addNewInState(data, 'games');
         globalActions.setPopup({success: '🎉 Your game has been saved!'});
@@ -81,7 +81,7 @@ export function Games(props) {
                     onPostGameSuccess(data)
                 })
                 .catch(e => {
-                    onError(e.message)
+                    onError(e)
                 })
         }
         openNewGameSteppers(false)
