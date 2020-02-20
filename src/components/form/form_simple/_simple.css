@@ -2,7 +2,6 @@
     position: relative;
     width: 100%;
     top: 0;
-    opacity: 100%;
 }
 
 .form_simple-appear {
@@ -12,7 +11,7 @@
 
 .form_simple-appear-active {
     transform: none;
-    opacity: 100%;
+    opacity: 1;
     transition: all ease-in-out 300ms;
 }
 
@@ -32,21 +31,21 @@
     opacity: 0;
 }
 
-.button_animation {
-    opacity: 100%;
-}
-
 .button_animation-appear {
     opacity: 0;
 }
 
 .button_animation-appear-active {
     transition: opacity ease-in-out 300ms;
-    opacity: 100%;
+    opacity: 1;
+}
+
+.button_animation-appear-done {
+    opacity: 1;
 }
 
 .button_animation-exit {
-    opacity: 100%;
+    opacity: 1;
 }
 
 .button_animation-exit-active {

@@ -16,14 +16,14 @@ export const Form_simple = ({onSubmit, initial, validationSchema, input, close})
 
     return (
         <Fragment>
-            <CSSTransition timeout={300} classNames='form_simple' in={visible} appear={true} onExited={close} unmountOnExit>
+            <CSSTransition timeout={300} classNames='form_simple' in={visible} appear onExited={close} unmountOnExit>
                 <Form className='form form_simple'
                       initial={initial}
                       validationSchema={validationSchema}
                       inputs={[{text: input}]}
                       onSubmit={onSubmitForm}/>
             </CSSTransition>
-            <CSSTransition timeout={300} classNames='button_animation' in={visible} appear={true} onExited={close} unmountOnExit>
+            <CSSTransition timeout={300} classNames='button_animation' in={visible} appear onExited={close} unmountOnExit>
                 <Button
                     className='button button_back'
                     onClick={() => {
