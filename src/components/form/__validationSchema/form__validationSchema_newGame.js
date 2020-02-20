@@ -7,7 +7,8 @@ export const validationSchema_newGame__name = Yup.object().shape({
 
 export const validationSchema_newGame__players = Yup.object().shape({
     teamOne: Yup.array().of(Yup.object())
-        .required('Please, select at least one player.'),
+        .required('Please, select at least one player.')
+        .max(2,'You can select only 2 players per team.'),
     teamTwo: Yup.array().of(Yup.object()).test(
         'match',
         'You can\'t play with yourself, choose another player!',
@@ -25,6 +26,7 @@ export const validationSchema_newGame__players = Yup.object().shape({
             return true
         })
         .required('Please, select at least one player.')
+        .max(2, 'You can select only 2 players per team.'),
 });
 
 export const validationSchema_newGame__scores = Yup.object().shape({
