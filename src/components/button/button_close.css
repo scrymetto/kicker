@@ -9,6 +9,7 @@
     border-radius: 0;
     font-family: 'Inconsolata', monospace;
     font-size: 1.5em;
+    z-index: 1;
 }
 
 .button_close::after {

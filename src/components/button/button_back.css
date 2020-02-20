@@ -11,6 +11,7 @@
     color: #FFFFFF;
     border: #f04e26 solid 1px;
     transform:rotate(180deg);
+    z-index: 2;
 }
 
 .button_back::before {
