@@ -73,8 +73,16 @@ const ActionsMenu = ({room, closeMenu}) => {
                               {!form && <Point
                                   onClick={() => console.log('open')}
                                   text='Remove a player'
-                                  hint='Only you can choose your comrades!'
+                                  // hint='Only you can choose your comrades!'
+                                  hint = 'Coming soon.. '
                                   emoji='&#128128;'
+                              />}
+                              {!form && <Point
+                                  onClick={() => console.log('open')}
+                                  text='Delete this room'
+                                  // hint='Only you can choose your comrades!'
+                                  hint = 'Coming soon.. '
+                                  emoji="&#128163;"
                               />}
                               {!form && <Button
                                   className='button button_back'

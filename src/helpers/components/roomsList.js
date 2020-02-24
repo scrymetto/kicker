@@ -17,10 +17,10 @@ export const RoomsList = ({rooms, deleteRoom}) => {
                         admin={admin}
                     />
                 </Link>
-                <Button className='button button_close'
-                        onClick={() => deleteRoom(id)}
-                        style={{position: 'absolute', top: '10px', right: '10px'}}
-                />
+                {/*<Button className='button button_close'*/}
+                {/*        onClick={() => deleteRoom(id)}*/}
+                {/*        style={{position: 'absolute', top: '10px', right: '10px'}}*/}
+                {/*/>*/}
             </div>
         })}
     </Fragment>
