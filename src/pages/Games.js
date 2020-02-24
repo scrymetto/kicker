@@ -8,7 +8,7 @@ import {Spinner} from "../components/spinner/spinner";
 import {Players} from "../../src/helpers/components/newGameForms/players";
 import {Scores} from "../../src/helpers/components/newGameForms/scrores";
 // import {Names} from "../helpers/components/newGameForms/names";
-
+import {ErrorComponent} from "../helpers/components/errorComponent";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
@@ -16,6 +16,7 @@ import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
+import {setErrorPopup} from "../helpers/setErrorPopup";
 
 export function Games(props) {
     const [globalState, globalActions] = useGlobal();
@@ -23,7 +24,7 @@ export function Games(props) {
 
     const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
 
-    const [isLoading, endLoading] = useState(true);
+    const [isUploaded, setUploaded] = useState({loading: true, done: false, error: false});
 
     useEffect(() => {
         //TODO: not 'getGames', but 'getStatistic'
@@ -37,13 +38,13 @@ export function Games(props) {
                 // const players = require('../../__mocks__/players');
 
             })
-            .then(() => endLoading(false))
+            .then(() => setUploaded({loading: false, done: true, error: false}))
             .catch(e => {
-                onError(e)
+                setErrorPopup(e, globalActions.setPopup);
+                setUploaded({loading: false, done: false, error: true})
             })
     }, []);
 
-    const onError = (e) => globalActions.setPopup({error: e.request.response});
     const onPostGameSuccess = (data) => {
         globalActions.addNewInState(data, 'games');
         globalActions.setPopup({success: '🎉 Your game has been saved!'});
@@ -81,7 +82,8 @@ export function Games(props) {
                     onPostGameSuccess(data)
                 })
                 .catch(e => {
-                    onError(e)
+                    setErrorPopup(e, globalActions.setPopup);
+                    setUploaded({loading: false, done: false, error: true})
                 })
         }
         openNewGameSteppers(false)
@@ -99,56 +101,59 @@ export function Games(props) {
               render={() => {
                   return (
                       <Fragment>
-                          {newGameSteppers &&
-                          <Suspense fallback={<Spinner/>}>
-                              <Steppers
-                                  numberOfCards={2}
-                                  submit={createNewGame}
-                                  components={[
-                                      {
-                                          component: Players,
-                                          form: true,
-                                          initial: {teamOne: [], teamTwo: []}
-                                      },
-                                      // {
-                                      //     component: Names,
-                                      //     form: true,
-                                      //     initial: {teamOne: '', teamTwo: ''}
-                                      // },
-                                      {
-                                          component: Scores,
-                                          form: true,
-                                          initial: {teamOne: 0, teamTwo: 0}
-                                      }
-                                  ]}
-                              />
-                          </Suspense>}
-                          {isLoading
-                              ? <Spinner/>
-                              : <RatingTable players={players}/>}
-                          {(!newGameSteppers && !menuIsOpen) &&
-                          <Button
-                              className='button button_back'
-                              onClick={props.history.goBack}/>}
-                          {(!newGameSteppers && !menuIsOpen) &&
-                          <Button className='button button_new' onClick={openSteppers}/>}
-                          {!history
-                              ? <div className='container margin_15'>
-                                  <Button className='button button_underlinedText'
-                                          onClick={openHistory}
-                                          text={'Show game history'}
-                                  />
-                              </div>
-                              : <Fragment>
-                                  <GameHistoryTable room={room} changeState={showHistory}/>
-                              </Fragment>}
-                          {menuIsOpen &&
-                          <Suspense fallback={<Spinner/>}>
-                              <ActionsMenu room={room} closeMenu={doActionsFromMenu}/>
-                          </Suspense>
-                          }
-                          {(!newGameSteppers && !menuIsOpen) &&
-                          <Button className='button button_actions' onClick={openActions}/>}
+                          {isUploaded.done && <Fragment>
+                              {newGameSteppers &&
+                              <Suspense fallback={<Spinner/>}>
+                                  <Steppers
+                                      numberOfCards={2}
+                                      submit={createNewGame}
+                                      components={[
+                                          {
+                                              component: Players,
+                                              form: true,
+                                              initial: {teamOne: [], teamTwo: []}
+                                          },
+                                          // {
+                                          //     component: Names,
+                                          //     form: true,
+                                          //     initial: {teamOne: '', teamTwo: ''}
+                                          // },
+                                          {
+                                              component: Scores,
+                                              form: true,
+                                              initial: {teamOne: 0, teamTwo: 0}
+                                          }
+                                      ]}/>
+                              </Suspense>}
+                              <RatingTable players={players}/>
+                              {(!newGameSteppers && !menuIsOpen) &&
+                              <Button
+                                  className='button button_back'
+                                  onClick={props.history.goBack}/>}
+                              {(!newGameSteppers && !menuIsOpen) &&
+                              <Button className='button button_new' onClick={openSteppers}/>}
+                              {!history
+                                  ? <div className='container margin_15'>
+                                      <Button className='button button_underlinedText'
+                                              onClick={openHistory}
+                                              text={'Show game history'}
+                                      />
+                                  </div>
+                                  : <Fragment>
+                                      <GameHistoryTable room={room} changeState={showHistory}/>
+                                  </Fragment>}
+                              {menuIsOpen &&
+                              <Suspense fallback={<Spinner/>}>
+                                  <ActionsMenu room={room} closeMenu={doActionsFromMenu}/>
+                              </Suspense>
+                              }
+                              {(!newGameSteppers && !menuIsOpen) &&
+                              <Button className='button button_actions' onClick={openActions}/>}
+                          </Fragment>}
+
+                          {isUploaded.loading && <Spinner/>}
+
+                          {isUploaded.error && <ErrorComponent/>}
                       </Fragment>
                   )
               }}
