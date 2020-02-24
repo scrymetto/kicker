@@ -3,9 +3,9 @@ import {CSSTransition} from "react-transition-group";
 
 import {useGlobal} from "../../../store";
 import {useAuth} from "../../auth&route/authContext";
-import {postPlayer} from "../../requests/postPlayer";
 import {form_validationSchema_newPlayer} from "../../../components/form/__validationSchema/form_validationSchema_newPlayer";
-
+import {postPlayer} from "../../requests/postPlayer";
+import {setErrorPopup} from "../../setErrorPopup";
 
 import {Card} from "../../../components/card/card";
 import {Button} from "../../../components/button/button";
@@ -19,11 +19,9 @@ import '../../../components/container/absolute.css';
 
 const ActionsMenu = ({room, closeMenu}) => {
 
-    const [globalState, globalActions] = useGlobal();
+    const globalActions = useGlobal()[1];
 
     const {user} = useAuth();
-
-    const onError = (e) => globalActions.setPopup({error: e});
 
     const [players, setPlayers] = useState([]);
 
@@ -36,7 +34,7 @@ const ActionsMenu = ({room, closeMenu}) => {
                 setPlayers(data.players)
             })
             .catch(e => {
-                onError(e.message)
+                setErrorPopup(e, globalActions.setPopup)
             })
     };
 

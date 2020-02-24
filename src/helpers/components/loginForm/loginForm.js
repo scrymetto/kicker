@@ -7,12 +7,14 @@ import {useAuth} from "../../auth&route/authContext";
 import {validationSchema_login} from "../../../components/form/__validationSchema/form__validationSchema_login";
 import {prepareDataForLoginRequest} from "../../prepareDataForLoginRequest";
 import {loginRequest} from "../../requests/loginRequest";
+import {setErrorPopup} from "../../setErrorPopup";
+
 
 import './loginForm.css'
 
 export const Login = ({className}) => {
 
-    const [globalState, globalActions] = useGlobal();
+    const globalActions = useGlobal()[1];
     const {setUser} = useAuth();
 
     const [spinner, setSpinner] = useState(false);
@@ -21,7 +23,7 @@ export const Login = ({className}) => {
 
     const onError = (e) => {
         setSpinner(false);
-        globalActions.setPopup({error: e.request.response.errorCode});
+        setErrorPopup(e, globalActions.setPopup);
     };
 
     const onSubmit = (values) => {

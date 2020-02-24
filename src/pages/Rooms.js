@@ -7,14 +7,16 @@ import {useAuth} from "../helpers/auth&route/authContext";
 import {getRooms} from "../helpers/requests/getRooms";
 import {postRooms} from "../helpers/requests/postRoom";
 import {deleteRoom} from "../helpers/requests/deleteRoom";
+import {setErrorPopup} from "../helpers/setErrorPopup";
 import {scrollToTop} from "../helpers/scrollToTop";
+import {validationSchema_newRoom} from "../components/form/__validationSchema/form__validationSchema_newRoom";
 
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
 import {Form_simple} from "../components/form/form_simple/_simple";
 import {RoomsList} from "../helpers/components/roomsList";
 import {StubPaper} from "../components/paper/paper_stub";
-import {validationSchema_newRoom} from "../components/form/__validationSchema/form__validationSchema_newRoom";
+import {ErrorComponent} from "../helpers/components/errorComponent";
 
 //TODO: change height of card if <NewRoomForm/> is open!
 
@@ -39,7 +41,7 @@ export function Rooms(props) {
     const rooms = globalState.rooms;
 
     const onError = (e) => {
-        globalActions.setPopup({error: e.request.response});
+        setErrorPopup(e, globalActions.setPopup);
         setUploaded({loading: false, error: true, done: false})
     };
     const getSuccess = (rooms) => {
@@ -61,7 +63,7 @@ export function Rooms(props) {
                 doRedirect(data.id)
             })
             .then(() => {
-                globalActions.setPopup({success: 'Success! Let\'s add new players!'});
+                globalActions.setPopup({success: '🎉 Success! Let\'s add new players!'}); //&#127881;
             })
             .catch((e) => onError(e))
     };
@@ -104,9 +106,7 @@ export function Rooms(props) {
                       {(isUploaded.done && !rooms[0]) &&
                       <div className='margin_15'><p className='text'>
                           You don't have any room. Let's create the very first one!</p></div>}
-                      {isUploaded.error &&
-                      <div className='margin_15'><p className='text text_error' style={{fontSize: '1em'}}>Sorry, the
-                          server doesn't work. Please, try again later.</p></div>}
+                      {isUploaded.error && <ErrorComponent/>}
                   </Fragment>
               )}
         />
