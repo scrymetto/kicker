@@ -12,11 +12,10 @@ import {ErrorComponent} from "../helpers/components/errorComponent";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
-import {getGames} from "../helpers/requests/getGames";
 import {postGame} from "../helpers/requests/postGame";
+import {setErrorPopup} from "../helpers/setErrorPopup";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
-import {setErrorPopup} from "../helpers/setErrorPopup";
 
 export function Games(props) {
     const [globalState, globalActions] = useGlobal();
@@ -25,29 +24,22 @@ export function Games(props) {
     const room = globalState.rooms.find((room) => room.id === props.match.params.roomId);
 
     const [isUploaded, setUploaded] = useState({loading: true, done: false, error: false});
+    const [rerender, setRerender] = useState(0);
 
     useEffect(() => {
-        //TODO: not 'getGames', but 'getStatistic'
-        getGames(user, room.id, '')
-            .then(() => {
-                let players = {};
-                room.players.forEach(player => {
-                    players[player.id] = player.nickname
-                });
-                globalActions.addStateFromServer(players, 'players');
-                // const players = require('../../__mocks__/players');
-
-            })
-            .then(() => setUploaded({loading: false, done: true, error: false}))
-            .catch(e => {
-                setErrorPopup(e, globalActions.setPopup);
-                setUploaded({loading: false, done: false, error: true})
-            })
+        let players = {};
+        room.players.forEach(player => {
+            players[player.id] = player.nickname
+        });
+        globalActions.addStateFromServer(players, 'players');
+        // const players = require('../../__mocks__/players');
+        setUploaded({loading: false, done: true, error: false})
     }, []);
 
     const onPostGameSuccess = (data) => {
         globalActions.addNewInState(data, 'games');
-        globalActions.setPopup({success: '🎉 Your game has been saved!'});
+        setRerender(rerender+1);
+        globalActions.setPopup({success: '🎉 Your game has been saved!'}); //&#127881;
     };
 
     const players = globalState.players;
@@ -93,6 +85,7 @@ export function Games(props) {
         if (obj.players) {
             obj.players.forEach((player) => globalActions.addNewKey('players', player.id, player.nickname))
         }
+        setRerender(rerender+1);
         openMenu(false);
     };
 
@@ -125,7 +118,7 @@ export function Games(props) {
                                           }
                                       ]}/>
                               </Suspense>}
-                              <RatingTable players={players}/>
+                              <RatingTable room={room} rerender={rerender}/>
                               {(!newGameSteppers && !menuIsOpen) &&
                               <Button
                                   className='button button_back'

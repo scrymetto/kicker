@@ -17,11 +17,11 @@ import {useGlobal} from "./store";
 function App(props) {
 
     const [user, setUser] = useState({
-        // auth: undefined
-        auth: {
-            password: 'qwe',
-            username: 'qwe@qwe.qwe'
-        }
+        auth: undefined
+        // auth: {
+        //     password: 'qwe',
+        //     username: 'qwe@qwe.qwe'
+        // }
     });
 
     const [globalState, globalActions] = useGlobal();
@@ -42,7 +42,7 @@ function App(props) {
     //     localStorage.setItem("token", JSON.stringify(data));
     //     setUser(loginAndPassword);
     // };
-console.log(globalState)
+
     return (
         <AuthContext.Provider value={{user, setUser}}>
             <Header className="header_main" text="Let's play kicker!"/>
