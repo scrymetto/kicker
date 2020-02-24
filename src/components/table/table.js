@@ -46,7 +46,7 @@ export const Table = (props) => {
             </tbody>
         </table>
         {text && <div className='container margin_15' data-testid='helperText'>
-            <p className='text'>{text}</p>
+            <p className='text text_additional'>{text}</p>
         </div>}
     </Fragment>
 };

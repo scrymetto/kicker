@@ -7,7 +7,7 @@ import {Button} from "../button/button";
 import {useGlobal} from "../../store";
 
 export const Popup = ({text, className}) => {
-    const [globalState, globalActions] = useGlobal();
+    const globalActions = useGlobal()[1];
     const [inProp, setInProp] = useState(true);
 
     let timer;

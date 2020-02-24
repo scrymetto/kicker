@@ -14,7 +14,7 @@ function makeOptionValid(id, arr) {
 
 export const Players = ({initial, setNewStatus, nameInState}) => {
 
-    const [globalState, globalActions] = useGlobal();
+    const globalState = useGlobal()[0];
     const players = [];
 
     let validInitial = {};
