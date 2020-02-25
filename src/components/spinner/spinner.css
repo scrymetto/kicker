@@ -11,8 +11,10 @@
 @keyframes goal {
     from {
         margin-left: calc(100% - 1.2em);
+        transform:none;
     }
     to {
         margin-left: 0;
+        transform: rotate(-360deg);
     }
 }
