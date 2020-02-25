@@ -49,7 +49,7 @@ function App(props) {
             <Router>
                 <div className="App">
                         <Switch>
-                            <AuthRoute path="/login" component={LoginPage}/>
+                            <AuthRoute exact path="/login" component={LoginPage}/>
                             <PrivateRoute exact path="/" component={() => <Redirect to="/rooms"/>}/>
                             <PrivateRoute exact path="/rooms" component={Rooms}/>
                             <PrivateRoute exact path={`/rooms/:roomId`} component={Games}/>

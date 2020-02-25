@@ -17,7 +17,8 @@ function Menu(props) {
                         <li><p className='text text_menu' onClick={logout}>Logout</p></li>
                     </ul>
                     :<ul className='menu' data-testid='menu'>
-                        <li><p className='text text_menu'>Github repo</p></li>
+                        <li><a href='https://github.com/scrymetto/kicker' className='text text_menu'>Github repo</a></li>
+                        <li><a href='https://gitlab.com/scrymetto/kicker' className='text text_menu'>Gitlab repo</a></li>
                     </ul>
                 }
             </CSSTransition>
