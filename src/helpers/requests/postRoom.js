@@ -8,5 +8,4 @@ export const postRooms = async (user, name) => {
         {auth: user.auth}
     );
     return request.data
-    //let serverAnswer = JSON.parse(e.request.response)
 };

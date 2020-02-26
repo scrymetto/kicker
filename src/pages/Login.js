@@ -40,7 +40,7 @@ export function LoginPage() {
                         <p className='text text_attention'>Please note!</p>
                         <p className='text text_additional'>This site uses basic-authorization and you don't need to
                             confirm your email address. You can use anything as your mailing address, but we recommend
-                            to use the mail, which you can check (because we are working with lots of features now and
+                            to use the mail, which you can check (because we are working on lots of features now and
                             if
                             you want to save your progress and see your new opportunities, we need to know, how we can
                             let you know about them). If you want just check the functionality of this site, you can use

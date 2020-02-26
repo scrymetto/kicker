@@ -7,5 +7,4 @@ export const postPlayer = async (user, roomId, name) => {
         {nickname: name + ''},
         {auth: user.auth});
     return request.data
-    //let serverAnswer = JSON.parse(e.request.response)
 };

@@ -22,5 +22,4 @@ export const postGame = async (user, data) => {
     //         "points": data.secondTeam.points
     //     }
     // }
-    //let serverAnswer = JSON.parse(e.request.response)
 };

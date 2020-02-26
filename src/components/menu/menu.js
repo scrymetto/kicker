@@ -13,7 +13,7 @@ function Menu(props) {
             <CSSTransition in={status} timeout={300} classNames='menu' appear unmountOnExit>
                 {user.auth
                     ?<ul className='menu' data-testid='menu'>
-                        <li><p className='text text_menu'>Settings</p></li>
+                        {/*<li><p className='text text_menu'>Settings</p></li>*/}
                         <li><p className='text text_menu' onClick={logout}>Logout</p></li>
                     </ul>
                     :<ul className='menu' data-testid='menu'>

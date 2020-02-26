@@ -8,5 +8,4 @@ export const deleteRoom = async (user, id) => {
             auth: user.auth
         });
     return true
-    //let serverAnswer = JSON.parse(e.request.response)
 };

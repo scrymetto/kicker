@@ -7,7 +7,7 @@ module.exports = {
     entry: __dirname + "/src/index.js",
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, 'build'),
+        path: __dirname + '/build',
         publicPath: '/'
     },
     module: {
@@ -49,9 +49,12 @@ module.exports = {
         port: 8081,
         proxy: {
             '/api': {
-                target: 'http://localhost:8080',
-                pathRewrite: {'^/api': ''}
+                // target: 'http://localhost:8080',
+                // pathRewrite: {'^/api': ''}
+                target: 'http://kickerscore.ml/',
+                changeOrigin: true
             },
+
         }
     },
     plugins: [
