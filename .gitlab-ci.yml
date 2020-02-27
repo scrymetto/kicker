@@ -19,7 +19,7 @@ build:
     paths:
       - node_modules/
   script:
-    - npm -i
+    - npm install
     - npm build
 
 docker:
