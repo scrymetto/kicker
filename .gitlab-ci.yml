@@ -40,13 +40,13 @@ docker:
     - docker build -t registry.gitlab.com/scrymetto/kicker:$CI_COMMIT_SHORT_SHA -t registry.gitlab.com/scrymetto/kicker:latest .
     - docker push registry.gitlab.com/scrymetto/kicker
 
-#deploy:
-#  image: dtzar/helm-kubectl:3.1.1
-#  stage: deploy
-#  script:
-#    - echo $CONFIG_KUBE | base64 -d > kube-config.yaml
-#    - helm --kubeconfig kube-config.yaml upgrade --install --set image.tag=$CI_COMMIT_SHORT_SHA kicker-backend ./deploy/backend
-#    - kubectl --kubeconfig kube-config.yaml get all
+deploy:
+  image: dtzar/helm-kubectl:3.1.1
+  stage: deploy
+  script:
+    - echo $CONFIG_KUBE | base64 -d > kube-config.yaml
+    - helm --kubeconfig kube-config.yaml upgrade --install --set image.tag=$CI_COMMIT_SHORT_SHA kicker-frontend ./deploy/frontend
+    - kubectl --kubeconfig kube-config.yaml get all
 
 #tagImage:
 #  only:
