@@ -25,7 +25,8 @@ build:
       - node_modules/
   script:
     - npm install
-    - npm build
+    - npm run test
+    - npm run build
 
 docker:
   stage: docker
