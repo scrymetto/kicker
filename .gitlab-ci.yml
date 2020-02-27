@@ -13,6 +13,11 @@ stages:
 build:
   stage: build
   image: node:13-alpine
+  artifacts:
+    paths:
+      - build/
+    expire_in: 30 days
+
   #  services:
   #    - docker:dind
   cache:
@@ -27,6 +32,8 @@ docker:
   image: docker:19.03.1-dind
   services:
     - docker:19.03.1-dind
+  dependencies:
+    - build
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
     - docker build -t registry.gitlab.com/scrymetto/kicker:$CI_COMMIT_SHORT_SHA .
