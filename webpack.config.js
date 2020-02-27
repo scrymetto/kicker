@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const path = require('path');
 
@@ -8,7 +9,7 @@ module.exports = {
     output: {
         filename: "bundle.js",
         path: __dirname + '/build',
-        publicPath: '/'
+        // publicPath: '/'
     },
     module: {
         rules: [
@@ -62,8 +63,17 @@ module.exports = {
             template: "./src/index.html",
             filename: "./index.html"
         }),
-        new UglifyJsPlugin({
-            sourceMap: true,
-        }),
+        // new UglifyJsPlugin({
+        //     sourceMap: true,
+        // }),
+        // new CompressionPlugin({
+        //     filename: '[path].br[query]',
+        //     algorithm: 'brotliCompress',
+        //     test: /\.(js|css|html)$/,
+        //     compressionOptions: {level: 11},
+        //     threshold: 10240,
+        //     minRatio: 0.8,
+        //     deleteOriginalAssets: false,
+        // })
     ],
 };
