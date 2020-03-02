@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import './paper_stub.css'
 import './paper.css'
 import '../container/flex_row.css'
@@ -7,7 +7,7 @@ import '../text/text_paper__header.css'
 
 
 export const StubPaper = () => {
-    return (<Fragment>
+    return (<>
             {[1, 2, 3].map((value) => {
                 return <div key={value} className='paper'>
                     <div className='container flex_row'>
@@ -21,6 +21,6 @@ export const StubPaper = () => {
                     </div>
                 </div>
             })}
-        </Fragment>
+        </>
     )
 };

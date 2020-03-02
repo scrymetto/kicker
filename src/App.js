@@ -27,7 +27,7 @@ function App(props) {
     const [globalState, globalActions] = useGlobal();
     const error = globalState.popup.error;
     const success = globalState.popup.success;
-    const className = error ? 'popup popup_error' : success ? 'popup popup_success' : '';
+    const className = error ? 'popup popup_error' : success ? 'popup popup_success' : 'popup';
 
     // console.log(user)
 

@@ -1,4 +1,4 @@
-import React, {Fragment, Suspense, useEffect, useState} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 
 import {Card} from "../components/card/card";
 import {Button} from "../components/button/button";
@@ -7,8 +7,8 @@ import GameHistoryTable from "../helpers/components/gameHistoryTable/gameHistory
 import {Spinner} from "../components/spinner/spinner";
 import {Players} from "../../src/helpers/components/newGameForms/players";
 import {Scores} from "../../src/helpers/components/newGameForms/scrores";
-// import {Names} from "../helpers/components/newGameForms/names";
 import {ErrorComponent} from "../helpers/components/errorComponent";
+// import {Names} from "../helpers/components/newGameForms/names";
 
 import {useGlobal} from "../store";
 import {useAuth} from "../helpers/auth&route/authContext";
@@ -93,8 +93,8 @@ export function Games(props) {
         <Card headerText={`Your games in ${room.name}`}
               render={() => {
                   return (
-                      <Fragment>
-                          {isUploaded.done && <Fragment>
+                      <>
+                          {isUploaded.done && <>
                               {newGameSteppers &&
                               <Suspense fallback={<Spinner/>}>
                                   <Steppers
@@ -132,9 +132,9 @@ export function Games(props) {
                                               text={'Show game history'}
                                       />
                                   </div>
-                                  : <Fragment>
+                                  : <>
                                       <GameHistoryTable room={room} changeState={showHistory}/>
-                                  </Fragment>}
+                                  </>}
                               {menuIsOpen &&
                               <Suspense fallback={<Spinner/>}>
                                   <ActionsMenu room={room} closeMenu={doActionsFromMenu}/>
@@ -142,12 +142,12 @@ export function Games(props) {
                               }
                               {(!newGameSteppers && !menuIsOpen) &&
                               <Button className='button button_actions' onClick={openActions}/>}
-                          </Fragment>}
+                          </>}
 
                           {isUploaded.loading && <Spinner/>}
 
                           {isUploaded.error && <ErrorComponent/>}
-                      </Fragment>
+                      </>
                   )
               }}
         />

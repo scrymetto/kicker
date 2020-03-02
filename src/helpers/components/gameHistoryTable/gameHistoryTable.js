@@ -1,4 +1,4 @@
-import React, {useState, Fragment, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {CSSTransition} from "react-transition-group";
 import axios from "axios";
 
@@ -111,7 +111,7 @@ const GameHistoryTable = ({changeState, room}) => {
 
     return spinner.main
         ? <Spinner/>
-        : <Fragment>
+        : <>
             <div className='container margin_15'>
                 <Button className='button button_underlinedText'
                         onClick={closeHistory}
@@ -122,7 +122,7 @@ const GameHistoryTable = ({changeState, room}) => {
                            classNames='gameHistory'
                            appear
                            unmountOnExit>
-                <Fragment>
+                <>
                     <Table columns={columns}
                            rows={rows}
                            styles={styles}
@@ -137,9 +137,9 @@ const GameHistoryTable = ({changeState, room}) => {
                                       text={textMore}/>}
                         {spinner.helper && <Spinner/>}
                     </div>}
-                </Fragment>
+                </>
             </CSSTransition>
-        </Fragment>
+        </>
 };
 
 export default GameHistoryTable;

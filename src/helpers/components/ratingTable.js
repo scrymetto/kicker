@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useGlobal} from "../../store";
 import {useAuth} from "../auth&route/authContext";
@@ -55,7 +55,7 @@ export const RatingTable = ({room, rerender}) => {
         : null;
 
     const text = rows ? '' : 'You have not played any games.';
-    return <Fragment>
+    return <>
         {isUploaded.loading && <Spinner/>}
 
         {isUploaded.error && <ErrorComponent/>}
@@ -65,6 +65,6 @@ export const RatingTable = ({room, rerender}) => {
                                    styles={styles}
                                    text={text}
         />}
-    </Fragment>
+    </>
 
 };

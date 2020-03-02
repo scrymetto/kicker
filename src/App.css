@@ -6,9 +6,6 @@ a {
     text-decoration: none;
 }
 
-button {
-    outline: none;
-}
 input, select, textarea, button {
     -moz-box-shadow:none;
     -moz-appearance:none;

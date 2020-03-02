@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
 import {Form} from "../../../components/form/form";
 import {Spinner} from "../../../components/spinner/spinner";
 
@@ -12,6 +12,10 @@ import {setErrorPopup} from "../../setErrorPopup";
 
 import './loginForm.css'
 
+const template = ['email', 'password'];
+const initial = {email: '', password: ''};
+const inputs = [{email: 'email'}, {password: 'password'}];
+
 export const Login = ({className}) => {
 
     const globalActions = useGlobal()[1];
@@ -19,7 +23,6 @@ export const Login = ({className}) => {
 
     const [spinner, setSpinner] = useState(false);
 
-    const template = ['email', 'password'];
 
     const onError = (e) => {
         setSpinner(false);
@@ -38,14 +41,14 @@ export const Login = ({className}) => {
             })
     };
 
-    return (<Fragment>
+    return (<>
             <Form className={className}
-                  inputs={[{email: 'email'}, {password: 'password'}]}
-                  initial={{email: '', password: ''}}
+                  inputs={inputs}
+                  initial={initial}
                   validationSchema={validationSchema_login}
-                  onSubmit={(values) => onSubmit(values)}
+                  onSubmit={onSubmit}
             />
             {spinner && <Spinner/>}
-        </Fragment>
+        </>
     )
 };

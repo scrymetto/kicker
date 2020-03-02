@@ -1,4 +1,4 @@
-export const theme = theme => ({
+export const createTheme = theme => ({
     ...theme,
     colors: {
         ...theme.colors,
@@ -10,7 +10,7 @@ export const theme = theme => ({
     }
 });
 
-export const styles = {
+export const createNewStyles = {
     control: (prev) => ({
         ...prev,
         border: 'none',

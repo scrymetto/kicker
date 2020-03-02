@@ -1,15 +1,15 @@
 import React, {Fragment, useState} from "react";
 import {CSSTransition} from "react-transition-group";
+import PropTypes from "prop-types";
 
 import {prepareHooksForSteppers} from "../../helpers/prepareHooksForSteppers";
 
 import {Card} from "../card/card";
 import {Button} from "../button/button";
+import {Overlay} from "../overlay/overlay";
 
 import './steppers.css'
 import '../container/absolute.css'
-import {Overlay} from "../overlay/overlay";
-import PropTypes from "prop-types";
 
 const makeHooks = (number, components) => {
     let hooks = [];
@@ -41,9 +41,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
 
     const setNewStatus = (prevOrNext, values, card) => {
         if (values) {
-            let obj = {};
-            obj[card] = values;
-            setUserValues(Object.assign(userValues, obj)) //set new state
+            setUserValues({...userValues, [card]: values}) //set new state
         }
         currentCard.data[1](false); // make the current card invisible
         let exit = false;
@@ -61,7 +59,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
         }
     };
 
-    return <Fragment>
+    return <>
         <Overlay visible={visible}/>
         <CSSTransition in={visible}
                        classNames='steppers__cards'
@@ -73,11 +71,11 @@ const Steppers = ({numberOfCards, components, submit}) => {
                 <Card headerText='Create a new game'
                       style={{width: '100%', margin: '0'}}
                       render={() => {
-                          return <Fragment>
+                          return <>
                               {hooks.map((hook, index) => {
                                   const Component = components[index].component;
                                   const nameInState = 'card' + (index + 1);
-                                  return hook[0] &&<Fragment key={index}>
+                                  return hook[0] && <Fragment key={index}>
                                       <Component
                                           setNewStatus={setNewStatus}
                                           initial={userValues[nameInState]}
@@ -91,7 +89,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
                                   </Fragment>
                               })
                               }
-                          </Fragment>
+                          </>
                       }}
                 />
                 <Button className='button button_back'
@@ -99,7 +97,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
                         data-testid='button_back'/>
             </div>
         </CSSTransition>
-    </Fragment>
+    </>
 };
 
 Steppers.propTypes = {

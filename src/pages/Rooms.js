@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Redirect} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
 
@@ -86,7 +86,7 @@ export function Rooms(props) {
     return (
         <Card headerText='Your rooms'
               render={() => (
-                  <Fragment>
+                  <>
                       {redirect && <Redirect to={`/rooms/${redirect}`}/>}
                       {isFormVisible
                           ? <Form_simple onSubmit={createNewRoom}
@@ -108,7 +108,7 @@ export function Rooms(props) {
                       <div className='margin_15'><p className='text'>
                           You don't have any room. Let's create the very first one!</p></div>}
                       {isUploaded.error && <ErrorComponent/>}
-                  </Fragment>
+                  </>
               )}
         />
     )

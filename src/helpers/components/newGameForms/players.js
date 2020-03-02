@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 
 import {Form} from "../../../components/form/form";
 import {validationSchema_newGame__players} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
@@ -43,7 +43,7 @@ export const Players = ({initial, setNewStatus, nameInState}) => {
         setNewStatus('next', ids, nameInState)
     };
 
-    return <Fragment>
+    return <>
         <div className='margin_left_40'>
             <p className='text'>Select the players &#127939;</p>
         </div>
@@ -56,5 +56,5 @@ export const Players = ({initial, setNewStatus, nameInState}) => {
             onSubmit={onSubmit}
             withRoundButton
         />
-    </Fragment>
+    </>
 };

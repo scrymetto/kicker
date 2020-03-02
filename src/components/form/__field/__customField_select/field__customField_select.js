@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
-import {styles, theme} from "./styles";
-
-import '../../../text/text.css';
+import {createNewStyles, createTheme} from "./styles";
 
 export const CustomField_Select = ({className, options, name, initialValues, setFieldValue, placeholder, isSearchable, ...props}) => {
 
@@ -11,14 +9,11 @@ export const CustomField_Select = ({className, options, name, initialValues, set
 
     const [renderedValues, setRenderedValues] = useState(
         isMulti
-        ? [].concat(initialValues.map(value => {
-            return value
-                ? value.label
-                    ? value
-                    : {value: value, label: value}
-                : []
-        }))
-        :initialValues.label
+            ? initialValues.map(value => {
+                if (!value) return [];
+                return value.label ? value : {value: value, label: value}
+            })
+            : initialValues.label
             ? initialValues
             : {value: initialValues, label: initialValues}
     );
@@ -49,13 +44,13 @@ export const CustomField_Select = ({className, options, name, initialValues, set
         options={optionsWithLabel}
         name={name}
         value={renderedValues}
-        onChange={(values) => onSelectChange(values)}
+        onChange={onSelectChange}
         isMulti={isMulti}
         components={animatedComponents}
-        styles={styles}
-        theme={theme}
+        styles={createNewStyles}
+        theme={createTheme}
         placeholder={placeholder}
         isSearchable={isSearchable}
-        noOptionsMessage={() => <p className='text'>{props.noOptionText||'No values available.'}</p>}
+        noOptionsMessage={() => <p className='text'>{props.noOptionText || 'No values available.'}</p>}
     />
 };

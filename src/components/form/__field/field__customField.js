@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {Field} from "formik";
 import PropTypes from "prop-types";
 
@@ -27,7 +27,7 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
         <div className='form__field form__field__container'>
 
             {inputProps.as
-                ? <Fragment>
+                ? <>
                     <CustomField_Select
                         {...props}
                         className={inputClassName + ' select'}
@@ -39,8 +39,8 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
                         isSearchable={input.isSearchable}
                     />
                     {errors[name] && touched[name] && <div className='text text_error'>{errors[name]}</div>}
-                </Fragment>
-                : <Fragment>
+                </>
+                : <>
                     <Field
                         {...props}
                         type={inputProps.type}
@@ -51,7 +51,7 @@ export function CustomField({input, initialValues, errors, touched, setFieldValu
                         data-testid='custom_input'
                     />
                     {errors[name] && touched[name] && <p className='text text_error'>{errors[name]}</p>}
-                </Fragment>
+                </>
             }
         </div>)
 }
@@ -62,22 +62,22 @@ CustomField.propTypes = {
         if (!prop) {
             return new Error(`Prop \'${propName}\' is required.`)
         }
-        if (prop.select) {
-            if (!prop.options) {
-                return new Error(`Prop \'${propName}\' must be an object, the field 'options' is required.`)
-            } else {
-                if (!Array.isArray(prop.options)) {
-                    return new Error(`Field 'options' in prop \'${propName}\' must be an array.`)
-                }
-            }
-            if (typeof prop.isSearchable === 'undefined') {
-                return new Error(`Prop \'${propName}\' must be an object, the field 'isSearchable' is required.`)
-            } else {
-                if (typeof props['input'].isSearchable !== 'boolean') {
-                    return new Error(`Field 'isSearchable' in prop \'${propName}\' must be a boolean.`)
-                }
+        if (!prop.select) return;
+        if (!prop.options) {
+            return new Error(`Prop \'${propName}\' must be an object, the field 'options' is required.`)
+        } else {
+            if (!Array.isArray(prop.options)) {
+                return new Error(`Field 'options' in prop \'${propName}\' must be an array.`)
             }
         }
+        if (typeof prop.isSearchable === 'undefined') {
+            return new Error(`Prop \'${propName}\' must be an object, the field 'isSearchable' is required.`)
+        } else {
+            if (typeof props['input'].isSearchable !== 'boolean') {
+                return new Error(`Field 'isSearchable' in prop \'${propName}\' must be a boolean.`)
+            }
+        }
+
     },
     initialValues: PropTypes.object.isRequired, // because of the 'uncontrolled input'- error
     errors: PropTypes.object.isRequired, // from Formik

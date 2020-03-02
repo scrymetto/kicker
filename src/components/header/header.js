@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Fragment} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './header.css'
 import '../text/text_header.css'
@@ -37,13 +37,13 @@ export default function Header(props) {
         };
 
         const logoutFn = () => logout(setUser, changeMenuStatus, false);
-        return <Fragment>
+        return <>
             <div className={headerClassName} data-testid='header'>
                 <p className='text_header_main'>{props.text}</p>
-                <Button className='button button_menu' onClick={() => buttonOnclick()}/>
+                <Button className='button button_menu' onClick={buttonOnclick}/>
             </div>
-            {menuIsOpen && <Menu logout={logoutFn} status={menuIsVisible}/>}
-        </Fragment>
+            {menuIsOpen && <Menu logout={logoutFn} display={menuIsVisible}/>}
+        </>
     } else {
 
         const headerClassName = 'header';

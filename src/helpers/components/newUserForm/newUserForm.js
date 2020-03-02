@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
 import {Form} from "../../../components/form/form";
 
 import {validationSchema_newUser} from "../../../components/form/__validationSchema/form__validationSchema_newUser";
@@ -10,8 +10,12 @@ import {setErrorPopup} from '../../setErrorPopup'
 import './newUserForm.css'
 import {Spinner} from "../../../components/spinner/spinner";
 
+const template = ['login', 'email', 'password'];
+const inputs = [{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat the password'}];
+const initial = {login: '', email: '', password: '', repeatThePassword: ''};
+
 export const NewUserForm = ({className, endRegistration}) => {
-    const template = ['login', 'email', 'password'];
+
     const globalActions = useGlobal()[1];
 
     const [spinner, setSpinner] = useState(false);
@@ -39,12 +43,12 @@ export const NewUserForm = ({className, endRegistration}) => {
             });
     };
 
-    return (<Fragment>
+    return (<>
         <Form className={className}
-              inputs={[{text: 'login'}, {email: 'email'}, {password: 'password'}, {password: 'repeat the password'}]}
-              initial={{login: '', email: '', password: '', repeatThePassword: ''}}
+              inputs={inputs}
+              initial={initial}
               validationSchema={validationSchema_newUser}
               onSubmit={onSubmit}/>
         {spinner && <Spinner/>}
-    </Fragment>)
+    </>)
 };

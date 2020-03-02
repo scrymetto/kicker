@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import {makeFirstLetterUppercase} from "../../helpers/makeFirstLetterUppercase";
 import {makeArrayFromObjAndTemplate} from "../../helpers/makeArrayFromObjAndTemplate";
@@ -6,10 +6,10 @@ import './table.css'
 
 export const Table = (props) => {
     const {columns, rows, text, styles} = props;
-    const columnsStyles = styles ? styles.columnsStyles ? styles.columnsStyles : [] : [];
-    const rowsStyles = styles ? styles.rowsStyles ? styles.rowsStyles : [] : [];
+    const columnsStyles = styles && styles.columnsStyles ? styles.columnsStyles : [];
+    const rowsStyles = styles && styles.rowsStyles ? styles.rowsStyles : [];
 
-    return <Fragment>
+    return <>
         <table className='table'>
             <thead>
             <tr className='table table__columns'>
@@ -36,19 +36,19 @@ export const Table = (props) => {
                         })}
                     </tr>
                 })
-                : <Fragment>
+                : <>
                     <tr>
                         <td colSpan={columns.length} data-testid='emptyRow'>
                             &#128148;
                         </td>
                     </tr>
-                </Fragment>}
+                </>}
             </tbody>
         </table>
         {text && <div className='container margin_15' data-testid='helperText'>
             <p className='text text_additional'>{text}</p>
         </div>}
-    </Fragment>
+    </>
 };
 
 Table.propTypes = {

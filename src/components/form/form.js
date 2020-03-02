@@ -32,8 +32,8 @@ export const Form = ({initial, inputs, validationSchema, onSubmit, withRoundButt
                         initialValues={initial}/>
                     )}
                     {withRoundButton
-                        ? <Button type='submit' className='button button_next' disabled={props.isSubmitting} data-testid='submit'/>
-                        : <Button text='Submit' type='submit' className='button' disabled={props.isSubmitting} data-testid='submit'/>
+                        ? <Button type='submit' disabled={props.isSubmitting} data-testid='submit' className='button button_next'/>
+                        : <Button type='submit' disabled={props.isSubmitting} data-testid='submit' className='button' text='Submit'/>
                     }
                 </FormikForm>)
             }}

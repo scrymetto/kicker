@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import {Redirect} from "react-router-dom";
 
 import {Card} from "../components/card/card";
@@ -10,7 +10,7 @@ export const Page404 = () => {
     const [onclick, setOnclick] = useState(false);
     return <Card headerText='Oooooops...'
                  render={() =>
-                     <Fragment>
+                     <>
                          {onclick && <Redirect to="/rooms"/>}
                          <div className='container grid_1-1'>
                              <p className='text' style={{fontSize: '5em', margin:"auto"}}>&#129335;</p>
@@ -21,6 +21,6 @@ export const Page404 = () => {
                                  onClick={() => setOnclick(true)}
                                  style={{margin: '10px auto'}}
                          />
-                     </Fragment>
+                     </>
                  }/>
 };

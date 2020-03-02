@@ -9,12 +9,10 @@ import "./button_next.css"
 import "./button_actions.css"
 import "./button_underlinedText.css"
 
-export function Button({text, className, ...props}) {
-
-    const content = text ? text : '';
+export function Button({text = '', className, ...props}) {
 
     return (
-        <button className={className} onClick={props.onClick} {...props}>{content}</button>
+        <button className={className} onClick={props.onClick} {...props}>{text}</button>
     )
 }
 

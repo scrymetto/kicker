@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import {CSSTransition} from "react-transition-group";
 
 import {useGlobal} from "../../../store";
@@ -44,7 +44,7 @@ const ActionsMenu = ({room, closeMenu}) => {
         closeMenu(actionsState)
     };
 
-    return <Fragment>
+    return <>
         <Overlay visible={visible}/>
         <CSSTransition timeout={300}
                        classNames='actionsMenu'
@@ -56,7 +56,7 @@ const ActionsMenu = ({room, closeMenu}) => {
                 <Card headerText={`Actions for ${room.name}`}
                       style={{width: '100%', margin: '0'}}
                       render={() => {
-                          return <Fragment>
+                          return <>
                               {form && <Form_simple
                                   initial={{name: ''}}
                                   input='name'
@@ -87,10 +87,10 @@ const ActionsMenu = ({room, closeMenu}) => {
                               {!form && <Button
                                   className='button button_back'
                                   onClick={() => setVisible(false)}/>}
-                          </Fragment>
+                          </>
                       }}/>
             </div>
         </CSSTransition>
-    </Fragment>
+    </>
 };
 export default ActionsMenu;

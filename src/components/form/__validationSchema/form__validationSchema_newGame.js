@@ -15,12 +15,12 @@ export const validationSchema_newGame__players = Yup.object().shape({
         function (teamTwo) {
             let teamOneObj = {};
             const teamOne = this.resolve(Yup.ref('teamOne'));
-            teamOne.forEach(value => {
-                teamOneObj[value.value] = true
+            teamOne.forEach(selectOption => {
+                teamOneObj[selectOption.value] = true // save the values of the other team in an obj
             });
             for (let i = 0; i < teamTwo.length; i++) {
-                if (teamOneObj[teamTwo[i].value]) {
-                    return false
+                if (teamOneObj[teamTwo[i].value]) { // check, if the values of the other team were selected for this team
+                    return false // if yes, return an error
                 }
             }
             return true

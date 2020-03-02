@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
 
 import "../components/container/margin.css";
 import "../components/container/flex_center.css";
@@ -34,7 +34,7 @@ export function LoginPage() {
         <Card
             headerText='Hi, stranger!'
             render={() =>
-                <Fragment>
+                <>
                     {newUserFormClassName === 'form form_newUser_visible'
                     && <div className='container flex_center'>
                         <p className='text text_attention'>Please note!</p>
@@ -54,7 +54,7 @@ export function LoginPage() {
                                 onClick={() => setDisplayLoginForm(!displayLoginForm)}
                                 text={text}/>
                     </div>
-                </Fragment>
+                </>
             }
         />
     )
