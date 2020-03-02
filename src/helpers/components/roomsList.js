@@ -1,14 +1,13 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 
 import {Paper} from "../../components/paper/paper";
-import {Button} from "../../components/button/button";
 
 export const RoomsList = ({rooms, deleteRoom}) => {
-    return <Fragment>
+    return <>
         {rooms.map(room => {
             const {id, players, name} = room;
-            const admin = room.creator.nickname || room.creator.id;
+            const admin = room.creator.nickname || room.creator.email;
             return <div key={id} style={{position: 'relative'}}>
                 <Link to={`rooms/${id}`}>
                     <Paper
@@ -23,5 +22,5 @@ export const RoomsList = ({rooms, deleteRoom}) => {
                 {/*/>*/}
             </div>
         })}
-    </Fragment>
+    </>
 };
