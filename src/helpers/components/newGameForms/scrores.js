@@ -1,11 +1,13 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {Form} from "../../../components/form/form";
 import {validationSchema_newGame__scores} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 
+const maxValueOfScore = 10;
+
 export const Scores = ({initial, setNewStatus, nameInState}) => {
 
-    const scoresOptions = new Array(11).fill(0, 0, 11)
-        .map((number, index) => number + index);
+    const scoresOptions = new Array(maxValueOfScore).fill(maxValueOfScore, 0, maxValueOfScore+1)
+        .map((number, index) => number - index);
     const inputs = [{
         select: 'team one',
         options: scoresOptions,
@@ -16,7 +18,7 @@ export const Scores = ({initial, setNewStatus, nameInState}) => {
         isSearchable:false
     }];
 
-  return <Fragment>
+  return <>
       <div className='margin_left_40'>
           <p className='text'>Select your scores &#127919;</p>
       </div>
@@ -28,5 +30,5 @@ export const Scores = ({initial, setNewStatus, nameInState}) => {
           onSubmit={(values) => setNewStatus('next', values, nameInState)}
           withRoundButton
       />
-  </Fragment>
+  </>
 };
