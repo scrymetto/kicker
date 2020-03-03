@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 
 import {Form} from "../../../components/form/form";
 import {validationSchema_newGame__players} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
@@ -39,9 +39,9 @@ export const Players = ({initial, setNewStatus, nameInState}) => {
         isSearchable: false
     }];
 
-    const onSubmit = (ids) => {
+    const onSubmit = useCallback((ids) => {
         setNewStatus('next', ids, nameInState)
-    };
+    }, [setNewStatus, nameInState]);
 
     return <>
         <div className='margin_left_40'>

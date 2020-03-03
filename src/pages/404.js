@@ -6,6 +6,10 @@ import {Button} from "../components/button/button";
 
 import '../components/container/grid_1-1.css'
 
+const styleMargin10 = {margin: '10px auto'};
+const styleMarginAuto = {margin:"auto"};
+const styleEmoji = {fontSize: '5em', margin:"auto"};
+
 export const Page404 = () => {
     const [onclick, setOnclick] = useState(false);
     return <Card headerText='Oooooops...'
@@ -13,13 +17,13 @@ export const Page404 = () => {
                      <>
                          {onclick && <Redirect to="/rooms"/>}
                          <div className='container grid_1-1'>
-                             <p className='text' style={{fontSize: '5em', margin:"auto"}}>&#129335;</p>
-                             <p className='text' style={{margin:"auto"}}>This page doesn't exist.</p>
+                             <p className='text' style={styleEmoji}>&#129335;</p>
+                             <p className='text' style={styleMarginAuto}>This page doesn't exist.</p>
                          </div>
                          <Button className='button'
                                  text='Go to home page'
                                  onClick={() => setOnclick(true)}
-                                 style={{margin: '10px auto'}}
+                                 style={styleMargin10}
                          />
                      </>
                  }/>

@@ -18,7 +18,7 @@ import {RoomsList} from "../helpers/components/roomsList";
 import {StubPaper} from "../components/paper/paper_stub";
 import {ErrorComponent} from "../helpers/components/errorComponent";
 
-//TODO: change height of card if <NewRoomForm/> is open!
+const initial = {name: ''};
 
 export function Rooms(props) {
 
@@ -91,7 +91,7 @@ export function Rooms(props) {
                       {isFormVisible
                           ? <Form_simple onSubmit={createNewRoom}
                                          close={closeForm}
-                                         initial={{name: ''}}
+                                         initial={initial}
                                          input={'name'}
                                          validationSchema={validationSchema_newRoom}
                           />

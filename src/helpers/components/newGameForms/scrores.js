@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {Form} from "../../../components/form/form";
 import {validationSchema_newGame__scores} from "../../../components/form/__validationSchema/form__validationSchema_newGame";
 
@@ -18,6 +18,8 @@ export const Scores = ({initial, setNewStatus, nameInState}) => {
         isSearchable:false
     }];
 
+    const onSubmit = useCallback((values) => setNewStatus('next', values, nameInState), [setNewStatus, nameInState]);
+
   return <>
       <div className='margin_left_40'>
           <p className='text'>Select your scores &#127919;</p>
@@ -27,7 +29,7 @@ export const Scores = ({initial, setNewStatus, nameInState}) => {
           initial={initial}
           inputs={inputs}
           validationSchema={validationSchema_newGame__scores}
-          onSubmit={(values) => setNewStatus('next', values, nameInState)}
+          onSubmit={onSubmit}
           withRoundButton
       />
   </>

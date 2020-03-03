@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {Form} from "../form";
 import {Button} from "../../button/button";
 import {CSSTransition} from "react-transition-group";
@@ -9,10 +9,14 @@ import PropTypes from "prop-types";
 export const Form_simple = ({onSubmit, initial, validationSchema, input, close}) => {
 
     const [visible, setVisible] = useState(true);
-    const onSubmitForm = value => {
+    const onSubmitForm = useCallback(value => {
       setVisible(false);
       onSubmit(value);
-    };
+    }, []);
+
+    const inputs = [{text: input}];
+
+    const onClick = useCallback(()=> setVisible(false), []);
 
     return (
         <>
@@ -20,15 +24,13 @@ export const Form_simple = ({onSubmit, initial, validationSchema, input, close})
                 <Form className='form form_simple'
                       initial={initial}
                       validationSchema={validationSchema}
-                      inputs={[{text: input}]}
+                      inputs={inputs}
                       onSubmit={onSubmitForm}/>
             </CSSTransition>
             <CSSTransition timeout={300} classNames='button_animation' in={visible} appear onExited={close} unmountOnExit>
                 <Button
                     className='button button_back'
-                    onClick={() => {
-                        setVisible(false)
-                    }}/>
+                    onClick={onClick}/>
             </CSSTransition>
         </>
     )

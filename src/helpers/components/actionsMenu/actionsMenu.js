@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {CSSTransition} from "react-transition-group";
 
 import {useGlobal} from "../../../store";
@@ -17,6 +17,10 @@ import {Point} from "./actionMenu_point";
 import './actionsMenu.css'
 import '../../../components/container/absolute.css';
 
+const initial = {name: ''};
+const style = {width: '100%', margin: '0'};
+
+
 const ActionsMenu = ({room, closeMenu}) => {
 
     const globalActions = useGlobal()[1];
@@ -28,7 +32,7 @@ const ActionsMenu = ({room, closeMenu}) => {
     const [form, openForm] = useState(false);
     const [visible, setVisible] = useState(true);
 
-    const addNewPlayer = name => {
+    const addNewPlayer = useCallback(name => {
         postPlayer(user, room.id, name.name)
             .then((data) => {
                 setPlayers(data.players)
@@ -36,13 +40,13 @@ const ActionsMenu = ({room, closeMenu}) => {
             .catch(e => {
                 setErrorPopup(e, globalActions.setPopup)
             })
-    };
+    }, []);
 
-    const goBack = () => {
+    const goBack = useCallback(() => {
         let actionsState = {};
         actionsState.players = players[0] ? players : null;
         closeMenu(actionsState)
-    };
+    }, [closeMenu]);
 
     return <>
         <Overlay visible={visible}/>
@@ -54,11 +58,11 @@ const ActionsMenu = ({room, closeMenu}) => {
         >
             <div className='container absolute'>
                 <Card headerText={`Actions for ${room.name}`}
-                      style={{width: '100%', margin: '0'}}
+                      style={style}
                       render={() => {
                           return <>
                               {form && <Form_simple
-                                  initial={{name: ''}}
+                                  initial={initial}
                                   input='name'
                                   onSubmit={addNewPlayer}
                                   close={() => openForm(false)}
@@ -74,14 +78,14 @@ const ActionsMenu = ({room, closeMenu}) => {
                                   onClick={() => console.log('open')}
                                   text='Remove a player'
                                   // hint='Only you can choose your comrades!'
-                                  hint = 'Coming soon.. '
+                                  hint='Coming soon.. '
                                   emoji='&#128128;'
                               />}
                               {!form && <Point
                                   onClick={() => console.log('open')}
                                   text='Delete this room'
                                   // hint='Only you can choose your comrades!'
-                                  hint = 'Coming soon.. '
+                                  hint='Coming soon.. '
                                   emoji="&#128163;"
                               />}
                               {!form && <Button

@@ -30,6 +30,8 @@ export function LoginPage() {
         setDisplayLoginForm(true)
     };
 
+    const onClick = () => setDisplayLoginForm(!displayLoginForm);
+
     return (
         <Card
             headerText='Hi, stranger!'
@@ -51,7 +53,7 @@ export function LoginPage() {
                     <NewUserForm className={newUserFormClassName} endRegistration={endRegistration}/>
                     <div className='container margin_15'>
                         <Button className='button button_underlinedText'
-                                onClick={() => setDisplayLoginForm(!displayLoginForm)}
+                                onClick={onClick}
                                 text={text}/>
                     </div>
                 </>

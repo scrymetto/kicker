@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useCallback, useState} from "react";
 import {CSSTransition} from "react-transition-group";
 import PropTypes from "prop-types";
 
@@ -10,6 +10,8 @@ import {Overlay} from "../overlay/overlay";
 
 import './steppers.css'
 import '../container/absolute.css'
+
+const styles = {width: '100%', margin: '0'};
 
 const makeHooks = (number, components) => {
     let hooks = [];
@@ -39,7 +41,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
 
     let currentCard = cards.getCurrent();
 
-    const setNewStatus = (prevOrNext, values, card) => {
+    const setNewStatus = useCallback((prevOrNext, values, card) => {
         if (values) {
             setUserValues({...userValues, [card]: values}) //set new state
         }
@@ -57,7 +59,9 @@ const Steppers = ({numberOfCards, components, submit}) => {
             exit && setUserValues(initial);
             setVisible(false);
         }
-    };
+    }, []);
+
+    const onClickBack = useCallback(() => setNewStatus('prev'), []);
 
     return <>
         <Overlay visible={visible}/>
@@ -69,7 +73,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
         >
             <div className='container absolute'>
                 <Card headerText='Create a new game'
-                      style={{width: '100%', margin: '0'}}
+                      style={styles}
                       render={() => {
                           return <>
                               {hooks.map((hook, index) => {
@@ -93,7 +97,7 @@ const Steppers = ({numberOfCards, components, submit}) => {
                       }}
                 />
                 <Button className='button button_back'
-                        onClick={() => setNewStatus('prev')}
+                        onClick={onClickBack}
                         data-testid='button_back'/>
             </div>
         </CSSTransition>
@@ -106,7 +110,7 @@ Steppers.propTypes = {
     components: function (props, propName) {
         if (!props[propName]) return new Error(`prop \'${propName}\' is required.`);
         if (!Array.isArray(props[propName])) return new Error(`prop \'${propName}\' must be an Array.`);
-        if (props[propName].length !== props['numberOfCards']) return new Error(`prop \'${propName}\' must have ${props['numberOfCards']} components (because of \'numberOfCards\'-prop)`)
+        if (props[propName].length !== props['numberOfCards']) return new Error(`prop \'${propName}\' must have ${props['numberOfCards']} components (because of \'numberOfCards\'-prop)`);
         for (let i = 0; i < props[propName].length; i++) {
             const element = props[propName][i];
             if (typeof element !== "object") return new Error(`prop \'${propName}\' must be array of objects.`);

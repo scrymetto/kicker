@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {CSSTransition} from "react-transition-group";
 import {useGlobal} from "../../store";
@@ -7,6 +7,7 @@ import '../text/text.css';
 import './popup.css';
 
 export const Popup = ({text, className}) => {
+
     const globalActions = useGlobal()[1];
     const [inProp, setInProp] = useState(true);
     let timer;
@@ -16,10 +17,10 @@ export const Popup = ({text, className}) => {
         return () => clearTimeout(timer);
     });
 
-    const closePopup = () => {
+    const closePopup = useCallback(() => {
         clearTimeout(timer);
         setInProp(false);
-    };
+    }, []);
 
     const setState = () => globalActions.setPopup({});
 

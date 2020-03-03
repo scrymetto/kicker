@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Field} from "formik";
 import PropTypes from "prop-types";
 
@@ -10,8 +10,8 @@ import {makeFirstLetterUppercase} from "../../../helpers/makeFirstLetterUppercas
 export function CustomField({input, initialValues, errors, touched, setFieldValue, ...props}) {
 
     const type = Object.keys(input)[0];
-    const name = makeCamelCaseFromString(input[type]);
-    const placeholder = makeFirstLetterUppercase(input[type]);
+    const name = useMemo(() => makeCamelCaseFromString(input[type]), [input]);
+    const placeholder = useMemo(() => makeFirstLetterUppercase(input[type]), [input]);
 
     let inputProps = {};
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 import {Formik, Form as FormikForm} from "formik";
 
@@ -9,15 +9,16 @@ import './__field/__customField_select/field__customField.css';
 import '../text/text_error.css'
 
 export const Form = ({initial, inputs, validationSchema, onSubmit, withRoundButton, ...other}) => {
-    const formikSubmit = (values, {setSubmitting, resetForm}) => {
+
+    const formikSubmit = useCallback((values, {setSubmitting, resetForm}) => {
         resetForm();
         setSubmitting(true);
         onSubmit(values);
-    };
+    }, []);
 
     return (
         <Formik initialValues={initial}
-                onSubmit={(values, {setSubmitting, resetForm}) => formikSubmit(values, {setSubmitting, resetForm})}
+                onSubmit={formikSubmit}
                 validationSchema={validationSchema}
         >
             {(props) => {

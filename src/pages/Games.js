@@ -17,6 +17,24 @@ import {setErrorPopup} from "../helpers/setErrorPopup";
 import {prepareUserValuesForNewGame} from "../helpers/prepareUserValuesForNewGame";
 import {scrollToTop} from "../helpers/scrollToTop";
 
+const stepperComponents = [
+    {
+        component: Players,
+        form: true,
+        initial: {teamOne: [], teamTwo: []}
+    },
+    // {
+    //     component: Names,
+    //     form: true,
+    //     initial: {teamOne: '', teamTwo: ''}
+    // },
+    {
+        component: Scores,
+        form: true,
+        initial: {teamOne: 0, teamTwo: 0}
+    }
+];
+
 export function Games(props) {
     const [globalState, globalActions] = useGlobal();
     const {user} = useAuth();
@@ -98,25 +116,9 @@ export function Games(props) {
                               {newGameSteppers &&
                               <Suspense fallback={<Spinner/>}>
                                   <Steppers
-                                      numberOfCards={2}
+                                      numberOfCards={stepperComponents.length}
                                       submit={createNewGame}
-                                      components={[
-                                          {
-                                              component: Players,
-                                              form: true,
-                                              initial: {teamOne: [], teamTwo: []}
-                                          },
-                                          // {
-                                          //     component: Names,
-                                          //     form: true,
-                                          //     initial: {teamOne: '', teamTwo: ''}
-                                          // },
-                                          {
-                                              component: Scores,
-                                              form: true,
-                                              initial: {teamOne: 0, teamTwo: 0}
-                                          }
-                                      ]}/>
+                                      components={stepperComponents}/>
                               </Suspense>}
                               <RatingTable room={room} rerender={rerender}/>
                               {(!newGameSteppers && !menuIsOpen) &&
