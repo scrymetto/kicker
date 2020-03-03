@@ -52,7 +52,7 @@ module.exports = {
             '/api': {
                 // target: 'http://localhost:8080',
                 // pathRewrite: {'^/api': ''}
-                target: 'http://kickerscore.ml/',
+                target: 'https://kickerscore.ml/',
                 changeOrigin: true
             },
 
@@ -63,7 +63,7 @@ module.exports = {
             template: "./src/index.html",
             filename: "./index.html"
         }),
-        new UglifyJsPlugin(),
+        // new UglifyJsPlugin(),
         // new CompressionPlugin({
         //     filename: '[path].gz[query]',
         //     algorithm: 'gzip',
