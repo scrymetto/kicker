@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import './header.css'
 import '../text/text_header.css'
@@ -15,12 +15,14 @@ export default function Header(props) {
             return () => document.removeEventListener('click', changeMenuListener)
         });
 
+        const menuRef = useRef(null);
+
         const [menuIsOpen, changeMenuStatus] = useState(false);
         const [menuIsVisible, changeMenuVisible] = useState(false);
-        const {setUser} = useAuth();
+        const {user, setUser} = useAuth();
         const headerClassName = 'header ' + props.className;
-        const changeMenuListener = (event) => {
-            if (!event.target.closest('.menu') && menuIsOpen) {
+        const changeMenuListener = () => {
+            if (menuRef.current && menuIsOpen) {
                 changeMenuVisible(false);
                 setTimeout(changeMenuStatus, 400, false)
             }
@@ -42,7 +44,7 @@ export default function Header(props) {
                 <p className='text_header_main'>{props.text}</p>
                 <Button className='button button_menu' onClick={buttonOnclick}/>
             </div>
-            {menuIsOpen && <Menu logout={logoutFn} display={menuIsVisible}/>}
+            {menuIsOpen && <Menu ref={menuRef} logout={logoutFn} display={menuIsVisible} user = {user.auth}/>}
         </>
     } else {
 
