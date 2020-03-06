@@ -56,7 +56,7 @@ export function Games(props) {
 
     const onPostGameSuccess = (data) => {
         globalActions.addNewInState(data, 'games');
-        setRerender(rerender+1);
+        setRerender(rerender + 1);
         globalActions.setPopup({success: '🎉 Your game has been saved!'}); //&#127881;
     };
 
@@ -69,15 +69,13 @@ export function Games(props) {
     const [history, showHistory] = useState(false);
     const [menuIsOpen, openMenu] = useState(false);
 
-    const openSteppers = () => {
+    const openLazy = (hook) => {
+        if (globalState.popup.success || globalState.popup.error) {
+            globalActions.setPopup({})
+        }
         scrollToTop();
         showHistory(false);
-        openNewGameSteppers(true)
-    };
-    const openActions = () => {
-        scrollToTop();
-        showHistory(false);
-        openMenu(true)
+        hook(true)
     };
 
     const openHistory = () => {
@@ -103,7 +101,7 @@ export function Games(props) {
         if (obj.players) {
             obj.players.forEach((player) => globalActions.addNewKey('players', player.id, player.nickname))
         }
-        setRerender(rerender+1);
+        setRerender(rerender + 1);
         openMenu(false);
     };
 
@@ -113,6 +111,7 @@ export function Games(props) {
                   return (
                       <>
                           {isUploaded.done && <>
+
                               {newGameSteppers &&
                               <Suspense fallback={<Spinner/>}>
                                   <Steppers
@@ -120,13 +119,17 @@ export function Games(props) {
                                       submit={createNewGame}
                                       components={stepperComponents}/>
                               </Suspense>}
+
                               <RatingTable room={room} rerender={rerender}/>
+
                               {(!newGameSteppers && !menuIsOpen) &&
                               <Button
                                   className='button button_back'
                                   onClick={props.history.goBack}/>}
+
                               {(!newGameSteppers && !menuIsOpen) &&
-                              <Button className='button button_new' onClick={openSteppers}/>}
+                              <Button className='button button_new' onClick={() => openLazy(openNewGameSteppers)}/>}
+
                               {!history
                                   ? <div className='container margin_15'>
                                       <Button className='button button_underlinedText'
@@ -137,13 +140,15 @@ export function Games(props) {
                                   : <>
                                       <GameHistoryTable room={room} changeState={showHistory}/>
                                   </>}
+
                               {menuIsOpen &&
                               <Suspense fallback={<Spinner/>}>
                                   <ActionsMenu room={room} closeMenu={doActionsFromMenu}/>
                               </Suspense>
                               }
+
                               {(!newGameSteppers && !menuIsOpen) &&
-                              <Button className='button button_actions' onClick={openActions}/>}
+                              <Button className='button button_actions' onClick={() => openLazy(openMenu)}/>}
                           </>}
 
                           {isUploaded.loading && <Spinner/>}

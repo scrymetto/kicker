@@ -43,7 +43,9 @@ const Steppers = ({numberOfCards, components, submit}) => {
 
     const setNewStatus = useCallback((prevOrNext, values, card) => {
         if (values) {
-            setUserValues({...userValues, [card]: values}) //set new state
+            let obj = {};
+            obj[card] = values;
+            setUserValues(Object.assign(userValues, obj)) //set new state
         }
         currentCard.data[1](false); // make the current card invisible
         let exit = false;
