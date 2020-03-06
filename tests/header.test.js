@@ -34,9 +34,9 @@ describe('Main header', () => {
     });
     it('click on button_menu should open/close menu', () => {
         wrapper.find(Button).simulate('click');
-        expect(wrapper.find(Menu).props().status).to.equal(true);
+        expect(wrapper.find(Menu).props().display).to.equal(true);
         wrapper.find(Button).simulate('click');
-        expect(wrapper.find(Menu).props().status).to.equal(false);
+        expect(wrapper.find(Menu).props().display).to.equal(false);
     });
 });
 describe('Card header', () => {
