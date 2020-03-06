@@ -63,7 +63,7 @@ module.exports = {
             template: "./src/index.html",
             filename: "./index.html"
         }),
-        // new UglifyJsPlugin(),
+        new UglifyJsPlugin(),
         // new CompressionPlugin({
         //     filename: '[path].gz[query]',
         //     algorithm: 'gzip',
